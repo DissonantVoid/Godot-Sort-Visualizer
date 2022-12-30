@@ -1,0 +1,14 @@
+Current Task: GUI:
+				  ability to choose algorithms
+				  start/stop sorting
+				  toggle manual steping/continues
+				  hide ui
+				  sort all steps at once
+
+
+Todo:
+
+
+Plan:
+  -user can choose a sorting algorithm and lines will sort themselves
+  -keep sorting implementation code independent so we can apply the sort on any custom scene
