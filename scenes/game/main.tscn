@@ -1,45 +1,59 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://resources/godot/algorithms_picker_theme.tres" type="Theme" id=1]
 [ext_resource path="res://scenes/game/main.gd" type="Script" id=2]
+[ext_resource path="res://scenes/game/algorithm_picker.gd" type="Script" id=3]
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )
 
+[node name="Visuals" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
 [node name="AlgorithmPicker" type="MarginContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 1 )
+script = ExtResource( 3 )
 
 [node name="PanelContainer" type="PanelContainer" parent="AlgorithmPicker"]
 margin_right = 1024.0
-margin_bottom = 133.0
+margin_bottom = 77.0
 size_flags_vertical = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="AlgorithmPicker/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="AlgorithmPicker/PanelContainer"]
 margin_right = 1024.0
-margin_bottom = 133.0
+margin_bottom = 77.0
+custom_constants/margin_right = 6
+custom_constants/margin_left = 6
+custom_constants/margin_bottom = 6
 
-[node name="Options" type="Button" parent="AlgorithmPicker/PanelContainer/HBoxContainer"]
-margin_top = 46.0
+[node name="HBoxContainer" type="HBoxContainer" parent="AlgorithmPicker/PanelContainer/MarginContainer"]
+margin_left = 6.0
+margin_right = 1018.0
+margin_bottom = 71.0
+
+[node name="Options" type="Button" parent="AlgorithmPicker/PanelContainer/MarginContainer/HBoxContainer"]
+margin_top = 15.0
 margin_right = 77.0
-margin_bottom = 86.0
+margin_bottom = 55.0
 rect_min_size = Vector2( 0, 40 )
 focus_mode = 0
 mouse_default_cursor_shape = 2
 size_flags_vertical = 6
 text = "Options"
 
-[node name="Center" type="VBoxContainer" parent="AlgorithmPicker/PanelContainer/HBoxContainer"]
-margin_left = 389.0
-margin_right = 659.0
-margin_bottom = 133.0
+[node name="Center" type="VBoxContainer" parent="AlgorithmPicker/PanelContainer/MarginContainer/HBoxContainer"]
+margin_left = 445.0
+margin_right = 592.0
+margin_bottom = 71.0
 size_flags_horizontal = 6
 
-[node name="Algorithm" type="Label" parent="AlgorithmPicker/PanelContainer/HBoxContainer/Center"]
-margin_right = 270.0
+[node name="Algorithm" type="Label" parent="AlgorithmPicker/PanelContainer/MarginContainer/HBoxContainer/Center"]
+margin_right = 147.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 mouse_filter = 0
@@ -48,13 +62,13 @@ text = "Algorithm Name"
 align = 1
 valign = 1
 
-[node name="Idle" type="HBoxContainer" parent="AlgorithmPicker/PanelContainer/HBoxContainer/Center"]
+[node name="Idle" type="HBoxContainer" parent="AlgorithmPicker/PanelContainer/MarginContainer/HBoxContainer/Center"]
 margin_top = 44.0
-margin_right = 270.0
+margin_right = 147.0
 margin_bottom = 71.0
 
-[node name="Start" type="Button" parent="AlgorithmPicker/PanelContainer/HBoxContainer/Center/Idle"]
-margin_right = 133.0
+[node name="Start" type="Button" parent="AlgorithmPicker/PanelContainer/MarginContainer/HBoxContainer/Center/Idle"]
+margin_right = 51.0
 margin_bottom = 27.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
@@ -62,9 +76,9 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Start"
 
-[node name="NextStep" type="Button" parent="AlgorithmPicker/PanelContainer/HBoxContainer/Center/Idle"]
-margin_left = 137.0
-margin_right = 270.0
+[node name="NextStep" type="Button" parent="AlgorithmPicker/PanelContainer/MarginContainer/HBoxContainer/Center/Idle"]
+margin_left = 55.0
+margin_right = 147.0
 margin_bottom = 27.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
@@ -72,43 +86,45 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Next Step"
 
-[node name="Running" type="HBoxContainer" parent="AlgorithmPicker/PanelContainer/HBoxContainer/Center"]
+[node name="Running" type="HBoxContainer" parent="AlgorithmPicker/PanelContainer/MarginContainer/HBoxContainer/Center"]
+visible = false
 margin_top = 75.0
-margin_right = 270.0
+margin_right = 147.0
 margin_bottom = 102.0
 size_flags_horizontal = 5
 
-[node name="Pause" type="Button" parent="AlgorithmPicker/PanelContainer/HBoxContainer/Center/Running"]
-margin_right = 133.0
+[node name="Pause" type="Button" parent="AlgorithmPicker/PanelContainer/MarginContainer/HBoxContainer/Center/Running"]
+margin_right = 71.0
 margin_bottom = 27.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 text = "Pause"
 
-[node name="Stop" type="Button" parent="AlgorithmPicker/PanelContainer/HBoxContainer/Center/Running"]
-margin_left = 137.0
-margin_right = 270.0
+[node name="Stop" type="Button" parent="AlgorithmPicker/PanelContainer/MarginContainer/HBoxContainer/Center/Running"]
+margin_left = 75.0
+margin_right = 147.0
 margin_bottom = 27.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 text = "Stop"
 
-[node name="Paused" type="HBoxContainer" parent="AlgorithmPicker/PanelContainer/HBoxContainer/Center"]
-margin_top = 106.0
+[node name="Paused" type="HBoxContainer" parent="AlgorithmPicker/PanelContainer/MarginContainer/HBoxContainer/Center"]
+visible = false
+margin_top = 75.0
 margin_right = 270.0
-margin_bottom = 133.0
+margin_bottom = 102.0
 size_flags_horizontal = 6
 
-[node name="Continue" type="Button" parent="AlgorithmPicker/PanelContainer/HBoxContainer/Center/Paused"]
+[node name="Continue" type="Button" parent="AlgorithmPicker/PanelContainer/MarginContainer/HBoxContainer/Center/Paused"]
 margin_right = 88.0
 margin_bottom = 27.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
 text = "Continue"
 
-[node name="NextStep" type="Button" parent="AlgorithmPicker/PanelContainer/HBoxContainer/Center/Paused"]
+[node name="NextStep" type="Button" parent="AlgorithmPicker/PanelContainer/MarginContainer/HBoxContainer/Center/Paused"]
 margin_left = 92.0
 margin_right = 184.0
 margin_bottom = 27.0
@@ -116,7 +132,7 @@ focus_mode = 0
 mouse_default_cursor_shape = 2
 text = "Next Step"
 
-[node name="LastStep" type="Button" parent="AlgorithmPicker/PanelContainer/HBoxContainer/Center/Paused"]
+[node name="LastStep" type="Button" parent="AlgorithmPicker/PanelContainer/MarginContainer/HBoxContainer/Center/Paused"]
 margin_left = 188.0
 margin_right = 270.0
 margin_bottom = 27.0
@@ -124,11 +140,11 @@ focus_mode = 0
 mouse_default_cursor_shape = 2
 text = "LastStep"
 
-[node name="Hide" type="Button" parent="AlgorithmPicker/PanelContainer/HBoxContainer"]
-margin_left = 972.0
-margin_top = 46.0
-margin_right = 1024.0
-margin_bottom = 86.0
+[node name="Hide" type="Button" parent="AlgorithmPicker/PanelContainer/MarginContainer/HBoxContainer"]
+margin_left = 960.0
+margin_top = 15.0
+margin_right = 1012.0
+margin_bottom = 55.0
 rect_min_size = Vector2( 0, 40 )
 focus_mode = 0
 mouse_default_cursor_shape = 2
@@ -136,13 +152,13 @@ size_flags_horizontal = 8
 size_flags_vertical = 6
 text = "Hide"
 
-[connection signal="pressed" from="AlgorithmPicker/PanelContainer/HBoxContainer/Options" to="." method="_on_algorithm_panel_button_clicked" binds= [ "options" ]]
-[connection signal="gui_input" from="AlgorithmPicker/PanelContainer/HBoxContainer/Center/Algorithm" to="." method="_on_algorithm_title_input"]
-[connection signal="pressed" from="AlgorithmPicker/PanelContainer/HBoxContainer/Center/Idle/Start" to="." method="_on_algorithm_panel_button_clicked" binds= [ "start" ]]
-[connection signal="pressed" from="AlgorithmPicker/PanelContainer/HBoxContainer/Center/Idle/NextStep" to="." method="_on_algorithm_panel_button_clicked" binds= [ "next" ]]
-[connection signal="pressed" from="AlgorithmPicker/PanelContainer/HBoxContainer/Center/Running/Pause" to="." method="_on_algorithm_panel_button_clicked" binds= [ "pause" ]]
-[connection signal="pressed" from="AlgorithmPicker/PanelContainer/HBoxContainer/Center/Running/Stop" to="." method="_on_algorithm_panel_button_clicked" binds= [ "stop" ]]
-[connection signal="pressed" from="AlgorithmPicker/PanelContainer/HBoxContainer/Center/Paused/Continue" to="." method="_on_algorithm_panel_button_clicked" binds= [ "continue" ]]
-[connection signal="pressed" from="AlgorithmPicker/PanelContainer/HBoxContainer/Center/Paused/NextStep" to="." method="_on_algorithm_panel_button_clicked" binds= [ "next" ]]
-[connection signal="pressed" from="AlgorithmPicker/PanelContainer/HBoxContainer/Center/Paused/LastStep" to="." method="_on_algorithm_panel_button_clicked" binds= [ "last" ]]
-[connection signal="pressed" from="AlgorithmPicker/PanelContainer/HBoxContainer/Hide" to="." method="_on_algorithm_panel_button_clicked" binds= [ "hide" ]]
+[connection signal="pressed" from="AlgorithmPicker/PanelContainer/MarginContainer/HBoxContainer/Options" to="AlgorithmPicker" method="_on_button_clicked" binds= [ "options" ]]
+[connection signal="gui_input" from="AlgorithmPicker/PanelContainer/MarginContainer/HBoxContainer/Center/Algorithm" to="AlgorithmPicker" method="_on_title_input"]
+[connection signal="pressed" from="AlgorithmPicker/PanelContainer/MarginContainer/HBoxContainer/Center/Idle/Start" to="AlgorithmPicker" method="_on_button_clicked" binds= [ "start" ]]
+[connection signal="pressed" from="AlgorithmPicker/PanelContainer/MarginContainer/HBoxContainer/Center/Idle/NextStep" to="AlgorithmPicker" method="_on_button_clicked" binds= [ "next" ]]
+[connection signal="pressed" from="AlgorithmPicker/PanelContainer/MarginContainer/HBoxContainer/Center/Running/Pause" to="AlgorithmPicker" method="_on_button_clicked" binds= [ "pause" ]]
+[connection signal="pressed" from="AlgorithmPicker/PanelContainer/MarginContainer/HBoxContainer/Center/Running/Stop" to="AlgorithmPicker" method="_on_button_clicked" binds= [ "stop" ]]
+[connection signal="pressed" from="AlgorithmPicker/PanelContainer/MarginContainer/HBoxContainer/Center/Paused/Continue" to="AlgorithmPicker" method="_on_button_clicked" binds= [ "continue" ]]
+[connection signal="pressed" from="AlgorithmPicker/PanelContainer/MarginContainer/HBoxContainer/Center/Paused/NextStep" to="AlgorithmPicker" method="_on_button_clicked" binds= [ "next" ]]
+[connection signal="pressed" from="AlgorithmPicker/PanelContainer/MarginContainer/HBoxContainer/Center/Paused/LastStep" to="AlgorithmPicker" method="_on_button_clicked" binds= [ "last" ]]
+[connection signal="pressed" from="AlgorithmPicker/PanelContainer/MarginContainer/HBoxContainer/Hide" to="AlgorithmPicker" method="_on_button_clicked" binds= [ "hide" ]]

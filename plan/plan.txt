@@ -1,18 +1,19 @@
-Current Task: GUI:
-				  ability to choose algorithms
-				  start/stop sorting
-				  toggle manual steping/continues
-				  hide ui
-				  sort all steps at once
-
+Current Task: GUI (algorithms picker functionality)
+				  
 
 Todo:
+	GUI:
+	 ability to choose algorithms
+	 start/stop sorting
+	 toggle manual steping/continues
+	 hide ui
+	 sort all steps at once
 
 
 Todo (Future):
 	-allow user to sort custom scene, the scene can be set in the editor
 	as an export variable 
-
+	-replace some buttons with icons
 
 Plan:
   -user can choose a sorting algorithm and lines will sort themselves
