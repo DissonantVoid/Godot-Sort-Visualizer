@@ -9,6 +9,15 @@ Current Task: GUI:
 Todo:
 
 
+Todo (Future):
+	-allow user to sort custom scene, the scene can be set in the editor
+	as an export variable 
+
+
 Plan:
   -user can choose a sorting algorithm and lines will sort themselves
   -keep sorting implementation code independent so we can apply the sort on any custom scene
+
+UI guide:
+  -no focus
+  -all clickables should have a hand pointer
