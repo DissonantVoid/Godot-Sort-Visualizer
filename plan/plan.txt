@@ -1,5 +1,5 @@
-Current Task: GUI (algorithms picker functionality)
-				  
+Current Task: GUI (visualizer)
+
 
 Todo:
 	GUI:
@@ -8,9 +8,6 @@ Todo:
 	 toggle manual steping/continues
 	 hide ui
 	 sort all steps at once
-
-
-Todo (Future):
 	-allow user to sort custom scene, the scene can be set in the editor
 	as an export variable 
 	-replace some buttons with icons

@@ -13,15 +13,15 @@ theme = ExtResource( 2 )
 script = ExtResource( 1 )
 
 [node name="Background" type="ColorRect" parent="."]
-margin_right = 1024.0
-margin_bottom = 600.0
+margin_right = 960.0
+margin_bottom = 540.0
 color = Color( 0, 0, 0, 0.313726 )
 
 [node name="Content" type="PanelContainer" parent="."]
-margin_left = 425.0
-margin_top = 267.0
-margin_right = 598.0
-margin_bottom = 333.0
+margin_left = 393.0
+margin_top = 237.0
+margin_right = 566.0
+margin_bottom = 303.0
 size_flags_horizontal = 6
 size_flags_vertical = 6
 
@@ -62,10 +62,10 @@ text = "Cancel"
 
 [node name="Error" type="PanelContainer" parent="."]
 visible = false
-margin_left = 452.0
-margin_top = 520.0
-margin_right = 572.0
-margin_bottom = 600.0
+margin_left = 420.0
+margin_top = 460.0
+margin_right = 540.0
+margin_bottom = 540.0
 rect_min_size = Vector2( 120, 80 )
 size_flags_horizontal = 6
 size_flags_vertical = 10
@@ -86,6 +86,8 @@ text = "Error: ..."
 margin_top = 39.0
 margin_right = 106.0
 margin_bottom = 66.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
 size_flags_vertical = 10
 text = "Close"
 

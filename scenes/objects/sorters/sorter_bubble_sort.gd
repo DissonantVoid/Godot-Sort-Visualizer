@@ -1,15 +1,14 @@
-extends Reference
+extends "res://scenes/objects/sorters/sorter.gd"
 
-# base class for all sorting algorithms
 
 # override
 func setup(data : Array, sort_callback : FuncRef):
 	pass
 
-# override, return true if we're done sorting
+# override
 func next_step() -> bool:
 	return false
 
-# override, do all sorting
+# override
 func step_all():
 	pass
