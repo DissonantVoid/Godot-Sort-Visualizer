@@ -60,6 +60,36 @@ mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 text = "Cancel"
 
+[node name="Error" type="PanelContainer" parent="."]
+visible = false
+margin_left = 452.0
+margin_top = 520.0
+margin_right = 572.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 120, 80 )
+size_flags_horizontal = 6
+size_flags_vertical = 10
+
+[node name="HBoxContainer" type="VBoxContainer" parent="Error"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 113.0
+margin_bottom = 73.0
+
+[node name="Label" type="Label" parent="Error/HBoxContainer"]
+margin_right = 106.0
+margin_bottom = 21.0
+custom_colors/font_color = Color( 0.945098, 0.25098, 0.25098, 1 )
+text = "Error: ..."
+
+[node name="Button" type="Button" parent="Error/HBoxContainer"]
+margin_top = 39.0
+margin_right = 106.0
+margin_bottom = 66.0
+size_flags_vertical = 10
+text = "Close"
+
 [connection signal="gui_input" from="Background" to="." method="_on_background_gui_input"]
 [connection signal="pressed" from="Content/VBoxContainer/Choice/OK" to="." method="_on_ok_pressed"]
 [connection signal="pressed" from="Content/VBoxContainer/Choice/Cancel" to="." method="_on_cancel_pressed"]
+[connection signal="pressed" from="Error/HBoxContainer/Button" to="." method="_on_close_error_pressed"]

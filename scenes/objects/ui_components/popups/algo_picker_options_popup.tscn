@@ -5,3 +5,52 @@
 
 [node name="AlgoPickerOptionsPopup" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+
+[node name="Content" parent="." index="1"]
+margin_left = 415.0
+margin_top = 249.0
+margin_right = 609.0
+margin_bottom = 350.0
+
+[node name="VBoxContainer" parent="Content" index="0"]
+margin_right = 187.0
+margin_bottom = 94.0
+
+[node name="Title" parent="Content/VBoxContainer" index="0"]
+margin_right = 180.0
+text = "Options"
+
+[node name="GridContainer" type="GridContainer" parent="Content/VBoxContainer" index="1"]
+margin_top = 25.0
+margin_right = 180.0
+margin_bottom = 56.0
+columns = 2
+
+[node name="Label" type="Label" parent="Content/VBoxContainer/GridContainer" index="0"]
+margin_top = 5.0
+margin_right = 90.0
+margin_bottom = 26.0
+text = "Step Time:"
+
+[node name="SpinBox" type="SpinBox" parent="Content/VBoxContainer/GridContainer" index="1"]
+margin_left = 94.0
+margin_right = 180.0
+margin_bottom = 31.0
+mouse_default_cursor_shape = 2
+min_value = 10.0
+max_value = 1000.0
+value = 10.0
+rounded = true
+suffix = "ms"
+
+[node name="Choice" parent="Content/VBoxContainer" index="2"]
+margin_top = 60.0
+margin_right = 180.0
+margin_bottom = 87.0
+
+[node name="OK" parent="Content/VBoxContainer/Choice" index="0"]
+margin_right = 88.0
+
+[node name="Cancel" parent="Content/VBoxContainer/Choice" index="1"]
+margin_left = 92.0
+margin_right = 180.0
