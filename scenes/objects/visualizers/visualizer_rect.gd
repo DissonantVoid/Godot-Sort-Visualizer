@@ -2,20 +2,24 @@ extends "res://scenes/objects/visualizers/visualizer.gd"
 
 onready var _rects_container : HBoxContainer = $MarginContainer/HBoxContainer
 
-const _rect_count : int = 40
-const _rect_width : float = 20.0
+const _rect_count : int = 60
+const _rect_width : float = 12.0
 const _rect_min_height : float = 10.0
 const _rect_max_height : float = 400.0
 
 var _rng : RandomNumberGenerator = RandomNumberGenerator.new()
 
 var _previously_switched : Array
+var _default_clr : Color = Color("ffeecc")
+var _selected_high_clr : Color = Color("ff6973")
+var _selected_low_clr : Color = Color("00b9be")
 
 func _ready():
 	_rng.randomize()
 	
 	for i in _rect_count:
 		var rect : ColorRect = ColorRect.new()
+		rect.color = _default_clr
 		rect.size_flags_horizontal = SIZE_EXPAND # no SIZE_NONE ???
 		rect.size_flags_vertical = SIZE_SHRINK_END
 		rect.rect_min_size.x = _rect_width
@@ -46,13 +50,13 @@ func switch_items(idx1 : int, idx2 : int):
 	var high_idx_child : ColorRect = _rects_container.get_child(high_idx)
 	
 	# coloring
-	low_idx_child.color = Color.blue
-	high_idx_child.color = Color.red
+	low_idx_child.color = _selected_low_clr
+	high_idx_child.color = _selected_high_clr
 	_previously_switched.append(low_idx_child)
 	_previously_switched.append(high_idx_child)
 	
 	_rects_container.move_child(high_idx_child, low_idx_child.get_index())
-	_rects_container.move_child(low_idx_child, high_idx+1)
+	_rects_container.move_child(low_idx_child, high_idx)
 	emit_signal("switched_items")
 
 # override
@@ -73,6 +77,6 @@ func finish():
 
 func _clear_colors():
 	if _previously_switched.empty() == false:
-		_previously_switched[0].color = Color.white
-		_previously_switched[1].color = Color.white
+		_previously_switched[0].color = _default_clr
+		_previously_switched[1].color = _default_clr
 		_previously_switched.clear()

@@ -11,6 +11,7 @@ config_version=4
 [application]
 
 config/name="Sort Visualizer"
+run/main_scene="res://scenes/game/main.tscn"
 config/icon="res://icon.png"
 
 [display]

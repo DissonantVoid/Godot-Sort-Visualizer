@@ -20,5 +20,6 @@ Plan:
              shell-sort,  gnome-sort    , bitonic-sort,   bogo-sort 
 
 UI guide:
+  -pallete: 3 left color used for background/panels etc.., 3 right colors used for ui (button etc..)
   -no UI focus
   -all clickables should have a hand pointer 

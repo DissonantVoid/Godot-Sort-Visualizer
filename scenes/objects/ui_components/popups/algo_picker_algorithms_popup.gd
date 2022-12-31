@@ -1,9 +1,9 @@
 extends "res://scenes/objects/ui_components/popups/popup_base.gd"
 
-onready var _content_container : VBoxContainer = $Content/VBoxContainer
-onready var _sure_container : VBoxContainer = $Content/Sure
-onready var _labels_container : VBoxContainer = $Content/VBoxContainer/Algorithms/ScrollContainer/PanelContainer/VBoxContainer
-onready var _choice_label : Label = $Content/VBoxContainer/AlgoChoice
+onready var _content_container : VBoxContainer = $Content/MarginContainer/VBoxContainer
+onready var _sure_container : VBoxContainer = $Content/MarginContainer/Sure
+onready var _options_container : VBoxContainer = $Content/MarginContainer/VBoxContainer/Algorithms/ScrollContainer/PanelContainer/VBoxContainer
+onready var _choice_label : Label = $Content/MarginContainer/VBoxContainer/AlgoChoice
 
 const _algo_path : String = "res://scenes/objects/sorters/"
 var _algorithms : Dictionary # {name:path,..}
@@ -19,17 +19,17 @@ func _ready():
 		if curr_dir != "sorter.gd":
 			assert(curr_dir.begins_with("sorter_"), "sorter scripts should start with 'sorter_'")
 			
-			var sorter_name : String = curr_dir.substr(7)
+			var sorter_name : String = curr_dir.substr(7).get_basename()
 			_algorithms[sorter_name] = _algo_path + curr_dir
 			
-			var label : Label = Label.new()
-			label.autowrap = true
-			label.align = Label.ALIGN_CENTER
-			label.text = sorter_name
-			label.mouse_filter = Control.MOUSE_FILTER_STOP
-			label.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-			_labels_container.add_child(label)
-			label.connect("gui_input", self, "_on_algo_label_input", [label])
+			var btn : Button = Button.new()
+			btn.text = sorter_name
+			btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+			btn.focus_mode = Control.FOCUS_NONE
+			btn.theme = preload("res://resources/godot/algorithm_picker_popup_option.tres")
+			_options_container.add_child(btn)
+			_options_container.add_child(HSeparator.new())
+			btn.connect("pressed", self, "_on_algo_option_pressed", [btn])
 		
 		curr_dir = dir.get_next()
 	
@@ -56,7 +56,6 @@ func _on_sure_cancel_pressed():
 	_content_container.show()
 	_sure_container.hide()
 
-func _on_algo_label_input(input, label : Label):
-	if input is InputEventMouseButton && input.pressed && input.button_index == BUTTON_LEFT:
-		_choice_label.text = label.text.get_basename()
-		_chosen_algo_path = _algorithms[label.text] # since the label text is also the dict key, we can just use it
+func _on_algo_option_pressed(btn : Button):
+	_choice_label.text = btn.text
+	_chosen_algo_path = _algorithms[btn.text] # since the btn text is also the dict key, we can just use it

@@ -1,6 +1,6 @@
 extends "res://scenes/objects/ui_components/popups/popup_base.gd"
 
-onready var _step_time_box : SpinBox = $Content/VBoxContainer/GridContainer/SpinBox
+onready var _step_time_box : SpinBox = $Content/MarginContainer/VBoxContainer/GridContainer/SpinBox
 
 
 # override and do error checking

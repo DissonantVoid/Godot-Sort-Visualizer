@@ -6,7 +6,7 @@ onready var _algo_picker : MarginContainer = $AlgorithmPicker
 onready var _continous_timer : Timer = $ContinuousTimer
 var _visualizer : Control
 
-var _time_per_step_ms : float = 50 # when continuesly sorting
+var _time_per_step_ms : float = 40 # when continuesly sorting
 var _current_sorter = null
 
 enum RunningMode {step, continuous}

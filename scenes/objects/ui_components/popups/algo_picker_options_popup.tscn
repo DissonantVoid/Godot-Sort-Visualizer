@@ -7,35 +7,41 @@
 script = ExtResource( 2 )
 
 [node name="Content" parent="." index="1"]
-margin_left = 383.0
-margin_top = 219.0
-margin_right = 577.0
-margin_bottom = 320.0
+margin_left = 365.0
+margin_top = 211.0
+margin_right = 594.0
+margin_bottom = 329.0
 
-[node name="VBoxContainer" parent="Content" index="0"]
-margin_right = 187.0
-margin_bottom = 94.0
+[node name="MarginContainer" parent="Content" index="0"]
+margin_right = 227.0
+margin_bottom = 116.0
 
-[node name="Title" parent="Content/VBoxContainer" index="0"]
-margin_right = 180.0
+[node name="VBoxContainer" parent="Content/MarginContainer" index="0"]
+margin_right = 217.0
+margin_bottom = 106.0
+
+[node name="Title" parent="Content/MarginContainer/VBoxContainer" index="0"]
+margin_right = 209.0
 text = "Options"
 
-[node name="GridContainer" type="GridContainer" parent="Content/VBoxContainer" index="1"]
-margin_top = 25.0
-margin_right = 180.0
-margin_bottom = 56.0
+[node name="HSeparator" parent="Content/MarginContainer/VBoxContainer" index="1"]
+margin_right = 209.0
+
+[node name="GridContainer" type="GridContainer" parent="Content/MarginContainer/VBoxContainer" index="2"]
+margin_top = 40.0
+margin_right = 209.0
+margin_bottom = 66.0
 columns = 2
 
-[node name="Label" type="Label" parent="Content/VBoxContainer/GridContainer" index="0"]
-margin_top = 5.0
-margin_right = 90.0
+[node name="Label" type="Label" parent="Content/MarginContainer/VBoxContainer/GridContainer" index="0"]
+margin_right = 113.0
 margin_bottom = 26.0
 text = "Step Time:"
 
-[node name="SpinBox" type="SpinBox" parent="Content/VBoxContainer/GridContainer" index="1"]
-margin_left = 94.0
-margin_right = 180.0
-margin_bottom = 31.0
+[node name="SpinBox" type="SpinBox" parent="Content/MarginContainer/VBoxContainer/GridContainer" index="1"]
+margin_left = 117.0
+margin_right = 209.0
+margin_bottom = 26.0
 mouse_default_cursor_shape = 2
 min_value = 10.0
 max_value = 1000.0
@@ -43,14 +49,14 @@ value = 10.0
 rounded = true
 suffix = "ms"
 
-[node name="Choice" parent="Content/VBoxContainer" index="2"]
-margin_top = 60.0
-margin_right = 180.0
-margin_bottom = 87.0
+[node name="Choice" parent="Content/MarginContainer/VBoxContainer" index="3"]
+margin_top = 70.0
+margin_right = 209.0
+margin_bottom = 98.0
 
-[node name="OK" parent="Content/VBoxContainer/Choice" index="0"]
-margin_right = 88.0
+[node name="OK" parent="Content/MarginContainer/VBoxContainer/Choice" index="0"]
+margin_right = 102.0
 
-[node name="Cancel" parent="Content/VBoxContainer/Choice" index="1"]
-margin_left = 92.0
-margin_right = 180.0
+[node name="Cancel" parent="Content/MarginContainer/VBoxContainer/Choice" index="1"]
+margin_left = 106.0
+margin_right = 209.0

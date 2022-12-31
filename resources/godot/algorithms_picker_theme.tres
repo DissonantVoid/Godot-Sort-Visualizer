@@ -1,15 +1,63 @@
-[gd_resource type="Theme" load_steps=4 format=2]
+[gd_resource type="Theme" load_steps=7 format=2]
 
 [ext_resource path="res://resources/fonts/libre-baskerville/LibreBaskerville-Regular.ttf" type="DynamicFontData" id=1]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.12549, 0.0392157, 0.0392157, 1 )
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0, 0.72549, 0.745098, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 1, 0.933333, 0.8, 1 )
+expand_margin_left = 1.0
+expand_margin_right = 1.0
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 1, 0.933333, 0.8, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 1, 0.933333, 0.8, 1 )
+expand_margin_left = 1.0
+expand_margin_right = 1.0
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 1, 0.411765, 0.45098, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 1, 0.933333, 0.8, 1 )
+expand_margin_left = 1.0
+expand_margin_right = 1.0
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 1, 0.933333, 0.8, 1 )
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color( 1, 0.933333, 0.8, 1 )
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
 
 [sub_resource type="DynamicFont" id=2]
+size = 20
+use_mipmaps = true
+use_filter = true
 font_data = ExtResource( 1 )
 
 [resource]
 default_font = SubResource( 2 )
-PanelContainer/styles/panel = SubResource( 1 )
+Button/colors/font_color = Color( 1, 0.933333, 0.8, 1 )
+Button/colors/font_color_disabled = Color( 1, 0.933333, 0.8, 1 )
+Button/colors/font_color_hover = Color( 1, 0.411765, 0.45098, 1 )
+Button/colors/font_color_pressed = Color( 1, 0.411765, 0.45098, 1 )
+Button/styles/disabled = SubResource( 3 )
+Button/styles/hover = SubResource( 4 )
+Button/styles/normal = SubResource( 5 )
+Button/styles/pressed = SubResource( 4 )
+HSeparator/styles/separator = SubResource( 6 )
+Label/colors/font_color = Color( 1, 0.933333, 0.8, 1 )

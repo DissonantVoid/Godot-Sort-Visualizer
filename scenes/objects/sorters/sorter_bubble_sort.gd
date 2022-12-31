@@ -30,6 +30,10 @@ func next_step() -> Dictionary:
 		else:
 			break
 	
+	# TODO: something wrong with sorting, the colored rects
+	#       should be next to each other in visualizer,
+	#       maybe rect visualizer has an issue?
+	
 	return {"done":!changed, "items":items}
 
 # override

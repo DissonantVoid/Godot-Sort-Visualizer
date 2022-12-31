@@ -1,15 +1,32 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://resources/godot/algorithms_picker_theme.tres" type="Theme" id=1]
 [ext_resource path="res://scenes/game/main.gd" type="Script" id=2]
 [ext_resource path="res://scenes/game/algorithm_picker.gd" type="Script" id=3]
 [ext_resource path="res://scenes/objects/visualizers/visualizer_rect.tscn" type="PackedScene" id=4]
+[ext_resource path="res://resources/fonts/libre-baskerville/LibreBaskerville-Bold.ttf" type="DynamicFontData" id=5]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.0823529, 0.470588, 0.54902, 1 )
+border_width_bottom = 2
+border_color = Color( 1, 0.933333, 0.8, 1 )
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="DynamicFont" id=2]
+size = 20
+font_data = ExtResource( 5 )
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )
 _visualizer_path = NodePath("VisualizerRect")
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.27451, 0.258824, 0.368627, 1 )
 
 [node name="VisualizerRect" parent="." instance=ExtResource( 4 )]
 
@@ -26,12 +43,13 @@ custom_constants/separation = 0
 
 [node name="Content" type="PanelContainer" parent="AlgorithmPicker/VBoxContainer"]
 margin_right = 960.0
-margin_bottom = 77.0
+margin_bottom = 90.0
 size_flags_vertical = 0
+custom_styles/panel = SubResource( 1 )
 
 [node name="MarginContainer" type="MarginContainer" parent="AlgorithmPicker/VBoxContainer/Content"]
 margin_right = 960.0
-margin_bottom = 77.0
+margin_bottom = 88.0
 custom_constants/margin_right = 6
 custom_constants/margin_left = 6
 custom_constants/margin_bottom = 6
@@ -39,42 +57,51 @@ custom_constants/margin_bottom = 6
 [node name="HBoxContainer" type="HBoxContainer" parent="AlgorithmPicker/VBoxContainer/Content/MarginContainer"]
 margin_left = 6.0
 margin_right = 954.0
-margin_bottom = 71.0
+margin_bottom = 82.0
 
 [node name="Options" type="Button" parent="AlgorithmPicker/VBoxContainer/Content/MarginContainer/HBoxContainer"]
-margin_top = 15.0
-margin_right = 77.0
-margin_bottom = 55.0
-rect_min_size = Vector2( 0, 40 )
+margin_top = 21.0
+margin_right = 100.0
+margin_bottom = 61.0
+rect_min_size = Vector2( 100, 40 )
 focus_mode = 0
 mouse_default_cursor_shape = 2
 size_flags_vertical = 6
 text = "Options"
 
 [node name="Center" type="VBoxContainer" parent="AlgorithmPicker/VBoxContainer/Content/MarginContainer/HBoxContainer"]
-margin_left = 409.0
-margin_right = 564.0
-margin_bottom = 71.0
+margin_left = 334.0
+margin_right = 614.0
+margin_bottom = 82.0
+rect_min_size = Vector2( 280, 0 )
 size_flags_horizontal = 6
 
 [node name="Algorithm" type="Label" parent="AlgorithmPicker/VBoxContainer/Content/MarginContainer/HBoxContainer/Center"]
-margin_right = 155.0
+margin_right = 280.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 0, 40 )
 mouse_filter = 0
 mouse_default_cursor_shape = 2
+custom_colors/font_color = Color( 1, 0.933333, 0.8, 1 )
+custom_fonts/font = SubResource( 2 )
 text = "<Select Algorithm>"
 align = 1
 valign = 1
 
-[node name="Idle" type="HBoxContainer" parent="AlgorithmPicker/VBoxContainer/Content/MarginContainer/HBoxContainer/Center"]
+[node name="HSeparator" type="HSeparator" parent="AlgorithmPicker/VBoxContainer/Content/MarginContainer/HBoxContainer/Center"]
 margin_top = 44.0
-margin_right = 155.0
-margin_bottom = 71.0
+margin_right = 280.0
+margin_bottom = 48.0
+
+[node name="Idle" type="HBoxContainer" parent="AlgorithmPicker/VBoxContainer/Content/MarginContainer/HBoxContainer/Center"]
+margin_top = 52.0
+margin_right = 280.0
+margin_bottom = 82.0
 
 [node name="Start" type="Button" parent="AlgorithmPicker/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Idle"]
-margin_right = 59.0
-margin_bottom = 27.0
+margin_right = 138.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 0, 30 )
 focus_mode = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
@@ -83,9 +110,10 @@ disabled = true
 text = "Start"
 
 [node name="NextStep" type="Button" parent="AlgorithmPicker/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Idle"]
-margin_left = 63.0
-margin_right = 155.0
-margin_bottom = 27.0
+margin_left = 142.0
+margin_right = 280.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 0, 30 )
 focus_mode = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
@@ -95,23 +123,25 @@ text = "Next Step"
 
 [node name="Running" type="HBoxContainer" parent="AlgorithmPicker/VBoxContainer/Content/MarginContainer/HBoxContainer/Center"]
 visible = false
-margin_top = 75.0
-margin_right = 270.0
-margin_bottom = 102.0
+margin_top = 86.0
+margin_right = 273.0
+margin_bottom = 116.0
 size_flags_horizontal = 5
 
 [node name="Pause" type="Button" parent="AlgorithmPicker/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Running"]
-margin_right = 133.0
-margin_bottom = 27.0
+margin_right = 134.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 0, 30 )
 focus_mode = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 text = "Pause"
 
 [node name="Stop" type="Button" parent="AlgorithmPicker/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Running"]
-margin_left = 137.0
-margin_right = 270.0
-margin_bottom = 27.0
+margin_left = 138.0
+margin_right = 273.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 0, 30 )
 focus_mode = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
@@ -119,54 +149,58 @@ text = "Stop"
 
 [node name="Paused" type="HBoxContainer" parent="AlgorithmPicker/VBoxContainer/Content/MarginContainer/HBoxContainer/Center"]
 visible = false
-margin_top = 75.0
-margin_right = 270.0
-margin_bottom = 102.0
+margin_top = 86.0
+margin_right = 273.0
+margin_bottom = 116.0
 size_flags_horizontal = 6
 
 [node name="Continue" type="Button" parent="AlgorithmPicker/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Paused"]
-margin_right = 88.0
-margin_bottom = 27.0
+margin_right = 87.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 0, 30 )
 focus_mode = 0
 mouse_default_cursor_shape = 2
 text = "Continue"
 
 [node name="NextStep" type="Button" parent="AlgorithmPicker/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Paused"]
-margin_left = 92.0
-margin_right = 184.0
-margin_bottom = 27.0
+margin_left = 91.0
+margin_right = 183.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 0, 30 )
 focus_mode = 0
 mouse_default_cursor_shape = 2
 text = "Next Step"
 
 [node name="LastStep" type="Button" parent="AlgorithmPicker/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Paused"]
-margin_left = 188.0
-margin_right = 270.0
-margin_bottom = 27.0
+margin_left = 187.0
+margin_right = 273.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 0, 30 )
 focus_mode = 0
 mouse_default_cursor_shape = 2
 text = "Last Step"
 
 [node name="Restart" type="HBoxContainer" parent="AlgorithmPicker/VBoxContainer/Content/MarginContainer/HBoxContainer/Center"]
 visible = false
-margin_top = 75.0
-margin_right = 155.0
-margin_bottom = 102.0
+margin_top = 86.0
+margin_right = 176.0
+margin_bottom = 116.0
 
 [node name="Restart" type="Button" parent="AlgorithmPicker/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Restart"]
-margin_right = 155.0
-margin_bottom = 27.0
+margin_right = 176.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 0, 30 )
 focus_mode = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 text = "Restart"
 
 [node name="Hide" type="Button" parent="AlgorithmPicker/VBoxContainer/Content/MarginContainer/HBoxContainer"]
-margin_left = 896.0
-margin_top = 15.0
+margin_left = 848.0
+margin_top = 21.0
 margin_right = 948.0
-margin_bottom = 55.0
-rect_min_size = Vector2( 0, 40 )
+margin_bottom = 61.0
+rect_min_size = Vector2( 100, 40 )
 focus_mode = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 8
@@ -174,9 +208,9 @@ size_flags_vertical = 6
 text = "Hide"
 
 [node name="Grabber" type="Control" parent="AlgorithmPicker/VBoxContainer"]
-margin_top = 77.0
+margin_top = 90.0
 margin_right = 960.0
-margin_bottom = 87.0
+margin_bottom = 100.0
 rect_min_size = Vector2( 0, 10 )
 
 [node name="ContinuousTimer" type="Timer" parent="."]
