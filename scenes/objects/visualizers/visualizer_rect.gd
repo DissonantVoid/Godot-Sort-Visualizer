@@ -1,6 +1,6 @@
 extends "res://scenes/objects/visualizers/visualizer.gd"
 
-onready var _rects_container : HBoxContainer = $Rects
+onready var _rects_container : HBoxContainer = $MarginContainer/HBoxContainer
 
 const _rect_count : int = 40
 const _rect_width : float = 20.0
@@ -17,9 +17,14 @@ func _ready():
 		rect.size_flags_horizontal = SIZE_EXPAND # no SIZE_NONE ???
 		rect.size_flags_vertical = SIZE_SHRINK_END
 		rect.rect_min_size.x = _rect_width
-		rect.rect_min_size.y = _rng.randf_range(_rect_min_height, _rect_max_height)
+		rect.rect_min_size.y = _rect_max_height
 		
 		_rects_container.add_child(rect)
+
+# override
+func reset():
+	for child in _rects_container.get_children():
+		child.rect_min_size.y = _rng.randf_range(_rect_min_height, _rect_max_height)
 
 # override
 func get_content() -> Array:

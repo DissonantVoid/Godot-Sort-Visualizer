@@ -7,6 +7,7 @@ func setup(data : Array, sort_callback : FuncRef):
 
 # override
 func next_step() -> bool:
+	print("NEXT")
 	return false
 
 # override

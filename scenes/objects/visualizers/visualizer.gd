@@ -6,6 +6,10 @@ signal switched_items
 
 
 # override
+func reset():
+	pass
+
+# override
 func get_content() -> Array:
 	return []
 

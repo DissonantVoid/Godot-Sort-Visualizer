@@ -4,6 +4,7 @@ extends Reference
 
 # override
 func setup(data : Array, sort_callback : FuncRef):
+	# NOTE: this can be called at any time so don't forget to cleanup
 	pass
 
 # override, return true if we're done sorting
