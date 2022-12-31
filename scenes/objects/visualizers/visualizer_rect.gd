@@ -56,6 +56,18 @@ func switch_items(idx1 : int, idx2 : int):
 	emit_signal("switched_items")
 
 # override
+func switch_all(new_indexes : Array):
+	var rects : Array
+	for i in new_indexes:
+		rects.append(_rects_container.get_child(i))
+	
+	for i in range(_rects_container.get_child_count()-1, -1, -1):
+		_rects_container.remove_child(_rects_container.get_child(i))
+	
+	for rect in rects:
+		_rects_container.add_child(rect)
+
+# override
 func finish():
 	_clear_colors()
 

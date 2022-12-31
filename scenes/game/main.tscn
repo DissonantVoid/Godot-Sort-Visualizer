@@ -145,7 +145,7 @@ margin_right = 270.0
 margin_bottom = 27.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
-text = "LastStep"
+text = "Last Step"
 
 [node name="Restart" type="HBoxContainer" parent="AlgorithmPicker/VBoxContainer/Content/MarginContainer/HBoxContainer/Center"]
 visible = false

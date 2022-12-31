@@ -48,7 +48,8 @@ func _on_picker_button_pressed(button : String):
 			_running_mode = RunningMode.continuous
 			_continous_timer.start()
 		"last":
-			_current_sorter.step_all()
+			_visualizer.switch_all(_current_sorter.step_all())
+			_visualizer.finish()
 			_pause()
 		"restart":
 			_reset()

@@ -43,7 +43,8 @@ func _on_button_clicked(button : String):
 			_is_moving = true
 			
 			var tween : SceneTreeTween = get_tree().create_tween()
-			tween.tween_property(self, "rect_position:y", -_content_container.rect_size.y, _moving_time)
+			tween.tween_property(self, "rect_position:y", -_content_container.rect_size.y, _moving_time)\
+			.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
 			yield(tween, "finished")
 			_is_hidden = true
 			_is_moving = false
@@ -88,7 +89,8 @@ func _on_grabber_mouse_entered():
 	if _is_hidden && _is_moving == false:
 		_is_moving = true
 		var tween : SceneTreeTween = get_tree().create_tween()
-		tween.tween_property(self, "rect_position:y", 0.0, _moving_time)
+		tween.tween_property(self, "rect_position:y", 0.0, _moving_time)\
+		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
 		
 		yield(tween, "finished")
 		_is_moving = false

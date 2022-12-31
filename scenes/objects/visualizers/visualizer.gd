@@ -23,6 +23,10 @@ func sort_callback(idx1 : int, idx2 : int) -> bool:
 func switch_items(idx1 : int, idx2 : int):
 	emit_signal("switched_items")
 
+# override, this is called after sorter.step_all()
+func switch_all(new_indexes : Array):
+	pass
+
 # override, for additional effects etc.. after sorting is finished
 func finish():
 	pass

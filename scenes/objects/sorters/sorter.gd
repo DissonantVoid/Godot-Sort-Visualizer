@@ -16,6 +16,6 @@ func setup(data_size : int, sort_callback : FuncRef):
 func next_step() -> Dictionary:
 	return {}
 
-# override, do all sorting
-func step_all():
-	pass
+# override, do all sorting and return new indexes
+func step_all() -> Array:
+	return []
