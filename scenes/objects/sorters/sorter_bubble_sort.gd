@@ -1,14 +1,36 @@
 extends "res://scenes/objects/sorters/sorter.gd"
 
+var _curr_index : int = 0
 
 # override
-func setup(data : Array, sort_callback : FuncRef):
-	pass
+func setup(data_size : int, sort_callback : FuncRef):
+	.setup(data_size, sort_callback)
+	
+	_curr_index = 0
 
 # override
-func next_step() -> bool:
-	print("NEXT")
-	return false
+func next_step() -> Dictionary:
+	var changed : bool = false
+	var items : Array
+	
+	while true:
+		for i in range(_curr_index, _data_size):
+			for j in range(i+1, _data_size):
+				if _sort_callback.call_func(i, j):
+					changed = true
+					items.append(j)
+					items.append(i)
+					_curr_index = i+1
+					break
+			if changed == true: break
+		
+		# if no change happened but we didn't start from 0, recheck 
+		if changed == false && _curr_index > 0:
+			_curr_index = 0
+		else:
+			break
+	
+	return {"done":!changed, "items":items}
 
 # override
 func step_all():

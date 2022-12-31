@@ -6,7 +6,7 @@ onready var _algo_picker : MarginContainer = $AlgorithmPicker
 onready var _continous_timer : Timer = $ContinuousTimer
 var _visualizer : Control
 
-var _time_per_step_ms : float = 1000 # when continuesly sorting
+var _time_per_step_ms : float = 50 # when continuesly sorting
 var _current_sorter = null
 
 enum RunningMode {step, continuous}
@@ -38,7 +38,7 @@ func _on_picker_button_pressed(button : String):
 			_is_running = true
 			_continous_timer.start()
 		"next":
-			_do_next_step() 
+			_next_step() 
 		"pause":
 			_is_running = false
 			_continous_timer.stop()
@@ -54,15 +54,17 @@ func _on_picker_button_pressed(button : String):
 			_reset()
 
 func _on_continuous_timeout():
-	_do_next_step()
+	_next_step()
 	_continous_timer.start()
 
-func _do_next_step():
-	var is_last : bool = _current_sorter.next_step()
-	if is_last:
-		_visualizer.sorter_finished()
+func _next_step():
+	var step_data : Dictionary = _current_sorter.next_step()
+	if step_data["done"]:
+		_algo_picker.sorter_finished()
+		_visualizer.finish()
 		_pause()
-	# ..
+	else:
+		_visualizer.switch_items(step_data["items"][0], step_data["items"][1])
 
 func _pause():
 	_is_running = false
@@ -73,4 +75,4 @@ func _reset():
 	_pause()
 	
 	_visualizer.reset()
-	_current_sorter.setup(_visualizer.get_content(), funcref(_visualizer, "sort_callback"))
+	_current_sorter.setup(_visualizer.get_content_size(), funcref(_visualizer, "sort_callback"))

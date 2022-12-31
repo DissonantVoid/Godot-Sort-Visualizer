@@ -1,4 +1,4 @@
-Current Task: GUI (visualizer)
+Current Task: GUI (art)
 
 
 Todo:
@@ -9,12 +9,15 @@ Todo:
 	 hide ui
 	 sort all steps at once
 	-allow user to sort custom scene, the scene can be set in the editor
-	as an export variable 
+	as an export variable
+	-save options to file
 	-replace some buttons with icons
 
 Plan:
   -user can choose a sorting algorithm and lines will sort themselves
   -keep sorting implementation code independent so we can apply the sort on any custom scene
+  -supports: bubble-sort, selection-sort, insertion-sort, quick-sort, merge-sort, heap-sort, radix-sort
+             shell-sort,  gnome-sort    , bitonic-sort,   bogo-sort 
 
 UI guide:
   -no focus

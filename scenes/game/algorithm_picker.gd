@@ -6,17 +6,19 @@ signal algorithm_changed(new_algorithn)
 signal options_changed(data) # data : dictionary
 signal button_pressed(button)
 
-onready var _selected_algo_label : Label = $PanelContainer/MarginContainer/HBoxContainer/Center/Algorithm
-onready var _idle_buttons : HBoxContainer = $PanelContainer/MarginContainer/HBoxContainer/Center/Idle
-onready var _running_buttons : HBoxContainer = $PanelContainer/MarginContainer/HBoxContainer/Center/Running
-onready var _paused_buttons : HBoxContainer = $PanelContainer/MarginContainer/HBoxContainer/Center/Paused
-onready var _restart_buttons : HBoxContainer = $PanelContainer/MarginContainer/HBoxContainer/Center/Restart
+onready var _content_container : PanelContainer = $VBoxContainer/Content
+onready var _selected_algo_label : Label = $VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Algorithm
+onready var _idle_buttons : HBoxContainer = $VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Idle
+onready var _running_buttons : HBoxContainer = $VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Running
+onready var _paused_buttons : HBoxContainer = $VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Paused
+onready var _restart_buttons : HBoxContainer = $VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Restart
 
 const _options_popup_scene : PackedScene = preload("res://scenes/objects/ui_components/popups/algo_picker_options_popup.tscn")
 const _algorithms_popup_scene : PackedScene = preload("res://scenes/objects/ui_components/popups/algo_picker_algorithms_popup.tscn")
 
 const _moving_time : float = 0.85
 var _is_moving : bool = false
+var _is_hidden : bool = false
 
 var _data_to_sort : Array
 var _sort_callback : FuncRef
@@ -41,8 +43,9 @@ func _on_button_clicked(button : String):
 			_is_moving = true
 			
 			var tween : SceneTreeTween = get_tree().create_tween()
-			tween.tween_property(self, "rect_position:y", -rect_size.y, _moving_time)
+			tween.tween_property(self, "rect_position:y", -_content_container.rect_size.y, _moving_time)
 			yield(tween, "finished")
+			_is_hidden = true
 			_is_moving = false
 		
 		"start":
@@ -79,6 +82,17 @@ func _on_algorithms_popup_ok(data : Dictionary):
 
 func _on_options_popup_ok(data : Dictionary):
 	emit_signal("options_changed", data)
+
+# after hiding this object, hover mouse near the very top of the screen to bring it back
+func _on_grabber_mouse_entered():
+	if _is_hidden && _is_moving == false:
+		_is_moving = true
+		var tween : SceneTreeTween = get_tree().create_tween()
+		tween.tween_property(self, "rect_position:y", 0.0, _moving_time)
+		
+		yield(tween, "finished")
+		_is_moving = false
+		_is_hidden = false
 
 func _toggle_button_group(group : HBoxContainer):
 	_idle_buttons.visible = (group == _idle_buttons)

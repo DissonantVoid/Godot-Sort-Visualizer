@@ -2,7 +2,7 @@ extends Control
 
 # base class for all visualizers (objects that are sorted by the algorithms)
 
-signal switched_items
+signal switched_items # we relly on this to allow visualizers to have fancy long animations
 
 
 # override
@@ -10,13 +10,19 @@ func reset():
 	pass
 
 # override
-func get_content() -> Array:
-	return []
+func get_content_size() -> int:
+	# sorters work with indexes and sort callback
+	# so the size is needed
+	return 0
 
-# override, is item1 bigger than item2 ?
-func sort_callback(item1, item2) -> bool:
+# override, is item at idx1 bigger than item at idx2 ?
+func sort_callback(idx1 : int, idx2 : int) -> bool:
 	return false
 
 # override
-func switch_items(first, second):
+func switch_items(idx1 : int, idx2 : int):
 	emit_signal("switched_items")
+
+# override, for additional effects etc.. after sorting is finished
+func finish():
+	pass

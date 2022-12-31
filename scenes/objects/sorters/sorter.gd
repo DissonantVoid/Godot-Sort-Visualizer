@@ -2,14 +2,19 @@ extends Reference
 
 # base class for all sorting algorithms
 
-# override
-func setup(data : Array, sort_callback : FuncRef):
-	# NOTE: this can be called at any time so don't forget to cleanup
-	pass
+var _data_size : int
+var _sort_callback : FuncRef
 
-# override, return true if we're done sorting
-func next_step() -> bool:
-	return false
+# override
+func setup(data_size : int, sort_callback : FuncRef):
+	# NOTE: this can be called at any time so don't forget to cleanup
+	_data_size = data_size
+	_sort_callback = sort_callback
+
+# override, return {"done":is done sorting,
+#                   "items":2 item indexes that were switched}
+func next_step() -> Dictionary:
+	return {}
 
 # override, do all sorting
 func step_all():
