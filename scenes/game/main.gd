@@ -29,10 +29,13 @@ func _on_picker_algo_changed(new_sorter):
 	_reset()
 
 func _on_picker_options_changed(data : Dictionary):
-	_continous_timer.wait_time = _time_per_step_ms
+	_time_per_step_ms = data["step_time"]
+	_continous_timer.wait_time = _time_per_step_ms / 1000
 
 func _on_picker_button_pressed(button : String):
 	match button:
+		"options":
+			_algo_picker.show_options_popup({"step_time":_time_per_step_ms})
 		"start":
 			_running_mode = RunningMode.continuous
 			_is_running = true
@@ -48,7 +51,7 @@ func _on_picker_button_pressed(button : String):
 			_running_mode = RunningMode.continuous
 			_continous_timer.start()
 		"last":
-			_visualizer.switch_all(_current_sorter.step_all())
+			_visualizer.update_all(_current_sorter.skip_to_last_step())
 			_visualizer.finish()
 			_pause()
 		"restart":
@@ -60,12 +63,17 @@ func _on_continuous_timeout():
 
 func _next_step():
 	var step_data : Dictionary = _current_sorter.next_step()
+	assert(step_data.has("done"), "no 'done' entry in sorter.next_step() return")
+	
 	if step_data["done"]:
 		_algo_picker.sorter_finished()
 		_visualizer.finish()
 		_pause()
 	else:
-		_visualizer.switch_items(step_data["items"][0], step_data["items"][1])
+		assert(step_data.has("items"), "no 'items' entry in sorter.next_step() return")
+		assert(step_data["items"].size() == 2, "'items' entry in sorter.next_step() return must have 2 items")
+		
+		_visualizer.update_indexes(step_data["items"][0], step_data["items"][1])
 
 func _pause():
 	_is_running = false
@@ -76,4 +84,4 @@ func _reset():
 	_pause()
 	
 	_visualizer.reset()
-	_current_sorter.setup(_visualizer.get_content_size(), funcref(_visualizer, "sort_callback"))
+	_current_sorter.setup(_visualizer.get_content_count(), funcref(_visualizer, "determine_priority"))

@@ -34,15 +34,15 @@ func reset():
 		child.rect_min_size.y = _rng.randf_range(_rect_min_height, _rect_max_height)
 
 # override
-func get_content_size() -> int:
+func get_content_count() -> int:
 	return _rects_container.get_child_count()
 
 # override
-func sort_callback(idx1 : int, idx2 : int) -> bool:
+func determine_priority(idx1 : int, idx2 : int) -> bool:
 	return _rects_container.get_child(idx1).rect_min_size.y > _rects_container.get_child(idx2).rect_min_size.y
 
 # override
-func switch_items(idx1 : int, idx2 : int):
+func update_indexes(idx1 : int, idx2 : int):
 	_clear_colors()
 	
 	var low_idx_child : ColorRect = _rects_container.get_child(min(idx1, idx2))
@@ -60,7 +60,7 @@ func switch_items(idx1 : int, idx2 : int):
 	emit_signal("switched_items")
 
 # override
-func switch_all(new_indexes : Array):
+func update_all(new_indexes : Array):
 	var rects : Array
 	for i in new_indexes:
 		rects.append(_rects_container.get_child(i))

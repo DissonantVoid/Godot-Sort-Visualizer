@@ -26,6 +26,12 @@ var _sort_callback : FuncRef
 func sorter_finished():
 	_toggle_button_group(_restart_buttons)
 
+func show_options_popup(options : Dictionary):
+	var instance := _options_popup_scene.instance()
+	instance.connect("ok", self, "_on_options_popup_ok")
+	get_tree().current_scene.add_child(instance)
+	instance.setup(options)
+
 func _on_title_gui_input(event):
 	if event is InputEventMouseButton && event.pressed && event.button_index == BUTTON_LEFT:
 		var instance := _algorithms_popup_scene.instance()
@@ -35,9 +41,7 @@ func _on_title_gui_input(event):
 func _on_button_clicked(button : String):
 	match button:
 		"options":
-			var instance := _options_popup_scene.instance()
-			get_tree().current_scene.add_child(instance)
-			instance.connect("ok", self, "_on_options_popup_ok")
+			emit_signal("button_pressed", button)
 		"hide":
 			if _is_moving: return
 			_is_moving = true

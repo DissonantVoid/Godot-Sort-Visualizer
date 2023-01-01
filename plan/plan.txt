@@ -1,23 +1,21 @@
-Current Task: GUI (art)
+Current Task: refactoring/improvements (files, functions, signals, etc..)
 
 
 Todo:
-	GUI:
-	 ability to choose algorithms
-	 start/stop sorting
-	 toggle manual steping/continues
-	 hide ui
-	 sort all steps at once
 	-allow user to change visualizer scene at run-time
-	-allow user to sort custom scene, the scene can be set in the editor
-	as an export variable
 	-save options to file
 	-replace some buttons with icons
+        -sfx
 
 Plan:
   -keep sorting implementation code independent so we can apply the sort on any custom scene
-  -supports: bubble-sort, selection-sort, insertion-sort, quick-sort, merge-sort, heap-sort, radix-sort
+  -sorters:  bubble-sort, selection-sort, insertion-sort, quick-sort, merge-sort, heap-sort, radix-sort
              shell-sort,  gnome-sort    , bitonic-sort,   bogo-sort 
+  -visualizers:
+      -planets of different sizes rotating arround a star, each step we switch position between 2 planets lol
+      -humans shooting zombies, each human shoots a type of zombie, but each type require specific weapon
+      -lazers of different colors shooting inputs of matching colors, need sorting
+      -?? (that's all I can think of)
 
 UI guide:
   -pallete: 3 left color used for background/panels etc.., 3 right colors used for ui (button etc..)

@@ -18,8 +18,17 @@ easily be added without having to change anything outside their implementation
 
 The **Main** scene handles the flow of data and dependency between the components,
 to start sorting a visualizer object must be added to the main scene and linked as an export variable,
-while a sorter can be chosen at run-time, 
+while a sorter can be chosen at run-time,
 
 The last component in this project is the **Algorithm Picker**, which is the main ui
 that is used to choose algorithms and control the method and speed of sorting
+
+Interaction between **Sorters** and **Visualizers** is based on indexes, where a **Visualizer**
+must provide the size of items to sort (`visualizer.get_content_count()`) and a callback
+function to compare between each index (`visualizer.determine_priority()`). based on 
+these 2 funtions a **Sorter** compare indexes and pass data back to the visualizer
+(`visualizer.update_indexes()` or `visualizer.update_all()`). what's neat about this
+approach is that the sorter doesn't have to know the nature of data it's sorting, from a
+sorter point of view it just sorts indexes based on the callback function which allow for
+great control over the visualizer implementation (if I do say so myself :-) ).
 
