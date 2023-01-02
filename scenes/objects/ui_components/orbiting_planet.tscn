@@ -10,7 +10,6 @@ region = Rect2( 0, 0, 32, 32 )
 [node name="OrbitingPlanet" type="TextureRect"]
 margin_right = 32.0
 margin_bottom = 32.0
-rect_min_size = Vector2( 32, 32 )
 texture = SubResource( 1 )
 expand = true
 script = ExtResource( 2 )

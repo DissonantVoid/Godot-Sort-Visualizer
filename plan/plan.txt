@@ -5,7 +5,8 @@ Todo:
 	-allow user to change visualizer scene at run-time
 	-save options to file
 	-replace some buttons with icons
-        -sfx
+    -sfx
+	-disabled buttons don't look very disabled
 
 Plan:
   -keep sorting implementation code independent so we can apply the sort on any custom scene

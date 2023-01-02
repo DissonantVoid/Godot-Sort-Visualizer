@@ -4,9 +4,9 @@ signal moved
 
 onready var _particles : CPUParticles2D = $CPUParticles2D
 
-var _pivot : Vector2
 var _initial_size : Vector2
-var _size_scale : float
+var _pivot : Vector2
+var _center : Vector2
 var _rot_speed : float
 
 const _move_to_speed : float = 92.0
@@ -18,11 +18,12 @@ var _curr_state : int = State.rotating
 
 func _ready():
 	set_process(false)
-	_initial_size = rect_min_size
+	_initial_size = rect_size
+	_center = rect_size/2
 
 func _process(delta):
 	if _curr_state == State.rotating:
-		_rotate(fmod(_rot_speed * delta, 360.0))
+		_rotate(deg2rad(_rot_speed * delta))
 	
 	elif _curr_state == State.moving_to:
 		var direction : Vector2 = (_move_target - rect_global_position).normalized()
@@ -36,23 +37,27 @@ func _process(delta):
 			
 			emit_signal("moved")
 
-func setup(pivot : Vector2, size_scale : float,
+func setup(pivot : Vector2, start_position : Vector2):
+	_pivot = pivot
+	rect_global_position = start_position
+
+func reset(size_scale : float,
 			speed : float, start_angle : float):
 	# reset
 	if _curr_state == State.moving_to:
 		_curr_state = State.rotating
 		_particles.emitting = false
 	
-	_size_scale = size_scale
-	rect_min_size = _initial_size * size_scale
+	# TODO: this is broken, initial_size doens't take into account the zoom level
+	rect_size = _initial_size * size_scale
+	_center = rect_size/2
 	
-	_pivot = pivot
 	_rot_speed = speed
 	
-	_particles.position = rect_min_size/2
+	_particles.position = _center
 	
 	# manual rotation so we can easily switch planets
-	_rotate(start_angle)
+	_rotate(deg2rad(start_angle))
 	
 	set_process(true)
 
@@ -61,24 +66,36 @@ func move_to(new_pos : Vector2):
 	_curr_state = State.moving_to
 	_particles.emitting = true
 
-func get_size():
-	return _size_scale
+func get_size() -> Vector2:
+	return rect_size
 
-func _rotate(angle_deg : float):
-	# credit: stackoverflow.com/questions/2259476/rotating-a-point-about-another-point-2d
-	var angle_sin = sin(deg2rad(angle_deg))
-	var angle_cos = cos(deg2rad(angle_deg))
+func modify_star_distance(modifier : float):
+	var distance : Vector2 = rect_global_position + _center - _pivot
+	rect_size *= modifier
+	_center = rect_size/2
+	rect_global_position = _pivot + (distance * modifier) - _center
+	_particles.position = _center
 	
-	# translate point back to origin:
-	rect_global_position.x -= _pivot.x;
-	rect_global_position.y -= _pivot.y;
+	if _curr_state == State.moving_to:
+		# recalculate _move_target
+		distance = _move_target - _pivot
+		_move_target = _pivot + (distance * modifier)
+
+func _rotate(angle_rad : float):
+	# credit: stackoverflow.com/questions/2259476/rotating-a-point-about-another-point-2d
+	var pivot_centered : Vector2 = _pivot - _center
+	
+	var angle_sin : float = sin(angle_rad)
+	var angle_cos : float = cos(angle_rad)
+	
+	# translate point back to pivot:
+	rect_global_position -= pivot_centered
 	
 	# rotate point
-	var x_new = rect_global_position.x * angle_cos -\
+	var x_new : float = rect_global_position.x * angle_cos -\
 				rect_global_position.y * angle_sin;
-	var y_new = rect_global_position.x * angle_sin +\
+	var y_new : float = rect_global_position.x * angle_sin +\
 				rect_global_position.y * angle_cos;
 	
 	# translate point back:
-	rect_global_position.x = x_new + _pivot.x;
-	rect_global_position.y = y_new + _pivot.y;
+	rect_global_position = Vector2(x_new + pivot_centered.x, y_new + pivot_centered.y);

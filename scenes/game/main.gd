@@ -7,7 +7,7 @@ export(NodePath) var _visualizer_path : NodePath
 
 onready var _algo_picker : MarginContainer = $AlgorithmPicker
 onready var _continous_timer : Timer = $ContinuousTimer
-var _visualizer : Control
+onready var _visualizer : Control = get_node(_visualizer_path)
 
 var _time_per_step_ms : float = 40 # when continuesly sorting
 var _current_sorter = null
@@ -23,7 +23,6 @@ func _ready():
 	# setup
 	_continous_timer.wait_time = _time_per_step_ms / 1000
 	
-	_visualizer = get_node(_visualizer_path)
 	_visualizer.connect("updated_indexes", self, "_on_visualizer_updated_indexes")
 	_visualizer.connect("updated_all", self, "_on_visualizer_updated_all")
 	
