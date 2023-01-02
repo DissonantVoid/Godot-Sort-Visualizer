@@ -5,6 +5,7 @@ extends MarginContainer
 signal algorithm_changed(new_algorithn)
 signal options_changed(data) # data : dictionary
 signal button_pressed(button)
+signal ui_visibility_changed(is_visible)
 
 onready var _content_container : PanelContainer = $VBoxContainer/Content
 onready var _selected_algo_label : Label = $VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Algorithm
@@ -53,6 +54,7 @@ func _on_button_clicked(button : String):
 		"hide":
 			if _is_moving: return
 			_is_moving = true
+			emit_signal("ui_visibility_changed", false)
 			
 			var tween : SceneTreeTween = get_tree().create_tween()
 			tween.tween_property(self, "rect_position:y", -_content_container.rect_size.y, _moving_time)\
@@ -62,27 +64,27 @@ func _on_button_clicked(button : String):
 			_is_moving = false
 		
 		"start":
-			emit_signal("button_pressed", button)
 			_toggle_button_group(_running_buttons)
-		"next":
 			emit_signal("button_pressed", button)
+		"next":
 			if _idle_buttons.visible:
 				_toggle_button_group(_paused_buttons)
+			emit_signal("button_pressed", button)
 		"pause":
-			emit_signal("button_pressed", button)
 			_toggle_button_group(_paused_buttons)
+			emit_signal("button_pressed", button)
 		"stop":
-			emit_signal("button_pressed", button)
 			_toggle_button_group(_idle_buttons)
+			emit_signal("button_pressed", button)
 		"continue":
-			emit_signal("button_pressed", button)
 			_toggle_button_group(_running_buttons)
+			emit_signal("button_pressed", button)
 		"last":
-			emit_signal("button_pressed", button)
 			_toggle_button_group(_restart_buttons)
-		"restart":
 			emit_signal("button_pressed", button)
+		"restart":
 			_toggle_button_group(_idle_buttons)
+			emit_signal("button_pressed", button)
 
 func _on_algorithms_popup_ok(data : Dictionary):
 	emit_signal("algorithm_changed", load(data["path"]).new())
@@ -100,6 +102,8 @@ func _on_options_popup_ok(data : Dictionary):
 func _on_grabber_mouse_entered():
 	if _is_hidden && _is_moving == false:
 		_is_moving = true
+		emit_signal("ui_visibility_changed", true)
+		
 		var tween : SceneTreeTween = get_tree().create_tween()
 		tween.tween_property(self, "rect_position:y", 0.0, _moving_time)\
 		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)

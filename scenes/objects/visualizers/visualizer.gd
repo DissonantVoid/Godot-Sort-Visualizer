@@ -28,6 +28,10 @@ func update_indexes(idx1 : int, idx2 : int):
 func update_all(new_indexes : Array):
 	emit_signal("updated_all")
 
+# override, called when user hides of shows algorithm_picker panel
+func set_ui_visibility(is_visible : bool):
+	pass
+
 # override, for additional effects etc.. after sorting is finished
 func finish():
 	pass

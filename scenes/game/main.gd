@@ -30,6 +30,7 @@ func _ready():
 	_algo_picker.connect("algorithm_changed", self, "_on_picker_algo_changed")
 	_algo_picker.connect("options_changed", self, "_on_picker_options_changed")
 	_algo_picker.connect("button_pressed", self, "_on_picker_button_pressed")
+	_algo_picker.connect("ui_visibility_changed", self, "_on_picker_ui_visibility_changed")
 
 func _on_picker_algo_changed(new_sorter):
 	_current_sorter = new_sorter 
@@ -72,6 +73,9 @@ func _on_visualizer_updated_all():
 	_is_waiting_for_visualizer = false
 	_algo_picker.set_can_continue(true)
 	_visualizer.finish()
+
+func _on_picker_ui_visibility_changed(is_visible : bool):
+	_visualizer.set_ui_visibility(is_visible)
 
 func _on_continuous_timeout():
 	if _is_waiting_for_visualizer == false:

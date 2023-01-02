@@ -72,6 +72,10 @@ func update_all(new_indexes : Array):
 	emit_signal("updated_all")
 
 # override
+func set_ui_visibility(is_visible : bool):
+	pass
+
+# override
 func finish():
 	_clear_colors()
 
