@@ -1,5 +1,8 @@
 extends Control
 
+# TODO: internal code flow is a tangled mess, especialy how we use
+#       _running_mode, _is_waiting_for_visualizer and _algo_picker.set_can_continue()
+
 export(NodePath) var _visualizer_path : NodePath
 
 onready var _algo_picker : MarginContainer = $AlgorithmPicker
@@ -11,14 +14,18 @@ var _current_sorter = null
 
 enum RunningMode {step, continuous}
 var _running_mode : int = RunningMode.step
-var _is_running : bool = false
+var _is_waiting_for_visualizer : bool = false
+
 
 func _ready():
-	assert(_visualizer_path != null)
-	_visualizer = get_node(_visualizer_path)
+	assert(_visualizer_path.is_empty() == false, "assign visualizer scene to main node")
 	
 	# setup
 	_continous_timer.wait_time = _time_per_step_ms / 1000
+	
+	_visualizer = get_node(_visualizer_path)
+	_visualizer.connect("updated_indexes", self, "_on_visualizer_updated_indexes")
+	_visualizer.connect("updated_all", self, "_on_visualizer_updated_all")
 	
 	_algo_picker.connect("algorithm_changed", self, "_on_picker_algo_changed")
 	_algo_picker.connect("options_changed", self, "_on_picker_options_changed")
@@ -36,30 +43,40 @@ func _on_picker_button_pressed(button : String):
 	match button:
 		"options":
 			_algo_picker.show_options_popup({"step_time":_time_per_step_ms})
-		"start":
+		"start", "continue":
 			_running_mode = RunningMode.continuous
-			_is_running = true
 			_continous_timer.start()
 		"next":
 			_next_step() 
 		"pause":
-			_is_running = false
+			_running_mode = RunningMode.step
 			_continous_timer.stop()
 		"stop":
+			_running_mode = RunningMode.step
 			_reset()
-		"continue":
-			_running_mode = RunningMode.continuous
-			_continous_timer.start()
 		"last":
-			_visualizer.update_all(_current_sorter.skip_to_last_step())
-			_visualizer.finish()
 			_pause()
+			_is_waiting_for_visualizer = true
+			_algo_picker.set_can_continue(false)
+			_visualizer.update_all(_current_sorter.skip_to_last_step())
 		"restart":
 			_reset()
 
+func _on_visualizer_updated_indexes():
+	_is_waiting_for_visualizer = false
+	_algo_picker.set_can_continue(true)
+	if _running_mode == RunningMode.continuous && _continous_timer.is_stopped():
+		_continous_timer.start()
+
+func _on_visualizer_updated_all():
+	_is_waiting_for_visualizer = false
+	_algo_picker.set_can_continue(true)
+	_visualizer.finish()
+
 func _on_continuous_timeout():
-	_next_step()
-	_continous_timer.start()
+	if _is_waiting_for_visualizer == false:
+		_next_step()
+		_continous_timer.start()
 
 func _next_step():
 	var step_data : Dictionary = _current_sorter.next_step()
@@ -73,10 +90,13 @@ func _next_step():
 		assert(step_data.has("items"), "no 'items' entry in sorter.next_step() return")
 		assert(step_data["items"].size() == 2, "'items' entry in sorter.next_step() return must have 2 items")
 		
+		_is_waiting_for_visualizer = true
+		_algo_picker.set_can_continue(false)
+		
+		# NOTE: this line should be last in case update_indexes() emits immediately like in visualizer_rect
 		_visualizer.update_indexes(step_data["items"][0], step_data["items"][1])
 
 func _pause():
-	_is_running = false
 	if _continous_timer.is_stopped() == false:
 		_continous_timer.stop()
 
