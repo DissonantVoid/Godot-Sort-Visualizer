@@ -6,7 +6,12 @@
 [node name="VisualizerRect" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
-[node name="MarginContainer" type="MarginContainer" parent="." index="0"]
+[node name="Background" type="ColorRect" parent="." index="0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.27451, 0.258824, 0.368627, 1 )
+
+[node name="MarginContainer" type="MarginContainer" parent="." index="1"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 

@@ -2,10 +2,12 @@ extends Control
 
 # base class for all visualizers (objects that are sorted by the algorithms)
 
-signal switched_items # this allows visualizers to take their time to do any effects etc
-
+signal updated_indexes # this allows visualizers to take their time to do any effects etc
+signal updated_all
 
 # override
+# NOTE: reset is called after an algorithm is chosen, so we can show a "default"
+#       visual before it's called (see visualizer_rect for example)
 func reset():
 	pass
 
@@ -20,11 +22,11 @@ func determine_priority(idx1 : int, idx2 : int) -> bool:
 
 # override
 func update_indexes(idx1 : int, idx2 : int):
-	emit_signal("switched_items")
+	emit_signal("updated_indexes")
 
 # override, this is called after sorter.step_all()
 func update_all(new_indexes : Array):
-	pass
+	emit_signal("updated_all")
 
 # override, for additional effects etc.. after sorting is finished
 func finish():

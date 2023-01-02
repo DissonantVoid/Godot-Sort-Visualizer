@@ -45,19 +45,17 @@ func determine_priority(idx1 : int, idx2 : int) -> bool:
 func update_indexes(idx1 : int, idx2 : int):
 	_clear_colors()
 	
-	var low_idx_child : ColorRect = _rects_container.get_child(min(idx1, idx2))
-	var high_idx : int = max(idx1, idx2)
-	var high_idx_child : ColorRect = _rects_container.get_child(high_idx)
-	
 	# coloring
-	low_idx_child.color = _selected_low_clr
-	high_idx_child.color = _selected_high_clr
-	_previously_switched.append(low_idx_child)
-	_previously_switched.append(high_idx_child)
+	var child1 = _rects_container.get_child(idx1)
+	var child2 = _rects_container.get_child(idx2)
+	child1.color = _selected_low_clr
+	child2.color = _selected_high_clr
+	_previously_switched.append(child1)
+	_previously_switched.append(child2)
 	
-	_rects_container.move_child(high_idx_child, low_idx_child.get_index())
-	_rects_container.move_child(low_idx_child, high_idx)
-	emit_signal("switched_items")
+	Utility.switch_children(_rects_container, idx1, idx2)
+	
+	emit_signal("updated_indexes")
 
 # override
 func update_all(new_indexes : Array):
@@ -70,6 +68,8 @@ func update_all(new_indexes : Array):
 	
 	for rect in rects:
 		_rects_container.add_child(rect)
+	
+	emit_signal("updated_all")
 
 # override
 func finish():

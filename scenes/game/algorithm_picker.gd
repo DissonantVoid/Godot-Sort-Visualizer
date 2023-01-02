@@ -23,8 +23,16 @@ var _is_hidden : bool = false
 var _data_to_sort : Array
 var _sort_callback : FuncRef
 
+
 func sorter_finished():
 	_toggle_button_group(_restart_buttons)
+
+func set_can_continue(can_continue : bool):
+	for child in _paused_buttons.get_children():
+		if child is Button: child.disabled = !can_continue
+	
+	for child in _restart_buttons.get_children():
+		if child is Button: child.disabled = !can_continue
 
 func show_options_popup(options : Dictionary):
 	var instance := _options_popup_scene.instance()

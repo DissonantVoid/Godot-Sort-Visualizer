@@ -15,7 +15,8 @@ Plan:
       -planets of different sizes rotating arround a star, each step we switch position between 2 planets lol
       -humans shooting zombies, each human shoots a type of zombie, but each type require specific weapon
       -lazers of different colors shooting inputs of matching colors, need sorting
-      -?? (that's all I can think of)
+      -bunch of cakes in unmatching boxes, on each sort 2 cakes are moved into a conveyor belt
+	   and transfered to each other position
 
 UI guide:
   -pallete: 3 left color used for background/panels etc.., 3 right colors used for ui (button etc..)
