@@ -84,6 +84,7 @@ func _on_picker_button_pressed(button : String):
 			_algo_picker.set_can_continue(false)
 			_visualizer.update_all(_current_sorter.skip_to_last_step())
 		"restart":
+			#_running_mode = RunningMode.step
 			_reset()
 
 func _on_visualizer_updated_indexes():
