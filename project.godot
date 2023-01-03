@@ -17,6 +17,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Utility="*res://resources/scripts/utility.gd"
+AlgorithmsTracker="*res://scenes/autoloads/algorithms_tracker.gd"
 
 [display]
 

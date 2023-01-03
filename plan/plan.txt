@@ -1,12 +1,16 @@
-Current Task: saving options to file
+Current Task: merge-sort
+Next Task:    refactoring, resolving TODOs
 
 
-Todo:
+Todo (also see in-code todos by searching in all files for "todo"):
 	-allow user to change visualizer scene at run-time
 	-save options to file
 	-replace some buttons with icons
-    -sfx
+	-sfx
 	-disabled buttons don't look very disabled
+        -add a benchmark scene that runs all available algorithms with a timer
+        -reorganize themes, see if we can have theme inheritence, keep things organized early so we don't get overwhelmed
+         like that one time :'(
 
 Plan:
   -keep sorting implementation code independent so we can apply the sort on any custom scene
@@ -19,7 +23,11 @@ Plan:
       -bunch of cakes in unmatching boxes, on each sort 2 cakes are moved into a conveyor belt
 	   and transfered to each other position
 
-UI guide:
-  -pallete: 3 left color used for background/panels etc.., 3 right colors used for ui (button etc..)
-  -no UI focus
-  -all clickables should have a hand pointer 
+Keep in mind:
+  Sorters:
+     -since this is potentially an educational project, always keep a short description on how the algorithm works
+      + wiki link and keep code easy to read
+  UI:
+     -pallete: 3 left color used for background/panels etc.., 3 right colors used for ui (button etc..)
+     -no UI focus
+     -all clickables should have a hand pointer 

@@ -1,0 +1,230 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/tests/algorithm_checker.gd" type="Script" id=1]
+[ext_resource path="res://resources/godot/algorithm_checker_theme.tres" type="Theme" id=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0.0823529, 0.470588, 0.54902, 1 )
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="algorithm_checker" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+script = ExtResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 960.0
+margin_bottom = 540.0
+color = Color( 0.27451, 0.258824, 0.368627, 1 )
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_right = 960.0
+margin_bottom = 540.0
+custom_constants/margin_right = 60
+custom_constants/margin_top = 12
+custom_constants/margin_left = 60
+custom_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_left = 60.0
+margin_top = 12.0
+margin_right = 900.0
+margin_bottom = 528.0
+custom_constants/separation = 20
+
+[node name="Sorter" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_right = 840.0
+margin_bottom = 65.0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Sorter"]
+margin_right = 840.0
+margin_bottom = 21.0
+text = "Choose a sorter:"
+align = 1
+
+[node name="Algorithms" type="PanelContainer" parent="MarginContainer/VBoxContainer/Sorter"]
+margin_top = 25.0
+margin_right = 840.0
+margin_bottom = 65.0
+rect_min_size = Vector2( 0, 40 )
+
+[node name="Options" type="HFlowContainer" parent="MarginContainer/VBoxContainer/Sorter/Algorithms"]
+margin_top = 20.0
+margin_right = 840.0
+margin_bottom = 20.0
+size_flags_vertical = 6
+custom_constants/hseparation = 20
+
+[node name="Method" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 85.0
+margin_right = 840.0
+margin_bottom = 150.0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Method"]
+margin_right = 840.0
+margin_bottom = 21.0
+text = "Choose the method:"
+align = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/Method"]
+margin_top = 25.0
+margin_right = 840.0
+margin_bottom = 65.0
+rect_min_size = Vector2( 0, 40 )
+
+[node name="Method" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Method/PanelContainer"]
+margin_top = 9.0
+margin_right = 840.0
+margin_bottom = 30.0
+size_flags_vertical = 6
+
+[node name="Next" type="CheckBox" parent="MarginContainer/VBoxContainer/Method/PanelContainer/Method"]
+margin_left = 153.0
+margin_right = 264.0
+margin_bottom = 21.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 6
+pressed = true
+text = "next_step()"
+
+[node name="Last" type="CheckBox" parent="MarginContainer/VBoxContainer/Method/PanelContainer/Method"]
+margin_left = 543.0
+margin_right = 718.0
+margin_bottom = 21.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 6
+text = "skip_to_last_step()"
+
+[node name="Data" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 170.0
+margin_right = 840.0
+margin_bottom = 235.0
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Data"]
+margin_right = 840.0
+margin_bottom = 21.0
+text = "Choose Input data:"
+align = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/Data"]
+margin_top = 25.0
+margin_right = 840.0
+margin_bottom = 65.0
+rect_min_size = Vector2( 0, 40 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Data/PanelContainer"]
+margin_top = 8.0
+margin_right = 840.0
+margin_bottom = 31.0
+size_flags_vertical = 6
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Data/PanelContainer/VBoxContainer"]
+margin_right = 840.0
+margin_bottom = 23.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Data/PanelContainer/VBoxContainer/HBoxContainer3"]
+margin_left = 123.0
+margin_right = 295.0
+margin_bottom = 23.0
+size_flags_horizontal = 6
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Data/PanelContainer/VBoxContainer/HBoxContainer3/HBoxContainer"]
+margin_top = 1.0
+margin_right = 90.0
+margin_bottom = 22.0
+text = "Array Size:"
+
+[node name="SpinBox" type="SpinBox" parent="MarginContainer/VBoxContainer/Data/PanelContainer/VBoxContainer/HBoxContainer3/HBoxContainer"]
+margin_left = 94.0
+margin_right = 172.0
+margin_bottom = 23.0
+mouse_default_cursor_shape = 2
+min_value = 10.0
+max_value = 0.0
+value = 10.0
+rounded = true
+allow_greater = true
+align = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Data/PanelContainer/VBoxContainer/HBoxContainer3"]
+margin_left = 551.0
+margin_right = 710.0
+margin_bottom = 23.0
+size_flags_horizontal = 6
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Data/PanelContainer/VBoxContainer/HBoxContainer3/HBoxContainer2"]
+margin_top = 1.0
+margin_right = 139.0
+margin_bottom = 22.0
+text = "Allow duplicates:"
+
+[node name="CheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/Data/PanelContainer/VBoxContainer/HBoxContainer3/HBoxContainer2"]
+margin_left = 143.0
+margin_right = 159.0
+margin_bottom = 23.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+
+[node name="InputOutput" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 255.0
+margin_right = 840.0
+margin_bottom = 516.0
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/InputOutput"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 838.0
+margin_bottom = 259.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/InputOutput/VBoxContainer"]
+margin_right = 836.0
+margin_bottom = 213.0
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/InputOutput/VBoxContainer/VBoxContainer"]
+margin_right = 836.0
+margin_bottom = 21.0
+text = "Result:"
+align = 1
+
+[node name="Console" type="RichTextLabel" parent="MarginContainer/VBoxContainer/InputOutput/VBoxContainer/VBoxContainer"]
+margin_top = 25.0
+margin_right = 836.0
+margin_bottom = 213.0
+size_flags_vertical = 3
+bbcode_enabled = true
+scroll_following = true
+deselect_on_focus_loss_enabled = false
+
+[node name="Run" type="PanelContainer" parent="MarginContainer/VBoxContainer/InputOutput/VBoxContainer"]
+margin_top = 217.0
+margin_right = 836.0
+margin_bottom = 257.0
+rect_min_size = Vector2( 0, 40 )
+
+[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/InputOutput/VBoxContainer/Run"]
+margin_left = 308.0
+margin_top = 2.0
+margin_right = 528.0
+margin_bottom = 37.0
+rect_min_size = Vector2( 220, 35 )
+focus_mode = 0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+text = "Run Test"
+
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/Data/PanelContainer/VBoxContainer/HBoxContainer3/HBoxContainer/SpinBox" to="." method="_on_array_size_changed"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/Data/PanelContainer/VBoxContainer/HBoxContainer3/HBoxContainer2/CheckBox" to="." method="_on_allow_duplicates_toggled"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/InputOutput/VBoxContainer/Run/Button" to="." method="_on_run_test_pressed"]
