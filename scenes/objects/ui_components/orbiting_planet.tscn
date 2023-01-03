@@ -17,7 +17,7 @@ script = ExtResource( 2 )
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 show_behind_parent = true
 emitting = false
-amount = 30
+amount = 32
 lifetime = 2.0
 local_coords = false
 spread = 180.0

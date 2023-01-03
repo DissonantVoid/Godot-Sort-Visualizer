@@ -5,6 +5,7 @@ signal moved
 onready var _particles : CPUParticles2D = $CPUParticles2D
 
 var _initial_size : Vector2
+var _initial_particles_scale : float
 var _pivot : Vector2
 var _center : Vector2
 var _rot_speed : float
@@ -19,6 +20,7 @@ var _curr_state : int = State.rotating
 func _ready():
 	set_process(false)
 	_initial_size = rect_size
+	_initial_particles_scale = _particles.scale_amount
 	_center = rect_size/2
 
 func _process(delta):
@@ -41,20 +43,20 @@ func setup(pivot : Vector2, start_position : Vector2):
 	_pivot = pivot
 	rect_global_position = start_position
 
-func reset(size_scale : float,
-			speed : float, start_angle : float):
+func reset(size_scale : float, speed : float,
+			start_angle : float, curr_zoom_modifier : float):
 	# reset
 	if _curr_state == State.moving_to:
 		_curr_state = State.rotating
 		_particles.emitting = false
 	
-	# TODO: this is broken, initial_size doens't take into account the zoom level
-	rect_size = _initial_size * size_scale
+	rect_size = _initial_size * size_scale / curr_zoom_modifier
 	_center = rect_size/2
 	
-	_rot_speed = speed
-	
 	_particles.position = _center
+	_particles.scale_amount = _initial_particles_scale / curr_zoom_modifier
+	
+	_rot_speed = speed
 	
 	# manual rotation so we can easily switch planets
 	_rotate(deg2rad(start_angle))
@@ -74,7 +76,9 @@ func modify_star_distance(modifier : float):
 	rect_size *= modifier
 	_center = rect_size/2
 	rect_global_position = _pivot + (distance * modifier) - _center
+	
 	_particles.position = _center
+	_particles.scale_amount *= modifier
 	
 	if _curr_state == State.moving_to:
 		# recalculate _move_target

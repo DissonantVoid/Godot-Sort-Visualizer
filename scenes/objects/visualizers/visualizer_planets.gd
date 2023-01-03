@@ -63,9 +63,18 @@ func _ready():
 func reset():
 	for i in _planets_count:
 		var planet := _planets_container.get_child(i)
+		
+		var zoom_modifier : float
+		match _zoom_level: # is this a stupid way to do this?
+			4: zoom_modifier = 1
+			3: zoom_modifier = 2
+			2: zoom_modifier = 4
+			1: zoom_modifier = 6
+		
 		planet.reset(
 			_rng.randf_range(_min_planet_scale, _max_planet_scale),
-			_rng.randf_range(_min_planet_speed, _max_planet_speed), _rng.randf_range(0, 360)
+			_rng.randf_range(_min_planet_speed, _max_planet_speed), _rng.randf_range(0, 360),
+			zoom_modifier
 		)
 
 # override
