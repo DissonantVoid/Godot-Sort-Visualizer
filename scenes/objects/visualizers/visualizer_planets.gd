@@ -3,7 +3,7 @@ extends "res://scenes/objects/visualizers/visualizer.gd"
 # TODO: this is still brocken, mess arround long enough (not that long)
 #       and things will start to break, planets will not switch places
 #       order will be all wrong, I don't even know man
-#       some of these issues can be fixed by using a camera to zoom
+#       most of these issues can be fixed by using a camera to zoom
 #       with a background that follows and scales with the camera,
 #       instead of all this smart-assing
 

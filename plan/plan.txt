@@ -1,4 +1,4 @@
-Current Task: refactoring/improvements (files, functions, signals, etc..)
+Current Task: saving options to file
 
 
 Todo:

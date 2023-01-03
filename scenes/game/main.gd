@@ -16,6 +16,8 @@ enum RunningMode {step, continuous}
 var _running_mode : int = RunningMode.step
 var _is_waiting_for_visualizer : bool = false
 
+var _settings_file_path : String
+var _settings_file : ConfigFile = ConfigFile.new()
 
 func _ready():
 	assert(_visualizer_path.is_empty() == false, "assign visualizer scene to main node")
@@ -30,6 +32,25 @@ func _ready():
 	_algo_picker.connect("options_changed", self, "_on_picker_options_changed")
 	_algo_picker.connect("button_pressed", self, "_on_picker_button_pressed")
 	_algo_picker.connect("ui_visibility_changed", self, "_on_picker_ui_visibility_changed")
+	
+	# create save file if doesn't exist
+	var dir : Directory = Directory.new()
+	if OS.has_feature("standalone"):
+		# TODO: not tested
+		_settings_file_path = OS.get_executable_path().get_base_dir() + "/settings"
+	else:
+		_settings_file_path = "res://settings"
+		
+	if dir.dir_exists(_settings_file_path) == false:
+		dir.make_dir(_settings_file_path)
+	
+	_settings_file_path += "/settings.cfg"
+	if dir.file_exists(_settings_file_path):
+		_settings_file.load(_settings_file_path)
+		# load from file
+		# TODO: config names (like time_per_step) are used twice
+		#       once here and once in _on_picker_options_changed, it's prone to errors
+		_time_per_step_ms = _settings_file.get_value("settings", "time_per_step", _time_per_step_ms)
 
 func _on_picker_algo_changed(new_sorter):
 	_current_sorter = new_sorter 
@@ -38,6 +59,9 @@ func _on_picker_algo_changed(new_sorter):
 func _on_picker_options_changed(data : Dictionary):
 	_time_per_step_ms = data["step_time"]
 	_continous_timer.wait_time = _time_per_step_ms / 1000
+	
+	_settings_file.set_value("settings", "time_per_step", _time_per_step_ms)
+	_settings_file.save(_settings_file_path)
 
 func _on_picker_button_pressed(button : String):
 	match button:
