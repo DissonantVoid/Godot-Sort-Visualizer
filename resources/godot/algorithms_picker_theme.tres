@@ -46,7 +46,6 @@ corner_radius_bottom_left = 1
 [sub_resource type="DynamicFont" id=2]
 size = 20
 use_mipmaps = true
-use_filter = true
 font_data = ExtResource( 1 )
 
 [resource]

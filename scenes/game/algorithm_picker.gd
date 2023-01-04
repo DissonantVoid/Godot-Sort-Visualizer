@@ -8,7 +8,7 @@ signal button_pressed(button)
 signal ui_visibility_changed(is_visible)
 
 onready var _content_container : PanelContainer = $VBoxContainer/Content
-onready var _selected_algo_label : Label = $VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Algorithm
+onready var _selected_algo_btn : Button = $VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Algorithm
 onready var _idle_buttons : HBoxContainer = $VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Idle
 onready var _running_buttons : HBoxContainer = $VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Running
 onready var _paused_buttons : HBoxContainer = $VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Paused
@@ -41,8 +41,7 @@ func show_options_popup(options : Dictionary):
 	get_tree().current_scene.add_child(instance)
 	instance.setup(options)
 
-func _on_title_gui_input(event):
-	if event is InputEventMouseButton && event.pressed && event.button_index == BUTTON_LEFT:
+func _on_title_pressed():
 		var instance := _algorithms_popup_scene.instance()
 		get_tree().current_scene.add_child(instance)
 		instance.connect("ok", self, "_on_algorithms_popup_ok")
@@ -89,7 +88,7 @@ func _on_button_clicked(button : String):
 func _on_algorithms_popup_ok(data : Dictionary):
 	emit_signal("algorithm_changed", load(data["path"]).new())
 	
-	_selected_algo_label.text = data["name"]
+	_selected_algo_btn.text = data["name"]
 	_toggle_button_group(_idle_buttons)
 	
 	for child in _idle_buttons.get_children():

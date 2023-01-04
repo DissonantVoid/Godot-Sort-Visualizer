@@ -53,7 +53,8 @@ func _ready():
 		_time_per_step_ms = _settings_file.get_value("settings", "time_per_step", _time_per_step_ms)
 
 func _on_picker_algo_changed(new_sorter):
-	_current_sorter = new_sorter 
+	_running_mode = RunningMode.step
+	_current_sorter = new_sorter
 	_reset()
 
 func _on_picker_options_changed(data : Dictionary):
@@ -132,4 +133,5 @@ func _reset():
 	_pause()
 	
 	_visualizer.reset()
+	_is_waiting_for_visualizer = false
 	_current_sorter.setup(_visualizer.get_content_count(), funcref(_visualizer, "determine_priority"))

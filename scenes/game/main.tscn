@@ -40,13 +40,13 @@ custom_constants/separation = 0
 
 [node name="Content" type="PanelContainer" parent="AlgorithmPicker/VBoxContainer"]
 margin_right = 960.0
-margin_bottom = 90.0
+margin_bottom = 78.0
 size_flags_vertical = 0
 custom_styles/panel = SubResource( 1 )
 
 [node name="MarginContainer" type="MarginContainer" parent="AlgorithmPicker/VBoxContainer/Content"]
 margin_right = 960.0
-margin_bottom = 88.0
+margin_bottom = 76.0
 custom_constants/margin_right = 6
 custom_constants/margin_left = 6
 custom_constants/margin_bottom = 6
@@ -54,12 +54,12 @@ custom_constants/margin_bottom = 6
 [node name="HBoxContainer" type="HBoxContainer" parent="AlgorithmPicker/VBoxContainer/Content/MarginContainer"]
 margin_left = 6.0
 margin_right = 954.0
-margin_bottom = 82.0
+margin_bottom = 70.0
 
 [node name="Options" type="Button" parent="AlgorithmPicker/VBoxContainer/Content/MarginContainer/HBoxContainer"]
-margin_top = 21.0
+margin_top = 15.0
 margin_right = 100.0
-margin_bottom = 61.0
+margin_bottom = 55.0
 rect_min_size = Vector2( 100, 40 )
 focus_mode = 0
 mouse_default_cursor_shape = 2
@@ -69,31 +69,31 @@ text = "Options"
 [node name="Center" type="VBoxContainer" parent="AlgorithmPicker/VBoxContainer/Content/MarginContainer/HBoxContainer"]
 margin_left = 334.0
 margin_right = 614.0
-margin_bottom = 82.0
+margin_bottom = 70.0
 rect_min_size = Vector2( 280, 0 )
 size_flags_horizontal = 6
 
-[node name="Algorithm" type="Label" parent="AlgorithmPicker/VBoxContainer/Content/MarginContainer/HBoxContainer/Center"]
+[node name="Algorithm" type="Button" parent="AlgorithmPicker/VBoxContainer/Content/MarginContainer/HBoxContainer/Center"]
 margin_right = 280.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 0, 40 )
-mouse_filter = 0
+margin_bottom = 28.0
+focus_mode = 0
 mouse_default_cursor_shape = 2
 custom_colors/font_color = Color( 1, 0.933333, 0.8, 1 )
+custom_colors/font_color_hover = Color( 1, 0.411765, 0.45098, 1 )
+custom_colors/font_color_pressed = Color( 1, 0.411765, 0.45098, 1 )
 custom_fonts/font = SubResource( 2 )
 text = "<Select Algorithm>"
-align = 1
-valign = 1
+flat = true
 
 [node name="HSeparator" type="HSeparator" parent="AlgorithmPicker/VBoxContainer/Content/MarginContainer/HBoxContainer/Center"]
-margin_top = 44.0
+margin_top = 32.0
 margin_right = 280.0
-margin_bottom = 48.0
+margin_bottom = 36.0
 
 [node name="Idle" type="HBoxContainer" parent="AlgorithmPicker/VBoxContainer/Content/MarginContainer/HBoxContainer/Center"]
-margin_top = 52.0
+margin_top = 40.0
 margin_right = 280.0
-margin_bottom = 82.0
+margin_bottom = 70.0
 
 [node name="Start" type="Button" parent="AlgorithmPicker/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Idle"]
 margin_right = 138.0
@@ -194,9 +194,9 @@ text = "Restart"
 
 [node name="Hide" type="Button" parent="AlgorithmPicker/VBoxContainer/Content/MarginContainer/HBoxContainer"]
 margin_left = 848.0
-margin_top = 21.0
+margin_top = 15.0
 margin_right = 948.0
-margin_bottom = 61.0
+margin_bottom = 55.0
 rect_min_size = Vector2( 100, 40 )
 focus_mode = 0
 mouse_default_cursor_shape = 2
@@ -205,16 +205,16 @@ size_flags_vertical = 6
 text = "Hide"
 
 [node name="Grabber" type="Control" parent="AlgorithmPicker/VBoxContainer"]
-margin_top = 90.0
+margin_top = 78.0
 margin_right = 960.0
-margin_bottom = 100.0
+margin_bottom = 88.0
 rect_min_size = Vector2( 0, 10 )
 
 [node name="ContinuousTimer" type="Timer" parent="."]
 one_shot = true
 
 [connection signal="pressed" from="AlgorithmPicker/VBoxContainer/Content/MarginContainer/HBoxContainer/Options" to="AlgorithmPicker" method="_on_button_clicked" binds= [ "options" ]]
-[connection signal="gui_input" from="AlgorithmPicker/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Algorithm" to="AlgorithmPicker" method="_on_title_gui_input"]
+[connection signal="pressed" from="AlgorithmPicker/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Algorithm" to="AlgorithmPicker" method="_on_title_pressed"]
 [connection signal="pressed" from="AlgorithmPicker/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Idle/Start" to="AlgorithmPicker" method="_on_button_clicked" binds= [ "start" ]]
 [connection signal="pressed" from="AlgorithmPicker/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Idle/NextStep" to="AlgorithmPicker" method="_on_button_clicked" binds= [ "next" ]]
 [connection signal="pressed" from="AlgorithmPicker/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Running/Pause" to="AlgorithmPicker" method="_on_button_clicked" binds= [ "pause" ]]
