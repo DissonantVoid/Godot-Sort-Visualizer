@@ -1,10 +1,9 @@
-Current Task: merge-sort
-Next Task:    refactoring, resolving TODOs
+Current Task: refactoring/resolving TODOs
+Next Task:    merge-sort
 
 
 Todo (also see in-code todos by searching in all files for "todo"):
 	-allow user to change visualizer scene at run-time
-	-save options to file
 	-replace some buttons with icons
 	-sfx
 	-disabled buttons don't look very disabled
@@ -30,4 +29,4 @@ Keep in mind:
   UI:
      -pallete: 3 left color used for background/panels etc.., 3 right colors used for ui (button etc..)
      -no UI focus
-     -all clickables should have a hand pointer 
+     -all clickables should have a hand pointer

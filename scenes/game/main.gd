@@ -84,7 +84,7 @@ func _on_picker_button_pressed(button : String):
 			_algo_picker.set_can_continue(false)
 			_visualizer.update_all(_current_sorter.skip_to_last_step())
 		"restart":
-			#_running_mode = RunningMode.step
+			_running_mode = RunningMode.step
 			_reset()
 
 func _on_visualizer_updated_indexes():
@@ -115,14 +115,14 @@ func _next_step():
 		_visualizer.finish()
 		_pause()
 	else:
-		assert(step_data.has("items"), "no 'items' entry in sorter.next_step() return")
-		assert(step_data["items"].size() == 2, "'items' entry in sorter.next_step() return must have 2 items")
+		assert(step_data.has("indexes"), "no 'indexes' entry in sorter.next_step() return")
+		assert(step_data["indexes"].size() == 2, "'indexes' entry in sorter.next_step() return must have 2 indexes")
 		
 		_is_waiting_for_visualizer = true
 		_algo_picker.set_can_continue(false)
 		
 		# NOTE: this line should be last in case update_indexes() emits immediately like in visualizer_rect
-		_visualizer.update_indexes(step_data["items"][0], step_data["items"][1])
+		_visualizer.update_indexes(step_data["indexes"][0], step_data["indexes"][1])
 
 func _pause():
 	if _continous_timer.is_stopped() == false:

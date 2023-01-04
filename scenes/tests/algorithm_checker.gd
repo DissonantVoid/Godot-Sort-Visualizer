@@ -76,6 +76,7 @@ func _on_run_test_pressed():
 			_current_arr[i] = _current_arr[rand_idx]
 			_current_arr[rand_idx] = temp_i
 	
+	#print("starting arr: " + str(_current_arr)) # TEMP
 	var sorter_object = load(AlgorithmsTracker.get_dict()[_selected_algorithm_name]).new()
 	sorter_object.setup(_array_size, funcref(self, "_is_bigger"))
 	
@@ -115,6 +116,7 @@ func _on_run_test_pressed():
 				var temp_idx1 : int = _current_arr[result["indexes"][0]]
 				_current_arr[result["indexes"][0]] = _current_arr[result["indexes"][1]]
 				_current_arr[result["indexes"][1]] = temp_idx1
+				#print(_current_arr) # TEMP
 				iterations += 1
 		if has_errors:
 			_print_console("sorter.next_step() encountered an error after " + str(iterations) + " iterations", true)

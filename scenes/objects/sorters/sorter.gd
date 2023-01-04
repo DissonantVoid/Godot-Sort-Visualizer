@@ -12,7 +12,7 @@ func setup(data_size : int, priority_callback : FuncRef):
 	_priority_callback = priority_callback
 
 # override, return {"done":is done sorting,
-#                   "items":(if "done" is true), 2 item indexes that were switched}
+#                   "indexes":(if "done" is true), array of 2 indexes that were switched}
 func next_step() -> Dictionary:
 	return {}
 
