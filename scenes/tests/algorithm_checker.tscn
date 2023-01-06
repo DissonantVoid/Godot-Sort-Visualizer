@@ -107,7 +107,7 @@ text = "skip_to_last_step()"
 [node name="Data" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 170.0
 margin_right = 840.0
-margin_bottom = 235.0
+margin_bottom = 243.0
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Data"]
 margin_right = 840.0
@@ -118,13 +118,12 @@ align = 1
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/Data"]
 margin_top = 25.0
 margin_right = 840.0
-margin_bottom = 65.0
+margin_bottom = 73.0
 rect_min_size = Vector2( 0, 40 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Data/PanelContainer"]
-margin_top = 8.0
 margin_right = 840.0
-margin_bottom = 31.0
+margin_bottom = 48.0
 size_flags_vertical = 6
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Data/PanelContainer/VBoxContainer"]
@@ -156,26 +155,49 @@ allow_greater = true
 align = 1
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Data/PanelContainer/VBoxContainer/HBoxContainer3"]
-margin_left = 551.0
-margin_right = 710.0
+margin_left = 550.0
+margin_right = 712.0
 margin_bottom = 23.0
 size_flags_horizontal = 6
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Data/PanelContainer/VBoxContainer/HBoxContainer3/HBoxContainer2"]
 margin_top = 1.0
-margin_right = 139.0
+margin_right = 142.0
 margin_bottom = 22.0
-text = "Allow duplicates:"
+text = "Allow Duplicates:"
 
 [node name="CheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/Data/PanelContainer/VBoxContainer/HBoxContainer3/HBoxContainer2"]
-margin_left = 143.0
-margin_right = 159.0
+margin_left = 146.0
+margin_right = 162.0
 margin_bottom = 23.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
 
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Data/PanelContainer/VBoxContainer"]
+margin_top = 27.0
+margin_right = 840.0
+margin_bottom = 48.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Data/PanelContainer/VBoxContainer/HBoxContainer"]
+margin_left = 362.0
+margin_right = 478.0
+margin_bottom = 21.0
+size_flags_horizontal = 6
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Data/PanelContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
+margin_right = 96.0
+margin_bottom = 21.0
+text = "Trace Steps"
+
+[node name="CheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/Data/PanelContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
+margin_left = 100.0
+margin_right = 116.0
+margin_bottom = 21.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+
 [node name="InputOutput" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 255.0
+margin_top = 263.0
 margin_right = 840.0
 margin_bottom = 516.0
 size_flags_vertical = 3
@@ -185,11 +207,11 @@ custom_styles/panel = SubResource( 1 )
 margin_left = 2.0
 margin_top = 2.0
 margin_right = 838.0
-margin_bottom = 259.0
+margin_bottom = 251.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/InputOutput/VBoxContainer"]
 margin_right = 836.0
-margin_bottom = 213.0
+margin_bottom = 205.0
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/InputOutput/VBoxContainer/VBoxContainer"]
@@ -201,16 +223,16 @@ align = 1
 [node name="Console" type="RichTextLabel" parent="MarginContainer/VBoxContainer/InputOutput/VBoxContainer/VBoxContainer"]
 margin_top = 25.0
 margin_right = 836.0
-margin_bottom = 213.0
+margin_bottom = 205.0
 size_flags_vertical = 3
 bbcode_enabled = true
 scroll_following = true
 deselect_on_focus_loss_enabled = false
 
 [node name="Run" type="PanelContainer" parent="MarginContainer/VBoxContainer/InputOutput/VBoxContainer"]
-margin_top = 217.0
+margin_top = 209.0
 margin_right = 836.0
-margin_bottom = 257.0
+margin_bottom = 249.0
 rect_min_size = Vector2( 0, 40 )
 
 [node name="Button" type="Button" parent="MarginContainer/VBoxContainer/InputOutput/VBoxContainer/Run"]
@@ -225,6 +247,17 @@ size_flags_horizontal = 6
 size_flags_vertical = 6
 text = "Run Test"
 
+[node name="Delete" type="Button" parent="MarginContainer/VBoxContainer/InputOutput/VBoxContainer/Run"]
+margin_left = 675.0
+margin_right = 836.0
+margin_bottom = 40.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 10
+text = "Delete Old Reports"
+
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/Data/PanelContainer/VBoxContainer/HBoxContainer3/HBoxContainer/SpinBox" to="." method="_on_array_size_changed"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/Data/PanelContainer/VBoxContainer/HBoxContainer3/HBoxContainer2/CheckBox" to="." method="_on_allow_duplicates_toggled"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/Data/PanelContainer/VBoxContainer/HBoxContainer/HBoxContainer/CheckBox" to="." method="_on_trace_steps_toggled"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/InputOutput/VBoxContainer/Run/Button" to="." method="_on_run_test_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/InputOutput/VBoxContainer/Run/Delete" to="." method="_on_delete_old_reports_pressed"]
