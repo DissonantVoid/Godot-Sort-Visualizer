@@ -24,8 +24,8 @@ func next_step() -> Dictionary:
 		for i in range(_curr_index, _data_size-1):
 			if _priority_callback.call_func(i, i+1):
 				changed = true
-				indexes.append(i+1)
 				indexes.append(i)
+				indexes.append(i+1)
 				_curr_index = i+1
 				break
 		

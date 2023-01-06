@@ -50,11 +50,12 @@ func next_step() -> Dictionary:
 					if  (_pending_switches.has([original_index, new_index]) ||
 							_pending_switches.has([new_index, original_index])) == false:
 						_pending_switches.append([original_index, new_index])
+					
+				if _pending_switches.empty() && _division_array.size() > 1:
+					# arrays merged perfectly without having to change indexes i,e [1,2,3] + [4,5,6]
+					should_skip_to_next = true
 				
-				# arrays merge perfectly without having to change indexes i,e [[1,2,3], [4,5,6]]
-				if _pending_switches.empty() && _division_array.size() > 1: should_skip_to_next = true
-				
-				print("switches:" + str(_pending_switches))
+				print("switches:" + str(_pending_switches)) # TEMP
 				break
 			else:
 				prev_subarrs_size += _division_array[i-1].size()
@@ -70,19 +71,12 @@ func next_step() -> Dictionary:
 		indexes_to_switch[0] = _pending_switches[0][0]
 		indexes_to_switch[1] = _pending_switches[0][1]
 		
-		# if another index is going to move to where this index is
-		# convert the 2 switches into 1 switch by removing the middle number, in other words
-		# say indexes_to_switch=[3, 2] and _pending_switches later has [1, 3]
-		# doing both switches will cause issues since by the time we do [1, 3], [3, 2] will already
-		# have happened meaning that index 3 was chaged, so instead we covert both merges into one:
-		# [1, 3]
-		for i in range(1, _pending_switches.size()):
-			var sub_arr : Array = _pending_switches[i]
-			for j in sub_arr.size():
-				if indexes_to_switch[0] == sub_arr[1]:
-					indexes_to_switch[0] = sub_arr[0]
-					_pending_switches.remove(i)
-					break # ??
+		# THIS is where we have a problem
+		# for example let's say that the array to sort is [7, 6, 3, 4, 0, 2, 1, 9, 5, 8]
+		# and _pending_switches = [[8, 0], [4, 2], [0, 3], [6, 5], [3, 7], [9, 8], [7, 9]]
+		# by the time we apply to 4th switch [3, 7], we would have already applied the 2nd switch
+		# [0, 3] meaning that the index 3 in [3, 7] will not be the same because it was switched with
+		# something else previously
 		
 		_pending_switches.remove(0)
 		
@@ -96,8 +90,6 @@ func skip_to_last_step() -> Array:
 	
 	return _divide_n_conquer_full(0, _data_size-1)
 
-# see this function for a pure implementation of merge sort
-# without all the state keeping
 func _divide_n_conquer_full(low_bound : int, high_bound : int) -> Array:
 	if low_bound == high_bound: # 1 item left
 		return [low_bound]
@@ -133,3 +125,6 @@ func _merge(first_half : Array, second_half : Array):
 		combined.append_array(second_half.slice(second_h_idx, second_half.size()-1))
 	
 	return combined
+
+func _compare_pending_switches(idx1 : int, idx2 : int) -> bool:
+	return _pending_switches[idx1][0] > _pending_switches[idx2][0]

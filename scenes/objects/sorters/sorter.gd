@@ -13,9 +13,13 @@ func setup(data_size : int, priority_callback : FuncRef):
 
 # override, return {"done":is done sorting,
 #                   "indexes":(if "done" is true), array of 2 indexes that were switched}
+# NOTE: in "indexes" the first index should preferably be smaller than the second, some visualizers
+#       use that, like visualizer_rect which uses that for accurate coloring 
 func next_step() -> Dictionary:
 	return {}
 
 # override, do all sorting and return new indexes
+#           this is where you implement the pure sorting algorithm
+#           without all the state keeping needed for next_step()
 func skip_to_last_step() -> Array:
 	return []

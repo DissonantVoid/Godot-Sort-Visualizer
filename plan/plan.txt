@@ -13,8 +13,12 @@ Todo (also see in-code todos by searching in all files for "todo"):
 
 Plan:
   -keep sorting implementation code independent so we can apply the sort on any custom scene
-  -sorters:  bubble-sort, selection-sort, insertion-sort, quick-sort, merge-sort, heap-sort, radix-sort
-             shell-sort,  gnome-sort    , bitonic-sort,   bogo-sort 
+  -sorters (easy to hard):
+		Bubble sort,   Selection sort,   Insertion sort
+		Gnome sort,    Shell sort,       Quick sort
+		Merge sort,    Heap sort,        Radix sort
+		Bitonic sort,  Bogo sort
+
   -visualizers:
       -planets of different sizes rotating arround a star, each step we switch position between 2 planets lol
       -humans shooting zombies, each human shoots a type of zombie, but each type require specific weapon
