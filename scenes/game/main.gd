@@ -5,7 +5,7 @@ extends Control
 
 export(NodePath) var _visualizer_path : NodePath
 
-onready var _algo_picker : MarginContainer = $AlgorithmPicker
+onready var _algo_picker : CanvasLayer = $AlgorithmPicker
 onready var _continous_timer : Timer = $ContinuousTimer
 onready var _visualizer : Control = get_node(_visualizer_path)
 

@@ -1,4 +1,4 @@
-extends MarginContainer
+extends CanvasLayer
 
 # TODO: change name, this does more than pick an algorithm,
 
@@ -7,12 +7,13 @@ signal options_changed(data) # data : dictionary
 signal button_pressed(button)
 signal ui_visibility_changed(is_visible)
 
-onready var _content_container : PanelContainer = $VBoxContainer/Content
-onready var _selected_algo_btn : Button = $VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Algorithm
-onready var _idle_buttons : HBoxContainer = $VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Idle
-onready var _running_buttons : HBoxContainer = $VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Running
-onready var _paused_buttons : HBoxContainer = $VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Paused
-onready var _restart_buttons : HBoxContainer = $VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Restart
+onready var _root_child : MarginContainer = $MarginContainer
+onready var _content_container : PanelContainer = $MarginContainer/VBoxContainer/Content
+onready var _selected_algo_btn : Button = $MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Algorithm
+onready var _idle_buttons : HBoxContainer = $MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Idle
+onready var _running_buttons : HBoxContainer = $MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Running
+onready var _paused_buttons : HBoxContainer = $MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Paused
+onready var _restart_buttons : HBoxContainer = $MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Restart
 
 const _options_popup_scene : PackedScene = preload("res://scenes/objects/ui_components/popups/algo_picker_options_popup.tscn")
 const _algorithms_popup_scene : PackedScene = preload("res://scenes/objects/ui_components/popups/algo_picker_algorithms_popup.tscn")
@@ -38,12 +39,12 @@ func set_can_continue(can_continue : bool):
 func show_options_popup(options : Dictionary):
 	var instance := _options_popup_scene.instance()
 	instance.connect("ok", self, "_on_options_popup_ok")
-	get_tree().current_scene.add_child(instance)
+	add_child(instance)
 	instance.setup(options)
 
 func _on_title_pressed():
 		var instance := _algorithms_popup_scene.instance()
-		get_tree().current_scene.add_child(instance)
+		add_child(instance)
 		instance.connect("ok", self, "_on_algorithms_popup_ok")
 
 func _on_button_clicked(button : String):
@@ -56,7 +57,7 @@ func _on_button_clicked(button : String):
 			emit_signal("ui_visibility_changed", false)
 			
 			var tween : SceneTreeTween = get_tree().create_tween()
-			tween.tween_property(self, "rect_position:y", -_content_container.rect_size.y, _moving_time)\
+			tween.tween_property(_root_child, "rect_position:y", -_content_container.rect_size.y, _moving_time)\
 			.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
 			yield(tween, "finished")
 			_is_hidden = true
@@ -104,7 +105,7 @@ func _on_grabber_mouse_entered():
 		emit_signal("ui_visibility_changed", true)
 		
 		var tween : SceneTreeTween = get_tree().create_tween()
-		tween.tween_property(self, "rect_position:y", 0.0, _moving_time)\
+		tween.tween_property(_root_child, "rect_position:y", 0.0, _moving_time)\
 		.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
 		
 		yield(tween, "finished")

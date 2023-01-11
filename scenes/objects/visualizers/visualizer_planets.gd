@@ -3,9 +3,6 @@ extends "res://scenes/objects/visualizers/visualizer.gd"
 # TODO: this is still brocken, mess arround long enough (not that long)
 #       and things will start to break, planets will not switch places
 #       order will be all wrong, I don't even know man
-#       most of these issues can be fixed by using a camera to zoom
-#       with a background that follows and scales with the camera,
-#       instead of all this smart-assing
 
 # TODO: this needs some more attention like planet speed changing
 #       based on zoom level, rotation speed based on distance from star
@@ -14,11 +11,18 @@ extends "res://scenes/objects/visualizers/visualizer.gd"
 
 onready var _planets_container : Control = $Planets
 onready var _star : TextureRect = $Star
+onready var _camera : Camera2D = $Camera2D
+onready var _background : ColorRect = $Camera2D/Background
 
-onready var _zoom_in_btn : Button = $Zoom/HBoxContainer/In
-onready var _zoom_out_btn : Button = $Zoom/HBoxContainer/Out
+onready var _zoom_in_btn : Button = $CanvasLayer/Zoom/HBoxContainer/In
+onready var _zoom_out_btn : Button = $CanvasLayer/Zoom/HBoxContainer/Out
 
 const _orbiting_planet_scene : PackedScene = preload("res://scenes/objects/ui_components/orbiting_planet.tscn")
+
+var _window_size : Vector2 = Vector2(
+	ProjectSettings.get_setting("display/window/size/width"),
+	ProjectSettings.get_setting("display/window/size/height")
+)
 
 var _star_center : Vector2
 const _planets_count : int = 8
@@ -61,17 +65,9 @@ func reset():
 	for i in _planets_count:
 		var planet := _planets_container.get_child(i)
 		
-		var zoom_modifier : float
-		match _zoom_level: # is this a stupid way to do this?
-			4: zoom_modifier = 1
-			3: zoom_modifier = 2
-			2: zoom_modifier = 4
-			1: zoom_modifier = 6
-		
 		planet.reset(
 			Utility.rng.randf_range(_min_planet_scale, _max_planet_scale),
-			Utility.rng.randf_range(_min_planet_speed, _max_planet_speed), Utility.rng.randf_range(0, 360),
-			zoom_modifier
+			Utility.rng.randf_range(_min_planet_speed, _max_planet_speed), Utility.rng.randf_range(0, 360)
 		)
 
 # override
@@ -127,11 +123,15 @@ func _on_zoom_pressed(is_in : bool):
 	_zoom_level += 1 if is_in else -1
 	var modifier_value : float = 2.0 if is_in else 0.5
 	
-	_star.rect_scale *= modifier_value
-	_star.rect_pivot_offset = _star.rect_size/2
-	for planet in _planets_container.get_children():
-		# shrink distance to star
-		planet.modify_star_distance(modifier_value)
+	var zoom_modifier : int
+	match _zoom_level: # TODO: this is a stupid way to do this?
+			4: zoom_modifier = 1
+			3: zoom_modifier = 2
+			2: zoom_modifier = 4
+			1: zoom_modifier = 6
+	_camera.zoom = Vector2.ONE * zoom_modifier
+	_background.rect_size = _window_size * zoom_modifier
+	_background.rect_position = -_background.rect_size/2
 	
 	if _zoom_out_btn.disabled:
 		_zoom_out_btn.disabled = false
