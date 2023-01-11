@@ -3,7 +3,7 @@ extends "res://scenes/objects/visualizers/visualizer.gd"
 onready var _board : TextureRect = $MarginContainer/MarginContainer/Board
 onready var _pieces_container : GridContainer = $MarginContainer/MarginContainer/Pieces
 
-var _rng : RandomNumberGenerator = RandomNumberGenerator.new()
+# TODO: add ui option to change _piece_size to 16
 const _piece_size : int = 32
 var _order : Array # idx : piece,   idx 1 is top left piece, idx size-1 is bottom right piece
 
@@ -11,8 +11,6 @@ const _switch_tween_time : float = 0.8
 
 
 func _ready():
-	_rng.randomize()
-	
 	_board.hide()
 	var board_size : Vector2 = _board.texture.get_size()
 	_pieces_container.columns = board_size.x/_piece_size
@@ -46,7 +44,7 @@ func reset():
 	# shuffle pieces
 	for i in _pieces_container.get_child_count():
 		_pieces_container.move_child(
-			_pieces_container.get_child(i), _rng.randi_range(0, _pieces_container.get_child_count()-1)
+			_pieces_container.get_child(i), Utility.rng.randi_range(0, _pieces_container.get_child_count()-1)
 		)
 
 # override

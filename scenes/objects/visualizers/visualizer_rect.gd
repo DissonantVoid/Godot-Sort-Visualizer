@@ -7,16 +7,12 @@ const _rect_width : float = 12.0
 const _rect_min_height : float = 10.0
 const _rect_max_height : float = 400.0
 
-var _rng : RandomNumberGenerator = RandomNumberGenerator.new()
-
 var _previously_switched : Array
 var _default_clr : Color = Color("ffeecc")
 var _selected_high_clr : Color = Color("ff6973")
 var _selected_low_clr : Color = Color("00b9be")
 
 func _ready():
-	_rng.randomize()
-	
 	for i in _rect_count:
 		var rect : ColorRect = ColorRect.new()
 		rect.color = _default_clr
@@ -31,7 +27,7 @@ func _ready():
 func reset():
 	_clear_colors()
 	for child in _rects_container.get_children():
-		child.rect_min_size.y = _rng.randf_range(_rect_min_height, _rect_max_height)
+		child.rect_min_size.y = Utility.rng.randf_range(_rect_min_height, _rect_max_height)
 
 # override
 func get_content_count() -> int:

@@ -9,7 +9,7 @@ extends "res://scenes/objects/visualizers/visualizer.gd"
 
 # TODO: this needs some more attention like planet speed changing
 #       based on zoom level, rotation speed based on distance from star
-#       diffrent planet art etc..
+#       different planet art etc..
 #       of course that's future me's problem and I'm not future me
 
 onready var _planets_container : Control = $Planets
@@ -20,7 +20,6 @@ onready var _zoom_out_btn : Button = $Zoom/HBoxContainer/Out
 
 const _orbiting_planet_scene : PackedScene = preload("res://scenes/objects/ui_components/orbiting_planet.tscn")
 
-var _rng : RandomNumberGenerator = RandomNumberGenerator.new()
 var _star_center : Vector2
 const _planets_count : int = 8
 const _planets_offset : float = 98.0 # initial offset from the sun
@@ -40,8 +39,6 @@ const _zoom_min : int = 1
 
 
 func _ready():
-	_rng.randomize()
-	
 	# removing the yield will cause _star_center to be 0,0 at start
 	# but only if visualizer_planets is not the root node
 	# not sure why but I suspect it has something to do with layout
@@ -72,8 +69,8 @@ func reset():
 			1: zoom_modifier = 6
 		
 		planet.reset(
-			_rng.randf_range(_min_planet_scale, _max_planet_scale),
-			_rng.randf_range(_min_planet_speed, _max_planet_speed), _rng.randf_range(0, 360),
+			Utility.rng.randf_range(_min_planet_scale, _max_planet_scale),
+			Utility.rng.randf_range(_min_planet_speed, _max_planet_speed), Utility.rng.randf_range(0, 360),
 			zoom_modifier
 		)
 

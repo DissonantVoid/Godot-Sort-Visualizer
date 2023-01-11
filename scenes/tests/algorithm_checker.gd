@@ -14,7 +14,6 @@ var _array_size : int = 10
 var _allow_duplicates : bool = false
 var _trace_steps : bool = false
 
-var _rng : RandomNumberGenerator = RandomNumberGenerator.new()
 const _max_printable_array_size : int = 30 # _current_arr is printed to console as long as it's smaller than this
 var _current_input : Array
 var _prev_report_end_idx_cache : int = -1
@@ -24,8 +23,6 @@ const _good_color : String = "#92e229"
 
 
 func _ready():
-	_rng.randomize()
-	
 	# algorithms
 	for key in AlgorithmsTracker.get_dict():
 		var box : CheckBox = CheckBox.new()
@@ -76,12 +73,12 @@ func _on_run_test_pressed():
 	_current_input.resize(_array_size)
 	if _allow_duplicates:
 		for i in _array_size:
-			_current_input[i] = _rng.randi_range(0, 100)
+			_current_input[i] = Utility.rng.randi_range(0, 100)
 	else:
 		for i in _array_size: _current_input[i] = i
 		
 		for i in _array_size:
-			var rand_idx : int = _rng.randi_range(0, _array_size-1)
+			var rand_idx : int = Utility.rng.randi_range(0, _array_size-1)
 			var temp_i : int = _current_input[i]
 			_current_input[i] = _current_input[rand_idx]
 			_current_input[rand_idx] = temp_i
