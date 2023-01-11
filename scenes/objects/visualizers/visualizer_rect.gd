@@ -59,14 +59,14 @@ func update_indexes(idx1 : int, idx2 : int):
 
 # override
 func update_all(new_indexes : Array):
-	var rects : Array
+	var ordered_rects : Array
 	for i in new_indexes:
-		rects.append(_rects_container.get_child(i))
+		ordered_rects.append(_rects_container.get_child(i))
 	
 	for i in range(_rects_container.get_child_count()-1, -1, -1):
 		_rects_container.remove_child(_rects_container.get_child(i))
 	
-	for rect in rects:
+	for rect in ordered_rects:
 		_rects_container.add_child(rect)
 	
 	emit_signal("updated_all")
@@ -78,6 +78,7 @@ func set_ui_visibility(is_visible : bool):
 # override
 func finish():
 	_clear_colors()
+	emit_signal("finished")
 
 func _clear_colors():
 	if _previously_switched.empty() == false:

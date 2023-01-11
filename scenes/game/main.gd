@@ -27,6 +27,7 @@ func _ready():
 	
 	_visualizer.connect("updated_indexes", self, "_on_visualizer_updated_indexes")
 	_visualizer.connect("updated_all", self, "_on_visualizer_updated_all")
+	_visualizer.connect("finished", self, "_on_visualizer_finished")
 	
 	_algo_picker.connect("algorithm_changed", self, "_on_picker_algo_changed")
 	_algo_picker.connect("options_changed", self, "_on_picker_options_changed")
@@ -99,6 +100,10 @@ func _on_visualizer_updated_all():
 	_algo_picker.set_can_continue(true)
 	_visualizer.finish()
 
+func _on_visualizer_finished():
+	_algo_picker.sorter_finished()
+	_pause()
+
 func _on_picker_ui_visibility_changed(is_visible : bool):
 	_visualizer.set_ui_visibility(is_visible)
 
@@ -112,9 +117,7 @@ func _next_step():
 	assert(step_data.has("done"), "no 'done' entry in sorter.next_step() return")
 	
 	if step_data["done"]:
-		_algo_picker.sorter_finished()
 		_visualizer.finish()
-		_pause()
 	else:
 		assert(step_data.has("indexes"), "no 'indexes' entry in sorter.next_step() return")
 		assert(step_data["indexes"].size() == 2, "'indexes' entry in sorter.next_step() return must have 2 indexes")

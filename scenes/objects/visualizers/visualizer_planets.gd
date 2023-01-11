@@ -116,7 +116,7 @@ func set_ui_visibility(is_visible : bool):
 
 # override
 func finish():
-	pass
+	emit_signal("finished")
 
 func _on_planet_moved():
 	_waiting_for_planets -= 1

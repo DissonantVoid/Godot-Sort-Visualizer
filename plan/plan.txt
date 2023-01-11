@@ -1,5 +1,5 @@
-Current Task: refactoring/resolving TODOs
-Next Task:    merge-sort
+Current Task: puzzle pieces
+Next Task:    refactoring/resolving TODOs and all sorts of cleaning
 
 
 Todo (also see in-code todos by searching in all files for "todo"):

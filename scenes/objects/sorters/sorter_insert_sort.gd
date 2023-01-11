@@ -21,6 +21,7 @@ func setup(data_size : int, priority_callback : FuncRef):
 func next_step() -> Dictionary:
 	if _curr_index == _data_size-1: return {"done":true}
 	
+	# TODO: still causes stackoverflow, investigate
 	if _curr_sub_idx == -1:
 		if _priority_callback.call_func(_curr_index, _curr_index+1):
 			_curr_sub_idx = _curr_index

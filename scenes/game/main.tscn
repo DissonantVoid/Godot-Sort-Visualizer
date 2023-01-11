@@ -3,7 +3,7 @@
 [ext_resource path="res://resources/godot/algorithms_picker_theme.tres" type="Theme" id=1]
 [ext_resource path="res://scenes/game/main.gd" type="Script" id=2]
 [ext_resource path="res://scenes/game/algorithm_picker.gd" type="Script" id=3]
-[ext_resource path="res://scenes/objects/visualizers/visualizer_rect.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/objects/visualizers/visualizer_puzzle_pieces.tscn" type="PackedScene" id=4]
 [ext_resource path="res://resources/fonts/libre-baskerville/LibreBaskerville-Bold.ttf" type="DynamicFontData" id=5]
 
 [sub_resource type="StyleBoxFlat" id=1]
@@ -21,9 +21,9 @@ font_data = ExtResource( 5 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )
-_visualizer_path = NodePath("VisualizerRect")
+_visualizer_path = NodePath("Visualizer")
 
-[node name="VisualizerRect" parent="." instance=ExtResource( 4 )]
+[node name="Visualizer" parent="." instance=ExtResource( 4 )]
 
 [node name="AlgorithmPicker" type="MarginContainer" parent="."]
 anchor_right = 1.0
