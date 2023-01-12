@@ -24,10 +24,10 @@ func next_step() -> Dictionary:
 		if _priority_callback.call_func(smallest_idx, j):
 				smallest_idx = j
 	
-	var return_ : Dictionary = {"done":false, "indexes":[_curr_index, smallest_idx]}
 	_curr_index += 1
-	
-	return return_
+	if smallest_idx == _curr_index-1: return next_step()
+	else:
+		return {"done":false, "indexes":[_curr_index-1, smallest_idx]}
 
 # override
 func skip_to_last_step() -> Array:
