@@ -1,7 +1,5 @@
 extends MarginContainer
 
-# TODO: add button to clear console
-
 onready var _algo_options_container : HFlowContainer = $MarginContainer/VBoxContainer/Sorter/Algorithms/Options
 onready var _methods_container : HBoxContainer = $MarginContainer/VBoxContainer/Method/PanelContainer/Method
 

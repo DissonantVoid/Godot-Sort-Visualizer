@@ -14,7 +14,8 @@ func setup(data_size : int, priority_callback : FuncRef):
 # override, return {"done":is done sorting,
 #                   "indexes":(if "done" is true), array of 2 indexes that were switched}
 # NOTE: in "indexes" the first index should preferably be smaller than the second, some visualizers
-#       use that, like visualizer_rect which uses that for accurate coloring 
+#       use that, like visualizer_rect which uses that for accurate coloring
+#       also indexes[0] should never equal to indexes[1]
 func next_step() -> Dictionary:
 	return {}
 

@@ -24,7 +24,8 @@ func setup(data_size : int, priority_callback : FuncRef):
 #       as much as I like a good challenge, I also know my limits, and have
 #       to leave it for now and come back in the future,
 func next_step() -> Dictionary:
-	# merge first 2 nums, then next 2. combine them into 4, then merge another 2 and 2 into 4
+	# start with array of arrays (_division_array) where each subarray contains 1 index
+	# merge first 2 indexes into 1 array, then next 2. combine them into 4, then merge another 2 and 2 into 4
 	# and merge the 4 and 4 into 8 etc.. it's like 2048 the game
 	# this way we can merge once, keep record of what has changed in that merge (_pending_switches)
 	# and for each call to this func, return 1 switch from the record, once the record is empty
@@ -32,11 +33,15 @@ func next_step() -> Dictionary:
 	var should_skip_to_next : bool = false
 	if _pending_switches.empty():
 		var prev_subarrs_size : int = 0 # size of all previous subarrays before _division_array[i-1]
-										# i.e index of first element in current subarray if _division_array was a 1d array instead of 2d
+										# in other words this converts the index of first element in current subarray
+										# from 2d to 1d
 		for i in range(1, _division_array.size()):
+			# everytime we have 2 subarrays with the same size next to each other we merge them
+			# we also merge if we have only 2 arrays left regardless of the size
 			if (_division_array[i-1].size() == _division_array[i].size() || 
 					_division_array.size() == 2):
-				# combine the two subarrays
+				
+				# merge the two subarrays
 				_division_array[i-1] = _merge(_division_array[i-1], _division_array[i])
 				_division_array.remove(i)
 				
@@ -46,9 +51,8 @@ func next_step() -> Dictionary:
 					
 					if original_index == new_index: continue
 					
-					# get rid of duplicates i.e [ [0,1], [1,0] ]
-					if  (_pending_switches.has([original_index, new_index]) ||
-							_pending_switches.has([new_index, original_index])) == false:
+					# get rid of inverted duplicates i.e [ [0,1], [1,0] ]
+					if  _pending_switches.has([new_index, original_index]) == false:
 						_pending_switches.append([original_index, new_index])
 					
 				if _pending_switches.empty() && _division_array.size() > 1:
