@@ -24,3 +24,9 @@ func next_step() -> Dictionary:
 #           without all the state keeping needed for next_step()
 func skip_to_last_step() -> Array:
 	return []
+
+# a helpful utility function
+func _swap(arr : Array, idx1 : int, idx2 : int):
+	var temp = arr[idx1]
+	arr[idx1] = arr[idx2]
+	arr[idx2] = temp

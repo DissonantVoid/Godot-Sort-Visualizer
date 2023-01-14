@@ -29,7 +29,7 @@ func next_step() -> Dictionary:
 		else: _curr_index += 1
 	else:
 		if _curr_sub_idx == 0: _curr_sub_idx = -1
-			
+		
 		for j in range(_curr_sub_idx, 0, -1):
 			var indexes_to_switch : Array
 			if _priority_callback.call_func(j-1, j):
@@ -54,14 +54,10 @@ func skip_to_last_step() -> Array:
 	
 	for i in indexes.size()-1: # NOTE: size()-1 is actually size()-2 because 'in' is exclusive
 		if _priority_callback.call_func(indexes[i], indexes[i+1]):
-			var temp_i : int = indexes[i]
-			indexes[i] = indexes[i+1]
-			indexes[i+1] = temp_i
+			_swap(indexes, i, i+1)
 			# keep swaping backward untill [i] is in the right position
 			for j in range(i, 0, -1):
 				if _priority_callback.call_func(indexes[j-1], indexes[j]):
-					var temp_j : int = indexes[j]
-					indexes[j] = indexes[j-1]
-					indexes[j-1] = temp_j
+					_swap(indexes, j, j-1)
 	
 	return indexes

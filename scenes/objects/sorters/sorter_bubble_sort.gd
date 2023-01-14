@@ -48,9 +48,7 @@ func skip_to_last_step() -> Array:
 		for i in range(0, _data_size-1):
 			if _priority_callback.call_func(indexes[i], indexes[i+1]):
 				changed = true
-				var temp_i = indexes[i]
-				indexes[i] = indexes[i+1]
-				indexes[i+1] = temp_i
+				_swap(indexes, i, i+1)
 		if changed == false: break
 	
 	return indexes

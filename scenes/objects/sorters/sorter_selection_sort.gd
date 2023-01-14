@@ -42,8 +42,6 @@ func skip_to_last_step() -> Array:
 			if _priority_callback.call_func(indexes[smallest_idx], indexes[j]):
 				smallest_idx = j
 				
-		var temp_i : int = indexes[i]
-		indexes[i] = indexes[smallest_idx]
-		indexes[smallest_idx] = temp_i
+		_swap(indexes, i, smallest_idx)
 	
 	return indexes
