@@ -1,14 +1,5 @@
 extends "res://scenes/objects/visualizers/visualizer.gd"
 
-# TODO: this is still brocken, mess arround long enough (not that long)
-#       and things will start to break, planets will not switch places
-#       order will be all wrong, I don't even know man
-
-# TODO: this needs some more attention like planet speed changing
-#       based on zoom level, rotation speed based on distance from star
-#       different planet art etc..
-#       of course that's future me's problem and I'm not future me
-
 onready var _planets_container : Control = $Planets
 onready var _star : TextureRect = $Star
 onready var _camera : Camera2D = $Camera2D
@@ -25,24 +16,29 @@ var _window_size : Vector2 = Vector2(
 )
 
 var _star_center : Vector2
-const _planets_count : int = 8
-const _planets_offset : float = 98.0 # initial offset from the sun
-const _planets_distance : float = 70.0
+const _planets_count : int = 10
+const _planets_offset : float = 140.0 # initial offset from the sun
+const _planets_distance : float = 80.0
 
 const _min_planet_scale : float = 0.4
-const _max_planet_scale : float = 2.1
-const _min_planet_speed : float = 4.0
-const _max_planet_speed : float = 36.0
+const _max_planet_scale : float = 2.8
+const _planets_speed_modifier : float = 0.2
+# used to determine planets orbit speed
+var _furthest_planet_distance : float =\
+	Vector2(_planets_offset + _planets_count * _planets_distance, 0).length()
 
 var _waiting_for_planets : int = 0
 var _is_updating_all : bool = false
 
-var _zoom_level : int = 4
-const _zoom_max : int = 4
-const _zoom_min : int = 1
+var _zoom_level : int = 1
+const _zoom_min : int = 0
+const _zoom_max : int = 3
 
 
 func _ready():
+	_background.rect_size = _window_size * 2
+	_background.rect_position = -_background.rect_size/2
+	
 	# removing the yield will cause _star_center to be 0,0 at start
 	# but only if visualizer_planets is not the root node
 	# not sure why but I suspect it has something to do with layout
@@ -65,9 +61,12 @@ func reset():
 	for i in _planets_count:
 		var planet := _planets_container.get_child(i)
 		
+		
 		planet.reset(
 			Utility.rng.randf_range(_min_planet_scale, _max_planet_scale),
-			Utility.rng.randf_range(_min_planet_speed, _max_planet_speed), Utility.rng.randf_range(0, 360)
+			_planets_speed_modifier * 
+				(_furthest_planet_distance - (planet.rect_global_position - _star_center).length()),
+			Utility.rng.randf_range(0, 360)
 		)
 
 # override
@@ -88,19 +87,26 @@ func update_indexes(idx1 : int, idx2 : int):
 	_planets_container.move_child(high_idx_child, low_idx_child.get_index())
 	_planets_container.move_child(low_idx_child, high_idx)
 	
-	low_idx_child.move_to(high_idx_child.rect_global_position + high_idx_child.rect_size/2)
-	high_idx_child.move_to(low_idx_child.rect_global_position + low_idx_child.rect_size/2)
+	low_idx_child.move_to(high_idx_child)
+	high_idx_child.move_to(low_idx_child)
 	_waiting_for_planets = 2
 
 # override
 func update_all(new_indexes : Array):
-	# TODO: order is not right
 	_is_updating_all = true
+	
+	var ordered_planets : Array
+	for i in new_indexes:
+		ordered_planets.append(_planets_container.get_child(i))
+	
+	# switch planets
 	for i in new_indexes.size():
 		if i != new_indexes[i]:
 			_waiting_for_planets += 1
-			var target_child : Control = _planets_container.get_child(new_indexes[i])
-			_planets_container.get_child(i).move_to(target_child.rect_global_position + target_child.rect_size/2)
+			var target_child := _planets_container.get_child(i)
+			_planets_container.get_child(new_indexes[i]).move_to(target_child)
+	
+	# no point in moving children in tree since reset() will be called after this anyway
 
 # override
 func set_ui_visibility(is_visible : bool):
@@ -115,30 +121,18 @@ func _on_planet_moved():
 	_waiting_for_planets -= 1
 	if _waiting_for_planets == 0:
 		if _is_updating_all:
+			_is_updating_all = false
 			emit_signal("updated_all")
 		else:
 			emit_signal("updated_indexes")
 
 func _on_zoom_pressed(is_in : bool):
-	_zoom_level += 1 if is_in else -1
-	var modifier_value : float = 2.0 if is_in else 0.5
+	_zoom_level += -1 if is_in else 1
 	
-	var zoom_modifier : int
-	match _zoom_level: # TODO: this is a stupid way to do this?
-			4: zoom_modifier = 1
-			3: zoom_modifier = 2
-			2: zoom_modifier = 4
-			1: zoom_modifier = 6
+	var zoom_modifier : int = pow(2, _zoom_level)
 	_camera.zoom = Vector2.ONE * zoom_modifier
 	_background.rect_size = _window_size * zoom_modifier
 	_background.rect_position = -_background.rect_size/2
 	
-	if _zoom_out_btn.disabled:
-		_zoom_out_btn.disabled = false
-	elif _zoom_level == _zoom_min:
-		_zoom_out_btn.disabled = true
-	
-	if _zoom_in_btn.disabled:
-		_zoom_in_btn.disabled = false
-	elif _zoom_level == _zoom_max:
-		_zoom_in_btn.disabled = true
+	_zoom_out_btn.disabled = _zoom_level == _zoom_max
+	_zoom_in_btn.disabled = _zoom_level == _zoom_min

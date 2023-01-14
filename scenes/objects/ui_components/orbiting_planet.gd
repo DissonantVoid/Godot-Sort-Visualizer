@@ -4,34 +4,58 @@ signal moved
 
 onready var _particles : CPUParticles2D = $CPUParticles2D
 
+const _default_ptcls_size : float = 4.0
+
 var _initial_size : Vector2
 var _pivot : Vector2
-var _center : Vector2
-var _rot_speed : float
+var _local_center : Vector2
+var _orbit_speed : float
 
-const _move_to_speed : float = 132.0
-var _move_target : Vector2
+const _move_to_speed : float = 0.6
+var _move_start : Vector2
+var _move_end : Vector2
+
+const _arc_height : float = 124.0
+var _arc_point : Vector2
+var _curr_arc_offset : float = 0 # [0 - 1]
 
 enum State {rotating, moving_to}
 var _curr_state : int = State.rotating
 
 
 func _ready():
+	# randomize texture
+	var tex_offsets : Array = [0, 32]
+	texture.region.position.x = tex_offsets[
+		Utility.rng.randi_range(0, tex_offsets.size()-1)
+	]
+	texture.region.position.y = tex_offsets[
+		Utility.rng.randi_range(0, tex_offsets.size()-1)
+	]
+	flip_h = bool(Utility.rng.randi_range(0,1))
+	flip_v = bool(Utility.rng.randi_range(0,1))
+	
 	set_process(false)
 	_initial_size = rect_size
-	_center = rect_size/2
+	_local_center = rect_size/2
 
 func _process(delta):
 	if _curr_state == State.rotating:
-		_rotate(deg2rad(_rot_speed * delta))
+		_rotate(deg2rad(_orbit_speed * delta))
 	
 	elif _curr_state == State.moving_to:
-		var direction : Vector2 = (_move_target - rect_global_position).normalized()
-		rect_global_position += _move_to_speed * direction * delta
+		# we use quadratic bezier curve (see docs.godotengine.org/en/stable/tutorials/math/beziers_and_curves.html)
+		# p0 is our pos
+		# p1 is half distance between p0 and p1 raised by _arc_height
+		# p2 is target pos
 		
-		# if close enough, snap into position
-		if rect_global_position.distance_to(_move_target) <= _move_to_speed/2:
-			rect_global_position = _move_target
+		var q0 : Vector2 = _move_start.linear_interpolate(_arc_point, _curr_arc_offset)
+		var q1 : Vector2 = _arc_point.linear_interpolate(_move_end, _curr_arc_offset)
+		var pos : Vector2 = q0.linear_interpolate(q1, _curr_arc_offset)
+		rect_global_position = pos
+		
+		_curr_arc_offset += _move_to_speed * delta
+		if _curr_arc_offset > 1.0:
 			_curr_state = State.rotating
 			_particles.emitting = false
 			
@@ -41,34 +65,49 @@ func setup(pivot : Vector2, start_position : Vector2):
 	_pivot = pivot
 	rect_global_position = start_position
 
-func reset(size_scale : float, speed : float, start_angle : float):
+func reset(size_scale : float, orbit_speed : float, start_angle : float):
 	# reset
 	if _curr_state == State.moving_to:
 		_curr_state = State.rotating
 		_particles.emitting = false
 	
 	rect_size = _initial_size * size_scale
-	_center = rect_size/2
-	_particles.position = _center
+	_local_center = rect_size/2
+	_particles.position = _local_center
+	_particles.scale_amount = _default_ptcls_size * size_scale
 	
-	_rot_speed = speed
+	_orbit_speed = orbit_speed
 	
 	# manual rotation so we can easily switch planets
 	_rotate(deg2rad(start_angle))
 	
 	set_process(true)
 
-func move_to(new_pos : Vector2):
-	_move_target = new_pos
+func move_to(other_planet):
+	_move_start = get_center()
+	_move_end = other_planet.get_center() - rect_size/2 # move our center to the new position
+	
+	var distance : Vector2 = _move_end - _move_start
+	_arc_point = (_move_start + distance/2) + Vector2(0, _arc_height).rotated(distance.normalized().angle())
+	
+	_curr_arc_offset = 0
+	
+	_orbit_speed = other_planet.get_orbit_speed()
 	_curr_state = State.moving_to
 	_particles.emitting = true
+
+func get_orbit_speed() -> float:
+	return _orbit_speed
 
 func get_size() -> Vector2:
 	return rect_size
 
+func get_center() -> Vector2:
+	return rect_global_position + rect_size/2
+
 func _rotate(angle_rad : float):
 	# credit: stackoverflow.com/questions/2259476/rotating-a-point-about-another-point-2d
-	var pivot_centered : Vector2 = _pivot - _center
+	var pivot_centered : Vector2 = _pivot - _local_center
 	
 	var angle_sin : float = sin(angle_rad)
 	var angle_cos : float = cos(angle_rad)

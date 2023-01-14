@@ -4,6 +4,7 @@
 [ext_resource path="res://scenes/objects/ui_components/orbiting_planet.gd" type="Script" id=2]
 
 [sub_resource type="AtlasTexture" id=1]
+resource_local_to_scene = true
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 32, 32 )
 
@@ -17,11 +18,11 @@ script = ExtResource( 2 )
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 show_behind_parent = true
 emitting = false
-amount = 32
-lifetime = 2.0
+amount = 24
+lifetime = 1.3
 local_coords = false
 spread = 180.0
 gravity = Vector2( 0, 0 )
 initial_velocity = 8.0
 initial_velocity_random = 1.0
-scale_amount = 4.0
+color = Color( 0, 0.72549, 0.745098, 1 )
