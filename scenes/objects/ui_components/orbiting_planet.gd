@@ -2,9 +2,12 @@ extends TextureRect
 
 signal moved
 
-onready var _particles : CPUParticles2D = $CPUParticles2D
+onready var _trail : Line2D = $Trail
 
-const _default_ptcls_size : float = 4.0
+const _default_line_width : float = 8.7
+const _max_trail_segments : int = 12
+const _next_trail_time : float = 0.07
+var _next_trail_timer : float
 
 var _initial_size : Vector2
 var _pivot : Vector2
@@ -24,6 +27,10 @@ var _curr_state : int = State.rotating
 
 
 func _ready():
+	# this is a bit hacky and has its problems
+	# but I think it's the best we can do
+	_trail.set_as_toplevel(true)
+	
 	# randomize texture
 	var tex_offsets : Array = [0, 32]
 	texture.region.position.x = tex_offsets[
@@ -54,10 +61,17 @@ func _process(delta):
 		var pos : Vector2 = q0.linear_interpolate(q1, _curr_arc_offset)
 		rect_global_position = pos
 		
+		_next_trail_timer -= delta
+		if _next_trail_timer <= 0:
+			_next_trail_timer = _next_trail_time
+			_trail.add_point(get_center())
+			if _trail.points.size() > _max_trail_segments:
+				_trail.remove_point(0)
+		
 		_curr_arc_offset += _move_to_speed * delta
 		if _curr_arc_offset > 1.0:
 			_curr_state = State.rotating
-			_particles.emitting = false
+			_trail.clear_points()
 			
 			emit_signal("moved")
 
@@ -69,13 +83,12 @@ func reset(size_scale : float, orbit_speed : float, start_angle : float):
 	# reset
 	if _curr_state == State.moving_to:
 		_curr_state = State.rotating
-		_particles.emitting = false
+		_trail.clear_points()
+		_next_trail_timer = 0
 	
 	rect_size = _initial_size * size_scale
 	_local_center = rect_size/2
-	_particles.position = _local_center
-	_particles.scale_amount = _default_ptcls_size * size_scale
-	
+	_trail.width = _default_line_width  * size_scale
 	_orbit_speed = orbit_speed
 	
 	# manual rotation so we can easily switch planets
@@ -91,10 +104,10 @@ func move_to(other_planet):
 	_arc_point = (_move_start + distance/2) + Vector2(0, _arc_height).rotated(distance.normalized().angle())
 	
 	_curr_arc_offset = 0
-	
 	_orbit_speed = other_planet.get_orbit_speed()
 	_curr_state = State.moving_to
-	_particles.emitting = true
+	
+	_next_trail_timer = _next_trail_time
 
 func get_orbit_speed() -> float:
 	return _orbit_speed
