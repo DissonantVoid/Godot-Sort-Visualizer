@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://scenes/objects/ui_components/popups/popup_base.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/objects/ui_components/popups/algo_picker_algorithms_popup.gd" type="Script" id=2]
+[ext_resource path="res://scenes/objects/components/popups/popup_base.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/objects/components/popups/popup_main_interface_algorithms.gd" type="Script" id=2]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0, 0.72549, 0.745098, 1 )
@@ -106,20 +106,6 @@ focus_mode = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 text = "Cancel"
-
-[node name="HBoxContainer" parent="Error" index="0"]
-margin_left = 0.0
-margin_top = 0.0
-margin_right = 120.0
-margin_bottom = 80.0
-
-[node name="Label" parent="Error/HBoxContainer" index="0"]
-margin_right = 120.0
-
-[node name="Button" parent="Error/HBoxContainer" index="1"]
-margin_top = 53.0
-margin_right = 120.0
-margin_bottom = 80.0
 
 [connection signal="pressed" from="Content/MarginContainer/Sure/Choice/OK" to="." method="_on_sure_ok_pressed"]
 [connection signal="pressed" from="Content/MarginContainer/Sure/Choice/Cancel" to="." method="_on_sure_cancel_pressed"]

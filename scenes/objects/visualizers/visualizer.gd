@@ -5,7 +5,7 @@ extends Control
 # we use these signals to allow visualizers to take their time and do any effects etc
 signal updated_indexes
 signal updated_all
-signal finished # TODO: bad name, also untested
+signal finished
 
 # override
 # NOTE: reset is called after an algorithm is chosen, so we can show a "default"
@@ -18,7 +18,7 @@ func reset():
 func get_content_count() -> int:
 	return 0
 
-# override, is item at idx1 bigger/better/etc.. than item at idx2 ?
+# override, is item at idx1 bigger/better/etc.. than item at idx2?
 # called after each sort, except the last one
 func determine_priority(idx1 : int, idx2 : int) -> bool:
 	return false
@@ -31,7 +31,7 @@ func update_indexes(idx1 : int, idx2 : int):
 func update_all(new_indexes : Array):
 	emit_signal("updated_all")
 
-# override, called when user hides or shows algorithm_picker panel
+# override, called when user hides or shows main_interface panel
 func set_ui_visibility(is_visible : bool):
 	pass
 

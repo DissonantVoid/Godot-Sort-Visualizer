@@ -6,28 +6,28 @@ extends "res://scenes/objects/sorters/sorter.gd"
 #
 # time complexity: O(N^2)
 
-var _curr_index : int = 0
+var _index : int = 0
 
 
 # override
 func setup(data_size : int, priority_callback : FuncRef):
 	.setup(data_size, priority_callback)
 	
-	_curr_index = 0
+	_index = 0
 
 # override
 func next_step() -> Dictionary:
-	if _curr_index == _data_size-1: return {"done":true}
+	if _index == _data_size-1: return {"done":true}
 	
-	var smallest_idx : int = _curr_index
-	for j in range(_curr_index+1, _data_size):
+	var smallest_idx : int = _index
+	for j in range(_index+1, _data_size):
 		if _priority_callback.call_func(smallest_idx, j):
 				smallest_idx = j
 	
-	_curr_index += 1
-	if smallest_idx == _curr_index-1: return next_step()
+	_index += 1
+	if smallest_idx == _index-1: return next_step()
 	else:
-		return {"done":false, "indexes":[_curr_index-1, smallest_idx]}
+		return {"done":false, "indexes":[_index-1, smallest_idx]}
 
 # override
 func skip_to_last_step() -> Array:

@@ -148,10 +148,9 @@ margin_right = 172.0
 margin_bottom = 23.0
 mouse_default_cursor_shape = 2
 min_value = 10.0
-max_value = 0.0
+max_value = 1000.0
 value = 10.0
 rounded = true
-allow_greater = true
 align = 1
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Data/PanelContainer/VBoxContainer/HBoxContainer3"]
@@ -172,6 +171,7 @@ margin_right = 162.0
 margin_bottom = 23.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
+pressed = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Data/PanelContainer/VBoxContainer"]
 margin_top = 27.0
@@ -248,9 +248,10 @@ size_flags_vertical = 6
 text = "Run Test"
 
 [node name="Delete" type="Button" parent="MarginContainer/VBoxContainer/InputOutput/VBoxContainer/Run"]
-margin_left = 675.0
+margin_left = 636.0
 margin_right = 836.0
 margin_bottom = 40.0
+rect_min_size = Vector2( 200, 0 )
 focus_mode = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 10

@@ -1,4 +1,4 @@
-extends "res://scenes/objects/ui_components/popups/popup_base.gd"
+extends "res://scenes/objects/components/popups/popup_base.gd"
 
 onready var _content_container : VBoxContainer = $Content/MarginContainer/VBoxContainer
 onready var _sure_container : VBoxContainer = $Content/MarginContainer/Sure
@@ -9,12 +9,12 @@ var _chosen_algo_path : String
 
 
 func _ready():
-	for key in AlgorithmsTracker.get_dict():
+	for key in FilesTracker.get_dict():
 		var btn : Button = Button.new()
 		btn.text = key
 		btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 		btn.focus_mode = Control.FOCUS_NONE
-		btn.theme = preload("res://resources/godot/algorithm_picker_popup_option.tres")
+		btn.theme = preload("res://resources/godot/main_interface_popup_option.tres")
 		_options_container.add_child(btn)
 		_options_container.add_child(HSeparator.new())
 		btn.connect("pressed", self, "_on_algo_option_pressed", [btn])
@@ -43,4 +43,4 @@ func _on_sure_cancel_pressed():
 
 func _on_algo_option_pressed(btn : Button):
 	_choice_label.text = btn.text
-	_chosen_algo_path = AlgorithmsTracker.get_dict()[btn.text] # since the btn text is also the dict key, we can just use it
+	_chosen_algo_path = FilesTracker.get_dict()[btn.text] # since the btn text is also the dict key, we can just use it

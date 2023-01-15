@@ -3,8 +3,7 @@ extends "res://scenes/objects/visualizers/visualizer.gd"
 onready var _board : TextureRect = $MarginContainer/MarginContainer/Board
 onready var _pieces_container : GridContainer = $MarginContainer/MarginContainer/Pieces
 
-# TODO: add ui option to change _piece_size to 16
-const _piece_size : int = 32
+const _piece_size : int = 32 # can also be 16, 64 etc..
 var _order : Array # idx : piece,   idx 1 is top left piece, idx size-1 is bottom right piece
 
 const _switch_tween_time : float = 0.8
@@ -58,12 +57,7 @@ func determine_priority(idx1 : int, idx2 : int) -> bool:
 
 # override
 func update_indexes(idx1 : int, idx2 : int):
-	var first_piece : TextureRect = _pieces_container.get_child(idx1)
-	var second_piece : TextureRect = _pieces_container.get_child(idx2)
-	
-	var first_piece_index : int = first_piece.get_index()
-	_pieces_container.move_child(first_piece, second_piece.get_index())
-	_pieces_container.move_child(second_piece, first_piece_index)
+	Utility.switch_children(_pieces_container, idx1, idx2)
 	
 	emit_signal("updated_indexes")
 

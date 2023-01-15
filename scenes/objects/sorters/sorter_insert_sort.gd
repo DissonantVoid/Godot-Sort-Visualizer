@@ -6,39 +6,39 @@ extends "res://scenes/objects/sorters/sorter.gd"
 #
 # time complexity: O(N^2)
 
-var _curr_index : int = 0
-var _curr_sub_idx : int = -1
+var _index : int = 0
+var _sub_idx : int = -1
 
 
 # override
 func setup(data_size : int, priority_callback : FuncRef):
 	.setup(data_size, priority_callback)
 	
-	_curr_index = 0
-	_curr_sub_idx = -1
+	_index = 0
+	_sub_idx = -1
 
 # override
 func next_step() -> Dictionary:
-	if _curr_index == _data_size-1: return {"done":true}
+	if _index == _data_size-1: return {"done":true}
 	
 	# TODO: still causes stackoverflow, investigate
-	if _curr_sub_idx == -1:
-		if _priority_callback.call_func(_curr_index, _curr_index+1):
-			_curr_sub_idx = _curr_index
-			return {"done":false, "indexes":[_curr_index, _curr_index+1]}
-		else: _curr_index += 1
+	if _sub_idx == -1:
+		if _priority_callback.call_func(_index, _index+1):
+			_sub_idx = _index
+			return {"done":false, "indexes":[_index, _index+1]}
+		else: _index += 1
 	else:
-		if _curr_sub_idx == 0: _curr_sub_idx = -1
+		if _sub_idx == 0: _sub_idx = -1
 		
-		for j in range(_curr_sub_idx, 0, -1):
+		for j in range(_sub_idx, 0, -1):
 			var indexes_to_switch : Array
 			if _priority_callback.call_func(j-1, j):
 				indexes_to_switch = [j-1, j]
 			
 			if j == 1:
-				_curr_sub_idx = -1
-				_curr_index += 1
-			else: _curr_sub_idx -= 1
+				_sub_idx = -1
+				_index += 1
+			else: _sub_idx -= 1
 			
 			if indexes_to_switch: return {"done":false, "indexes":indexes_to_switch}
 	

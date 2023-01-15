@@ -6,30 +6,30 @@ extends "res://scenes/objects/sorters/sorter.gd"
 #
 # time complexity: O(N^2)
 
-var _curr_index : int = 0
+var _index : int = 0
 
 
 # override
 func setup(data_size : int, priority_callback : FuncRef):
 	.setup(data_size, priority_callback)
 	
-	_curr_index = 0
+	_index = 0
 
 # override
 func next_step() -> Dictionary:
 	# really surprised by how much simpler next_step() is compared to
 	# insert_sort.next_step(), such big difference just by changing one rule
 	
-	if _curr_index == _data_size-1: return {"done":true}
+	if _index == _data_size-1: return {"done":true}
 	
-	if _priority_callback.call_func(_curr_index, _curr_index+1):
-		var indexes_to_change : Array = [_curr_index, _curr_index+1]
+	if _priority_callback.call_func(_index, _index+1):
+		var indexes_to_change : Array = [_index, _index+1]
 		
-		if _curr_index > 0: _curr_index -= 1
-		else: _curr_index += 1
+		if _index > 0: _index -= 1
+		else: _index += 1
 		return {"done":false, "indexes":indexes_to_change}
 	else: 
-		_curr_index += 1
+		_index += 1
 		return next_step()
 
 # override

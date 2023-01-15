@@ -31,6 +31,10 @@ func _ready():
 	# but I think it's the best we can do
 	_trail.set_as_toplevel(true)
 	
+	set_process(false)
+	_initial_size = rect_size
+	_local_center = rect_size/2
+	
 	# randomize texture
 	var tex_offsets : Array = [0, 32]
 	texture.region.position.x = tex_offsets[
@@ -41,10 +45,6 @@ func _ready():
 	]
 	flip_h = bool(Utility.rng.randi_range(0,1))
 	flip_v = bool(Utility.rng.randi_range(0,1))
-	
-	set_process(false)
-	_initial_size = rect_size
-	_local_center = rect_size/2
 
 func _process(delta):
 	if _curr_state == State.rotating:
@@ -104,10 +104,14 @@ func move_to(other_planet):
 	_arc_point = (_move_start + distance/2) + Vector2(0, _arc_height).rotated(distance.normalized().angle())
 	
 	_curr_arc_offset = 0
-	_orbit_speed = other_planet.get_orbit_speed()
 	_curr_state = State.moving_to
-	
 	_next_trail_timer = _next_trail_time
+	
+	# don't change orbit speed immediately because other_planet
+	# will also call our get_orbit_speed()
+	var new_orbit_speed : float = other_planet.get_orbit_speed()
+	yield(get_tree(),"idle_frame")
+	_orbit_speed = new_orbit_speed
 
 func get_orbit_speed() -> float:
 	return _orbit_speed

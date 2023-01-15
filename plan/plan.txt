@@ -7,9 +7,6 @@ Todo (also see in-code todos by searching in all files for "todo"):
 	-replace some buttons with icons
 	-sfx
 	-disabled buttons don't look very disabled
-        -add a benchmark scene that runs all available algorithms with a timer
-        -reorganize themes, see if we can have theme inheritence, keep things organized early so we don't get overwhelmed
-         like that one time :'(
 
 Plan:
   -keep sorting implementation code independent so we can apply the sort on any custom scene
@@ -20,7 +17,6 @@ Plan:
 		[ ] Bitonic sort,  [ ] Bogo sort
 
   -visualizers:
-      -planets of different sizes rotating arround a star, each step we switch position between 2 planets lol
       -humans shooting zombies, each human shoots a type of zombie, but each type require specific weapon
       -lazers of different colors shooting inputs of matching colors, need sorting
       -bunch of cakes in unmatching boxes, on each sort 2 cakes are moved into a conveyor belt

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://scenes/objects/ui_components/popups/popup_base.gd" type="Script" id=1]
+[ext_resource path="res://scenes/objects/components/popups/popup_base.gd" type="Script" id=1]
 [ext_resource path="res://resources/godot/popup_theme.tres" type="Theme" id=2]
 [ext_resource path="res://resources/fonts/libre-baskerville/LibreBaskerville-Bold.ttf" type="DynamicFontData" id=3]
 
@@ -82,33 +82,39 @@ mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 text = "Cancel"
 
-[node name="Error" type="PanelContainer" parent="."]
+[node name="Error" type="MarginContainer" parent="."]
 visible = false
 margin_left = 420.0
-margin_top = 460.0
+margin_top = 524.0
 margin_right = 540.0
 margin_bottom = 540.0
-rect_min_size = Vector2( 120, 80 )
 size_flags_horizontal = 6
 size_flags_vertical = 10
+custom_constants/margin_bottom = 12
 
-[node name="HBoxContainer" type="VBoxContainer" parent="Error"]
+[node name="Error" type="PanelContainer" parent="Error"]
+margin_right = 120.0
+margin_bottom = 4.0
+rect_min_size = Vector2( 120, 0 )
+
+[node name="HBoxContainer" type="VBoxContainer" parent="Error/Error"]
 margin_left = 2.0
 margin_top = 2.0
 margin_right = 118.0
-margin_bottom = 78.0
+margin_bottom = 60.0
 
-[node name="Label" type="Label" parent="Error/HBoxContainer"]
+[node name="Label" type="Label" parent="Error/Error/HBoxContainer"]
 margin_right = 116.0
 margin_bottom = 26.0
-custom_colors/font_color = Color( 1, 0.411765, 0.45098, 1 )
+size_flags_vertical = 1
+custom_colors/font_color = Color( 1, 0.690196, 0.639216, 1 )
 text = "Error: ..."
 align = 1
 
-[node name="Button" type="Button" parent="Error/HBoxContainer"]
-margin_top = 48.0
+[node name="Button" type="Button" parent="Error/Error/HBoxContainer"]
+margin_top = 30.0
 margin_right = 116.0
-margin_bottom = 76.0
+margin_bottom = 58.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
 size_flags_vertical = 10
@@ -117,4 +123,4 @@ text = "Close"
 [connection signal="gui_input" from="Background" to="." method="_on_background_gui_input"]
 [connection signal="pressed" from="Content/MarginContainer/VBoxContainer/Choice/OK" to="." method="_on_ok_pressed"]
 [connection signal="pressed" from="Content/MarginContainer/VBoxContainer/Choice/Cancel" to="." method="_on_cancel_pressed"]
-[connection signal="pressed" from="Error/HBoxContainer/Button" to="." method="_on_close_error_pressed"]
+[connection signal="pressed" from="Error/Error/HBoxContainer/Button" to="." method="_on_close_error_pressed"]

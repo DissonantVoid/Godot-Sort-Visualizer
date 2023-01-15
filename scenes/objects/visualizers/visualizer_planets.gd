@@ -8,7 +8,7 @@ onready var _background : ColorRect = $Camera2D/Background
 onready var _zoom_in_btn : Button = $CanvasLayer/Zoom/HBoxContainer/In
 onready var _zoom_out_btn : Button = $CanvasLayer/Zoom/HBoxContainer/Out
 
-const _orbiting_planet_scene : PackedScene = preload("res://scenes/objects/ui_components/orbiting_planet.tscn")
+const _orbiting_planet_scene : PackedScene = preload("res://scenes/objects/components/orbiting_planet.tscn")
 
 var _window_size : Vector2 = Vector2(
 	ProjectSettings.get_setting("display/window/size/width"),
@@ -61,7 +61,6 @@ func reset():
 	for i in _planets_count:
 		var planet := _planets_container.get_child(i)
 		
-		
 		planet.reset(
 			Utility.rng.randf_range(_min_planet_scale, _max_planet_scale),
 			_planets_speed_modifier * 
@@ -80,15 +79,13 @@ func determine_priority(idx1 : int, idx2 : int) -> bool:
 
 # override
 func update_indexes(idx1 : int, idx2 : int):
-	var low_idx_child := _planets_container.get_child(min(idx1, idx2))
-	var high_idx : int = max(idx1, idx2)
-	var high_idx_child := _planets_container.get_child(high_idx)
+	var child1 := _planets_container.get_child(idx1)
+	var child2 := _planets_container.get_child(idx2)
+	child1.move_to(child2)
+	child2.move_to(child1)
 	
-	_planets_container.move_child(high_idx_child, low_idx_child.get_index())
-	_planets_container.move_child(low_idx_child, high_idx)
+	Utility.switch_children(_planets_container, idx1, idx2)
 	
-	low_idx_child.move_to(high_idx_child)
-	high_idx_child.move_to(low_idx_child)
 	_waiting_for_planets = 2
 
 # override

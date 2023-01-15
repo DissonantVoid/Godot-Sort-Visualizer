@@ -3,8 +3,8 @@ extends Control
 signal ok(data) # data : dictionary
 signal cancel
 
-onready var _error_panel : PanelContainer = $Error
-onready var _error_txt : Label = $Error/HBoxContainer/Label
+onready var _error_panel : MarginContainer = $Error
+onready var _error_txt : Label = $Error/Error/HBoxContainer/Label
 
 const _err_show_time : float = 0.3
 

@@ -1,0 +1,19 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type canvas_item;
+
+const vec3 color = vec3(1, 0.93, 0.8);
+const float glow_speed = 2.6;
+
+// credit: stackoverflow.com/questions/10756313/javascript-jquery-map-a-range-of-numbers-to-another-range-of-numbers
+float map(float value, float min_, float max_, float new_min, float new_max)
+{
+	return (value - min_) * (new_max - new_min) / (max_ - min_) + new_min;
+}
+
+void fragment()
+{
+	COLOR.rgb = color;
+	COLOR.a = map(sin(TIME * glow_speed), -1, 1, 0.2, 0.4);
+}"

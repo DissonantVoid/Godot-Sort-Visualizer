@@ -5,6 +5,7 @@ var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 func _init():
 	rng.randomize()
 
+# should this be in visualizer.gd just like _swap() is in sorter.gd ?
 static func switch_children(parent : Node, child1_idx : int, child2_idx : int):
 	var low_idx_child := parent.get_child(min(child1_idx, child2_idx))
 	var high_idx : int = max(child1_idx, child2_idx)

@@ -16,7 +16,7 @@ func _ready():
 	for i in _rect_count:
 		var rect : ColorRect = ColorRect.new()
 		rect.color = _default_clr
-		rect.size_flags_horizontal = SIZE_EXPAND # no SIZE_NONE ???
+		rect.size_flags_horizontal = 0 # no SIZE_NONE ???
 		rect.size_flags_vertical = SIZE_SHRINK_END
 		rect.rect_min_size.x = _rect_width
 		rect.rect_min_size.y = _rect_max_height

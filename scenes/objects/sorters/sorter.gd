@@ -7,7 +7,7 @@ var _priority_callback : FuncRef
 
 # override
 func setup(data_size : int, priority_callback : FuncRef):
-	# NOTE: this can be called at any time so don't forget to cleanup
+	# NOTE: this is called any time we press restart so don't forget to cleanup
 	_data_size = data_size
 	_priority_callback = priority_callback
 
