@@ -134,9 +134,9 @@ func _rotate(angle_rad : float):
 	
 	# rotate point
 	var x_new : float = rect_global_position.x * angle_cos -\
-				rect_global_position.y * angle_sin;
+				rect_global_position.y * angle_sin
 	var y_new : float = rect_global_position.x * angle_sin +\
-				rect_global_position.y * angle_cos;
+				rect_global_position.y * angle_cos
 	
 	# translate point back:
-	rect_global_position = Vector2(x_new + pivot_centered.x, y_new + pivot_centered.y);
+	rect_global_position = Vector2(x_new + pivot_centered.x, y_new + pivot_centered.y)
