@@ -6,8 +6,8 @@ extends "res://scenes/objects/sorters/sorter.gd"
 #
 # time complexity: O(N^2)
 
-var _index : int = 0
-var _sub_idx : int = -1
+var _index : int
+var _sub_idx : int
 
 
 # override
@@ -21,7 +21,6 @@ func setup(data_size : int, priority_callback : FuncRef):
 func next_step() -> Dictionary:
 	if _index == _data_size-1: return {"done":true}
 	
-	# TODO: still causes stackoverflow, investigate
 	if _sub_idx == -1:
 		if _priority_callback.call_func(_index, _index+1):
 			_sub_idx = _index

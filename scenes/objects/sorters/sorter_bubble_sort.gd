@@ -6,7 +6,7 @@ extends "res://scenes/objects/sorters/sorter.gd"
 #
 # time complexity: O(N^2)
 
-var _index : int = 0
+var _index : int
 
 
 # override
