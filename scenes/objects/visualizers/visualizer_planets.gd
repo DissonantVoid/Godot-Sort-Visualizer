@@ -78,13 +78,19 @@ func determine_priority(idx1 : int, idx2 : int) -> bool:
 			_planets_container.get_child(idx2).get_size()
 
 # override
-func update_indexes(idx1 : int, idx2 : int):
-	var child1 := _planets_container.get_child(idx1)
-	var child2 := _planets_container.get_child(idx2)
-	child1.move_to(child2)
-	child2.move_to(child1)
-	
-	Utility.switch_children(_planets_container, idx1, idx2)
+func update_indexes(action : int, idx1 : int, idx2 : int):
+	match action:
+		Sorter.SortAction.switch:
+			var child1 := _planets_container.get_child(idx1)
+			var child2 := _planets_container.get_child(idx2)
+			child1.move_to(child2)
+			child2.move_to(child1)
+			
+			Utility.switch_children(_planets_container, idx1, idx2)
+		
+		Sorter.SortAction.move:
+			# TODO after implementing merge or quick sort
+			pass
 	
 	_waiting_for_planets = 2
 

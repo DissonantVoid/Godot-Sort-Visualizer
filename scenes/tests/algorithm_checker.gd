@@ -112,18 +112,29 @@ func _on_run_test_pressed():
 			
 			if result["done"]: break
 			else:
-				if result.has("indexes") == false:
-					_print_console("sorter.next_step() return doesn't contain 'indexes' entry", _bad_color)
-					has_errors = true
-					break
+				var incomplete_entry_err : String
+				if result.has("action") == false:
+					incomplete_entry_err =\
+						"sorter.next_step() return doesn't contain 'action' entry"
+				elif Sorter.SortAction.values().has(result["action"]) == false:
+					incomplete_entry_err =\
+						"sorter.next_step() 'action' entry isn't of type Sorter.SortAction"
+				elif result.has("indexes") == false:
+					incomplete_entry_err =\
+						"sorter.next_step() return doesn't contain 'indexes' entry"
 				elif result["indexes"].size() != 2:
-					_print_console("sorter.next_step() 'indexes' entry must contain 2 entries", _bad_color)
+					incomplete_entry_err =\
+						"sorter.next_step() 'indexes' entry must contain 2 entries"
+				
+				if incomplete_entry_err.empty() == false:
+					_print_console(incomplete_entry_err, _bad_color)
 					has_errors = true
 					break
 				
-				var temp_idx1 : int = _current_input[result["indexes"][0]]
-				_current_input[result["indexes"][0]] = _current_input[result["indexes"][1]]
-				_current_input[result["indexes"][1]] = temp_idx1
+				if result["action"] == Sorter.SortAction.switch:
+					Utility.swap(_current_input, result["indexes"][0], result["indexes"][1])
+				elif result["action"] == Sorter.SortAction.move:
+					Utility.move_element(_current_input, result["indexes"][0], result["indexes"][1])
 				
 				if can_trace_steps:
 					# output _current_input while highlighting the 2 indexes that were switched
@@ -149,7 +160,10 @@ func _on_run_test_pressed():
 	else: # skip_to_last_step()
 		var new_indexes : Array = sorter_object.skip_to_last_step()
 		if new_indexes.size() != _current_input.size():
-			_print_console("returned array size doesn't match input array size", _bad_color)
+			_print_console(
+				"returned array size (" + str(new_indexes.size()) +
+				") doesn't match input array size (" + str(_current_input.size()) + ")", _bad_color
+			)
 			has_errors = true
 		else:
 			var new_arr : Array

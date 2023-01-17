@@ -6,7 +6,7 @@ onready var _interface : CanvasLayer = $MainInterface
 onready var _continous_timer : Timer = $ContinuousTimer
 onready var _visualizer : Control = get_node(_visualizer_path)
 
-var _sorter = null
+var _sorter : Sorter = null
 
 enum RunningMode {step, continuous} # step requires user input to do next sort, continous relies on timer
 var _running_mode : int = RunningMode.step
@@ -137,11 +137,14 @@ func _next_step():
 			_continous_timer.stop()
 		_visualizer.finish()
 	else:
+		assert(step_data.has("action"), "no 'action' entry in sorter.next_step() return")
+		assert(Sorter.SortAction.values().has(step_data["action"]), " action' entry in sorter.next_step() isn't of type Sorter.SortAction")
+		
 		assert(step_data.has("indexes"), "no 'indexes' entry in sorter.next_step() return")
 		assert(step_data["indexes"].size() == 2, "'indexes' entry in sorter.next_step() return must have 2 indexes")
 		
 		# NOTE: this line should be last in case update_indexes() emits immediately like in visualizer_rect
-		_visualizer.update_indexes(step_data["indexes"][0], step_data["indexes"][1])
+		_visualizer.update_indexes(step_data["action"], step_data["indexes"][0], step_data["indexes"][1])
 
 func _reset():
 	_continous_timer.stop()

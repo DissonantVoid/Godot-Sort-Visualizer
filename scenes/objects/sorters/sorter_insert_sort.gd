@@ -24,7 +24,7 @@ func next_step() -> Dictionary:
 	if _sub_idx == -1:
 		if _priority_callback.call_func(_index, _index+1):
 			_sub_idx = _index
-			return {"done":false, "indexes":[_index, _index+1]}
+			return {"done":false, "action":SortAction.switch, "indexes":[_index, _index+1]}
 		else: _index += 1
 	else:
 		if _sub_idx == 0: _sub_idx = -1
@@ -39,7 +39,7 @@ func next_step() -> Dictionary:
 				_index += 1
 			else: _sub_idx -= 1
 			
-			if indexes_to_switch: return {"done":false, "indexes":indexes_to_switch}
+			if indexes_to_switch: return {"done":false, "action":SortAction.switch, "indexes":indexes_to_switch}
 	
 	# if we reached this point, it means that i and i+1 are sorted,
 	# or all indexes before i are sorted
@@ -53,10 +53,10 @@ func skip_to_last_step() -> Array:
 	
 	for i in indexes.size()-1: # NOTE: size()-1 is actually size()-2 because 'in' is exclusive
 		if _priority_callback.call_func(indexes[i], indexes[i+1]):
-			_swap(indexes, i, i+1)
+			Utility.swap(indexes, i, i+1)
 			# keep swaping backward untill [i] is in the right position
 			for j in range(i, 0, -1):
 				if _priority_callback.call_func(indexes[j-1], indexes[j]):
-					_swap(indexes, j, j-1)
+					Utility.swap(indexes, j, j-1)
 	
 	return indexes

@@ -1,18 +1,19 @@
-Current Task: shell sort and quick sort
+Current Task: merge sort and quick sort
 Next Task: ability to change visualizer at run-time
 
 
 Todo (also see in-code todos by searching in all files for "todo"):
-	-allow user to change visualizer scene at run-time
-	-replace some buttons with icons
+	-"move" sort action is not testing, implement merge or quick sort and then test all visualizers
+  -replace some buttons with icons
 	-sfx
 	-disabled buttons don't look very disabled
+  -sorters descriptions and comments are inconsistent, some of them are more detailed than others
 
 Plan:
   -keep sorting implementation code independent so we can apply the sort on any custom scene
   -sorters (easy to hard):
 		[X] Bubble sort,   [X] Selection sort,   [X] Insertion sort
-		[X] Gnome sort,    [ ] Shell sort,       [ ] Quick sort
+		[X] Gnome sort,    [X] Shell sort,       [!] Quick sort
 		[!] Merge sort,    [ ] Heap sort,        [ ] Radix sort
 		[ ] Bitonic sort,  [ ] Bogo sort
 

@@ -7,7 +7,7 @@ const _rect_width : float = 12.0
 const _rect_min_height : float = 10.0
 const _rect_max_height : float = 400.0
 
-var _previously_switched : Array
+var _colored_rects : Array
 var _default_clr : Color = Color("ffeecc")
 var _selected_high_clr : Color = Color("ff6973")
 var _selected_low_clr : Color = Color("00b9be")
@@ -38,18 +38,27 @@ func determine_priority(idx1 : int, idx2 : int) -> bool:
 	return _rects_container.get_child(idx1).rect_min_size.y > _rects_container.get_child(idx2).rect_min_size.y
 
 # override
-func update_indexes(idx1 : int, idx2 : int):
+func update_indexes(action : int, idx1 : int, idx2 : int):
 	_clear_colors()
 	
-	# coloring
-	var child1 = _rects_container.get_child(idx1)
-	var child2 = _rects_container.get_child(idx2)
-	child1.color = _selected_low_clr
-	child2.color = _selected_high_clr
-	_previously_switched.append(child1)
-	_previously_switched.append(child2)
-	
-	Utility.switch_children(_rects_container, idx1, idx2)
+	match action:
+		Sorter.SortAction.switch:
+			# coloring
+			var child1 = _rects_container.get_child(idx1)
+			var child2 = _rects_container.get_child(idx2)
+			child1.color = _selected_low_clr
+			child2.color = _selected_high_clr
+			_colored_rects.append(child1)
+			_colored_rects.append(child2)
+			
+			Utility.switch_children(_rects_container, idx1, idx2)
+		Sorter.SortAction.move:
+			# coloring
+			var child = _rects_container.get_child(idx1)
+			child.color = _selected_low_clr
+			_colored_rects.append(child)
+			
+			_rects_container.move_child(child, idx2)
 	
 	emit_signal("updated_indexes")
 
@@ -77,7 +86,6 @@ func finish():
 	emit_signal("finished")
 
 func _clear_colors():
-	if _previously_switched.empty() == false:
-		_previously_switched[0].color = _default_clr
-		_previously_switched[1].color = _default_clr
-		_previously_switched.clear()
+	for rect in _colored_rects:
+		rect.color = _default_clr
+	_colored_rects.clear()

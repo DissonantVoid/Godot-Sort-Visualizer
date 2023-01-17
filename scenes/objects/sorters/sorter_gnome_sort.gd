@@ -27,7 +27,7 @@ func next_step() -> Dictionary:
 		
 		if _index > 0: _index -= 1
 		else: _index += 1
-		return {"done":false, "indexes":indexes_to_change}
+		return {"done":false, "action":SortAction.switch, "indexes":indexes_to_change}
 	else: 
 		_index += 1
 		return next_step()
@@ -47,7 +47,7 @@ func skip_to_last_step() -> Array:
 			return indexes
 		
 		if _priority_callback.call_func(indexes[i], indexes[i+1]):
-			_swap(indexes, i, i+1)
+			Utility.swap(indexes, i, i+1)
 			if i > 0: i -= 1
 			else: i += 1
 		else:

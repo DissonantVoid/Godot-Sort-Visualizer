@@ -24,7 +24,8 @@ func determine_priority(idx1 : int, idx2 : int) -> bool:
 	return false
 
 # override
-func update_indexes(idx1 : int, idx2 : int):
+# see Sorter.SortAction for actions
+func update_indexes(action : int, idx1 : int, idx2 : int):
 	emit_signal("updated_indexes")
 
 # override, this is called after sorter.step_all()

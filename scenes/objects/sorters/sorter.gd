@@ -1,9 +1,13 @@
 extends Reference
+class_name Sorter
 
 # base class for all sorting algorithms
 
 var _data_size : int
 var _priority_callback : FuncRef
+
+enum SortAction {switch, move}
+
 
 # override
 func setup(data_size : int, priority_callback : FuncRef):
@@ -12,7 +16,10 @@ func setup(data_size : int, priority_callback : FuncRef):
 	_priority_callback = priority_callback
 
 # override, return {"done":is done sorting,
-#                   "indexes":(if "done" is true), array of 2 indexes that were switched}
+#                   (if "done" is true we don't need to include next entries)
+#                   "action": SortAction.switch (switch indexes[0] and [1]),
+#                             SortAction.move (move indexes[0] behind [1])
+#                   "indexes": array of 2 indexes that were switched}
 # NOTE: in "indexes" the first index should preferably be smaller than the second, some visualizers
 #       use that, like visualizer_rect which uses that for accurate coloring
 #       also indexes[0] should never equal to indexes[1]
@@ -24,9 +31,3 @@ func next_step() -> Dictionary:
 #           without all the state keeping needed for next_step()
 func skip_to_last_step() -> Array:
 	return []
-
-# a helpful utility function
-func _swap(arr : Array, idx1 : int, idx2 : int):
-	var temp = arr[idx1]
-	arr[idx1] = arr[idx2]
-	arr[idx2] = temp

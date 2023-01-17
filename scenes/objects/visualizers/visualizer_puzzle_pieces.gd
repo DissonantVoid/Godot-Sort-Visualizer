@@ -56,8 +56,12 @@ func determine_priority(idx1 : int, idx2 : int) -> bool:
 			_order.find(_pieces_container.get_child(idx2))
 
 # override
-func update_indexes(idx1 : int, idx2 : int):
-	Utility.switch_children(_pieces_container, idx1, idx2)
+func update_indexes(action : int, idx1 : int, idx2 : int):
+	match action:
+		Sorter.SortAction.switch:
+			Utility.switch_children(_pieces_container, idx1, idx2)
+		Sorter.SortAction.move:
+			_pieces_container.move_child(_pieces_container.get_child(idx1), idx2)
 	
 	emit_signal("updated_indexes")
 
@@ -70,7 +74,7 @@ func update_all(new_indexes : Array):
 	# tween each child to its new position before removing children from tree
 	# so that once we add them back they continue to tween, giving the illusion that they're
 	# being sorted
-	var tween := get_tree().create_tween()
+	var tween : SceneTreeTween = get_tree().create_tween()
 	tween.connect("finished", self, "_on_switch_all_tween_finished")
 	for i in new_indexes.size():
 		var first_child : TextureRect = _pieces_container.get_child(new_indexes[i])

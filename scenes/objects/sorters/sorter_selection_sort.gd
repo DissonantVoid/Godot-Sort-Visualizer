@@ -27,7 +27,7 @@ func next_step() -> Dictionary:
 	_index += 1
 	if smallest_idx == _index-1: return next_step()
 	else:
-		return {"done":false, "indexes":[_index-1, smallest_idx]}
+		return {"done":false, "action":SortAction.switch, "indexes":[_index-1, smallest_idx]}
 
 # override
 func skip_to_last_step() -> Array:
@@ -42,6 +42,6 @@ func skip_to_last_step() -> Array:
 			if _priority_callback.call_func(indexes[smallest_idx], indexes[j]):
 				smallest_idx = j
 				
-		_swap(indexes, i, smallest_idx)
+		Utility.swap(indexes, i, smallest_idx)
 	
 	return indexes

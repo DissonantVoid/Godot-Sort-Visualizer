@@ -1,7 +1,9 @@
 extends "res://scenes/objects/sorters/sorter.gd"
 
 # https://en.wikipedia.org/wiki/Shellsort
-# ...
+# similar to insertion sort, it first sorts elements that are far apart
+# from each other and successively reduces the interval between the elements
+# to be sorted
 #
 # time complexity: O(N^2)
 
@@ -33,7 +35,7 @@ func next_step() -> Dictionary:
 			if _sub_idx < 0:
 				_index += 1
 				_sub_idx = -1
-			return {"done":false, "indexes":indexes_to_switch}
+			return {"done":false, "action":SortAction.switch, "indexes":indexes_to_switch}
 		else:
 			_index += 1
 	else:
@@ -46,7 +48,7 @@ func next_step() -> Dictionary:
 			_index += 1
 			_sub_idx = -1
 		
-		if indexes_to_switch: return {"done":false, "indexes":indexes_to_switch}
+		if indexes_to_switch: return {"done":false, "action":SortAction.switch, "indexes":indexes_to_switch}
 	
 	return next_step()
 
@@ -56,14 +58,16 @@ func skip_to_last_step() -> Array:
 	indexes.resize(_data_size)
 	for i in _data_size: indexes[i] = i
 	
+	# we use half the size as a gap
+	# but there are other more efficent sequences like Marcin Ciura's sequence
 	var gap : int = indexes.size() / 2
 	while gap > 0:
 		for i in range(gap, indexes.size()):
 			if _priority_callback.call_func(indexes[i-gap], indexes[i]):
-				_swap(indexes, i-gap, i)
+				Utility.swap(indexes, i-gap, i)
 				for j in range(i-gap-gap, -1, -gap):
 					if _priority_callback.call_func(indexes[j], indexes[j+gap]):
-						_swap(indexes,j ,j+gap )
+						Utility.swap(indexes,j ,j+gap )
 		
 		gap /= 2
 	

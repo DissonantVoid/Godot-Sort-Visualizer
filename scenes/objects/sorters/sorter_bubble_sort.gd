@@ -34,19 +34,20 @@ func next_step() -> Dictionary:
 		_index = 0
 		return next_step()
 	else:
-		return {"done":!changed, "indexes":indexes}
+		return {"done":!changed, "action":SortAction.switch, "indexes":indexes}
 
 # override
 func skip_to_last_step() -> Array:
 	var indexes : Array
-	for i in _data_size: indexes.append(i)
+	indexes.resize(_data_size)
+	for i in _data_size: indexes[i] = i
 	
 	while true:
 		var changed : bool = false
 		for i in range(0, _data_size-1):
 			if _priority_callback.call_func(indexes[i], indexes[i+1]):
 				changed = true
-				_swap(indexes, i, i+1)
+				Utility.swap(indexes, i, i+1)
 		if changed == false: break
 	
 	return indexes
