@@ -182,6 +182,9 @@ func _on_run_test_pressed():
 				has_errors = true
 				break
 		
+		# TODO: we only check for size match, we don't see if the content is the same
+		#       this has already tricked me once
+		
 		if _array_size < _max_printable_array_size:
 			_print_console("input array:")
 			_print_console(str(original_array))

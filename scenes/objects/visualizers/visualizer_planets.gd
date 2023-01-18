@@ -87,12 +87,24 @@ func update_indexes(action : int, idx1 : int, idx2 : int):
 			child2.move_to(child1)
 			
 			Utility.switch_children(_planets_container, idx1, idx2)
+			_waiting_for_planets = 2
 		
 		Sorter.SortAction.move:
-			# TODO after implementing merge or quick sort
-			pass
-	
-	_waiting_for_planets = 2
+			var target_child := _planets_container.get_child(idx1)
+			
+			if idx1 > idx2:
+				target_child.move_to(_planets_container.get_child(idx2))
+				for i in range(idx2, idx1):
+					_planets_container.get_child(i).move_to(_planets_container.get_child(i+1))
+				_waiting_for_planets = idx1-idx2+1
+				
+			elif idx1 < idx2:
+				target_child.move_to(_planets_container.get_child(idx2-1))
+				for i in range(idx2-1, idx1, -1):
+					_planets_container.get_child(i).move_to(_planets_container.get_child(i-1))
+				_waiting_for_planets = idx2-idx1
+			
+			_planets_container.move_child(target_child, idx2)
 
 # override
 func update_all(new_indexes : Array):

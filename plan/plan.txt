@@ -1,5 +1,5 @@
 Current Task: merge sort and quick sort
-Next Task: ability to change visualizer at run-time
+Next Task: ability to change visualizer at run-time. a visualizer or two
 
 
 Todo (also see in-code todos by searching in all files for "todo"):
@@ -13,16 +13,16 @@ Plan:
   -keep sorting implementation code independent so we can apply the sort on any custom scene
   -sorters (easy to hard):
 		[X] Bubble sort,   [X] Selection sort,   [X] Insertion sort
-		[X] Gnome sort,    [X] Shell sort,       [!] Quick sort
+		[X] Gnome sort,    [X] Shell sort,       [X] Quick sort
 		[!] Merge sort,    [ ] Heap sort,        [ ] Radix sort
 		[ ] Bitonic sort,  [ ] Bogo sort
 
   -visualizers:
-      -humans shooting zombies, each human shoots a type of zombie, but each type require specific weapon
+      -lines based on this image: en.wikipedia.org/wiki/Shellsort#/media/File:Shell_sorting_algorithm_color_bars.svg
       -lazers of different colors shooting inputs of matching colors, need sorting
       -bunch of cakes in unmatching boxes, on each sort 2 cakes are moved into a conveyor belt
-	   and transfered to each other position
-      -lines based on this image: en.wikipedia.org/wiki/Shellsort#/media/File:Shell_sorting_algorithm_color_bars.svg
+        and transfered to each other position
+      -humans shooting zombies, each human shoots a type of zombie, but each type require specific weapon
 
 Keep in mind:
   Sorters:

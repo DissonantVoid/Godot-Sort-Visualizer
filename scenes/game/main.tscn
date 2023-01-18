@@ -3,7 +3,7 @@
 [ext_resource path="res://resources/godot/main_interface_theme.tres" type="Theme" id=1]
 [ext_resource path="res://scenes/game/main.gd" type="Script" id=2]
 [ext_resource path="res://scenes/game/main_interface.gd" type="Script" id=3]
-[ext_resource path="res://scenes/objects/visualizers/visualizer_rect.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/objects/visualizers/visualizer_planets.tscn" type="PackedScene" id=4]
 [ext_resource path="res://resources/fonts/libre-baskerville/LibreBaskerville-Bold.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://resources/godot/main_interface_panel.tres" type="StyleBox" id=6]
 [ext_resource path="res://resources/shaders/glow.tres" type="Shader" id=7]
@@ -19,9 +19,9 @@ shader = ExtResource( 7 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )
-_visualizer_path = NodePath("VisualizerRect")
+_visualizer_path = NodePath("VisualizerPlanets")
 
-[node name="VisualizerRect" parent="." instance=ExtResource( 4 )]
+[node name="VisualizerPlanets" parent="." instance=ExtResource( 4 )]
 
 [node name="MainInterface" type="CanvasLayer" parent="."]
 script = ExtResource( 3 )
