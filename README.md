@@ -2,7 +2,9 @@
 A "back-to-basics" project that implements a number of sorting algorithms in gdscript
 as well as visual effects to help see these algorithm in action!
 
-[TODO: add gifs]
+![](https://imgur.com/qjLrCSn.gif)
+
+![](https://imgur.com/BP7AsK8.gif)
 
 ## Contribution
 Any help is greatly appreciated, and I'm very much open to suggestions and PRs.
