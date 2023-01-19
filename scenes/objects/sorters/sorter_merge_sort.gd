@@ -33,37 +33,64 @@ func next_step() -> Dictionary:
 	# we merge the next 2 arrays and so on
 	var should_skip_to_next : bool = false
 	if _pending_switches.empty():
-		var prev_subarrs_size : int = 0 # size of all previous subarrays before _division_array[i-1]
-										# in other words this converts the index of first element in current subarray
-										# from 2d to 1d
-		for i in range(1, _division_arrays.size()):
+		var i = 1
+		while i < _division_arrays.size():
 			# everytime we have 2 subarrays with the same size next to each other we merge them
 			# we also merge if we have only 2 arrays left regardless of the size
 			if (_division_arrays[i-1].size() == _division_arrays[i].size() || 
 					_division_arrays.size() == 2):
 				
 				# merge the two subarrays
-				_division_arrays[i-1] = _merge(_division_arrays[i-1], _division_arrays[i])
+				var merged_divisions : Array = _merge(_division_arrays[i-1], _division_arrays[i])
+				
+				var division_idx_1d : int = Utility.subarr_first_index_to_1d(_division_arrays, i-1)
+				
+				# merged_divisions contains ordered merge, and _division_arrays[i-1] now contains
+				# unordered merge, we use the diff between them to fill _pending_switches
+				_division_arrays[i-1].append_array(_division_arrays[i])
 				_division_arrays.remove(i)
 				
+				# compare merged_divisions to _division_arr[i-1]
 				for j in _division_arrays[i-1].size():
-					var original_index : int = _division_arrays[i-1][j]
-					var new_index : int = prev_subarrs_size + j
+					if _division_arrays[i-1][j] == merged_divisions[j]:
+						continue
 					
-					if original_index == new_index: continue
+					var new_index : int
+					for k in merged_divisions.size():
+						# NOTE: since we're working with indexes, no 2 entries are the same
+						if merged_divisions[k] == _division_arrays[i-1][j]:
+							new_index = k
+							break
 					
-					# get rid of inverted duplicates i.e [ [0,1], [1,0] ]
-					if  _pending_switches.has([new_index, original_index]) == false:
-						_pending_switches.append([original_index, new_index])
-					
-				if _pending_switches.empty() && _division_arrays.size() > 1:
+					_pending_switches.append([
+						# biggest index first because [1,0] is not the same as [0,1]
+						division_idx_1d + max(j,new_index),
+						division_idx_1d + min(j,new_index)
+					])
+				
+				# TEMP: note that everything untill here is working as intended,
+				#       problems happen after this point 
+				
+				# remove duplicates
+				for j in _pending_switches.size():
+					for k in range(j+1, _pending_switches.size()):
+						if _pending_switches[j] == _pending_switches[k]:
+							_pending_switches.remove(k)
+							break
+				
+				# commit the ordered merge
+				_division_arrays[i-1] = merged_divisions
+				
+				if _pending_switches.empty():
 					# arrays merged perfectly without having to change indexes i,e [1,2,3] + [4,5,6]
 					should_skip_to_next = true
 				
-				print("switches:" + str(_pending_switches)) # TEMP
+				# TEMP
+				print("content:" + str(_division_arrays))
+				print("switches:" + str(_pending_switches))
 				break
-			else:
-				prev_subarrs_size += _division_arrays[i-1].size()
+			
+			i += 1
 	
 	if should_skip_to_next:
 		return next_step()
@@ -71,22 +98,24 @@ func next_step() -> Dictionary:
 		# still empty? we're done
 		return {"done":true}
 	else:
-		var indexes_to_switch : Array
-		indexes_to_switch.resize(2)
-		indexes_to_switch[0] = _pending_switches[0][0]
-		indexes_to_switch[1] = _pending_switches[0][1]
+		var indexes_to_switch : Array = _pending_switches.pop_front()
 		
-		# THIS is where we have a problem
-		# for example let's say that the array to sort is [7, 6, 3, 4, 0, 2, 1, 9, 5, 8]
-		# and _pending_switches = [[8, 0], [4, 2], [0, 3], [6, 5], [3, 7], [9, 8], [7, 9]]
-		# by the time we apply to 4th switch [3, 7], we would have already applied the 2nd switch
-		# [0, 3] meaning that the index 3 in [3, 7] will not be the same because it was switched with
-		# something else previously
+		# update entries in indexes_to_switch
+#		if indexes_to_switch[0] > indexes_to_switch[1]:
+#			for switch in _pending_switches:
+#				for i in switch.size():
+#					if switch[i] == indexes_to_switch[0]: switch[i] = indexes_to_switch[1]
+#					elif switch[i] >= indexes_to_switch[1] && switch[i] < indexes_to_switch[0]:
+#						switch[i] += 1
+#		elif indexes_to_switch[0] < indexes_to_switch[1]:
+#			for switch in _pending_switches:
+#				for i in switch.size():
+#					if switch[i] == indexes_to_switch[0]: switch[i] = indexes_to_switch[1]-1
+#					elif switch[i] > indexes_to_switch[1] && switch[i] < indexes_to_switch[0]:
+#						switch[i] -= 1
 		
-		_pending_switches.remove(0)
-		
-		print("switch changed to: " + str(_pending_switches)) # TEMP
-		return {"done":false, "indexes": [indexes_to_switch[0], indexes_to_switch[1]]}
+		print("switches changed to: ", str(_pending_switches))
+		return {"done":false, "action":SortAction.move, "indexes": indexes_to_switch}
 
 # override
 func skip_to_last_step() -> Array:
