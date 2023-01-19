@@ -5,23 +5,32 @@ onready var _rects_container : HBoxContainer = $MarginContainer/HBoxContainer
 const _rect_count : int = 60
 const _rect_width : float = 12.0
 const _rect_min_height : float = 10.0
-const _rect_max_height : float = 400.0
+const _rect_max_height : float = 460.0
 
 var _colored_rects : Array
 var _default_clr : Color = Color("ffeecc")
 var _selected_high_clr : Color = Color("ff6973")
 var _selected_low_clr : Color = Color("00b9be")
 
-# TODO: make lines have same gap, sorted lines will look better this way
 
 func _ready():
+	# split gap evenly between rects
+	var rect_size_intervals : Array
+	rect_size_intervals.resize(_rect_count)
+	var gap_size : float = (_rect_max_height - _rect_min_height) / _rect_count
+	for i in _rect_count:
+		rect_size_intervals[i] = _rect_min_height + gap_size * i
+	
+	rect_size_intervals.shuffle() # NOTE: Utility calls randomize() 
+	
+	
 	for i in _rect_count:
 		var rect : ColorRect = ColorRect.new()
 		rect.color = _default_clr
 		rect.size_flags_horizontal = 0 # no SIZE_NONE ???
 		rect.size_flags_vertical = SIZE_SHRINK_END
 		rect.rect_min_size.x = _rect_width
-		rect.rect_min_size.y = _rect_max_height
+		rect.rect_min_size.y = rect_size_intervals.pop_back()
 		
 		_rects_container.add_child(rect)
 
@@ -35,8 +44,10 @@ static func get_metadata() -> Dictionary:
 # override
 func reset():
 	_clear_colors()
-	for child in _rects_container.get_children():
-		child.rect_min_size.y = Utility.rng.randf_range(_rect_min_height, _rect_max_height)
+	# reshuffle children
+	for i in _rects_container.get_child_count():
+		var curr_child := _rects_container.get_child(i)
+		_rects_container.move_child(curr_child, Utility.rng.randi_range(0, _rects_container.get_child_count()))
 
 # override
 func get_content_count() -> int:

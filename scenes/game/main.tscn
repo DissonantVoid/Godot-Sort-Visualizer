@@ -37,26 +37,28 @@ custom_constants/separation = 0
 
 [node name="Content" type="VBoxContainer" parent="MainInterface/MarginContainer/VBoxContainer"]
 margin_right = 960.0
-margin_bottom = 91.0
+margin_bottom = 95.0
 custom_constants/separation = -2
 
 [node name="Upper" type="PanelContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content"]
 margin_right = 960.0
-margin_bottom = 48.0
+margin_bottom = 52.0
 size_flags_vertical = 0
 custom_styles/panel = ExtResource( 6 )
 
 [node name="MarginContainer" type="MarginContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/Upper"]
 margin_right = 960.0
-margin_bottom = 46.0
-custom_constants/margin_right = 6
-custom_constants/margin_left = 6
-custom_constants/margin_bottom = 6
+margin_bottom = 50.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/Upper/MarginContainer"]
-margin_left = 6.0
-margin_right = 954.0
-margin_bottom = 40.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 955.0
+margin_bottom = 45.0
 
 [node name="Options" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/Upper/MarginContainer/HBoxContainer"]
 margin_right = 100.0
@@ -68,8 +70,8 @@ size_flags_vertical = 6
 text = "Options"
 
 [node name="Center" type="VBoxContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/Upper/MarginContainer/HBoxContainer"]
-margin_left = 300.0
-margin_right = 648.0
+margin_left = 301.0
+margin_right = 649.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 280, 0 )
 size_flags_horizontal = 6
@@ -115,8 +117,8 @@ margin_right = 348.0
 margin_bottom = 36.0
 
 [node name="Hide" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/Upper/MarginContainer/HBoxContainer"]
-margin_left = 848.0
-margin_right = 948.0
+margin_left = 850.0
+margin_right = 950.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 100, 40 )
 focus_mode = 0
@@ -127,9 +129,9 @@ text = "Hide"
 
 [node name="Lower" type="PanelContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content"]
 margin_left = 280.0
-margin_top = 46.0
+margin_top = 50.0
 margin_right = 680.0
-margin_bottom = 91.0
+margin_bottom = 95.0
 rect_min_size = Vector2( 400, 45 )
 size_flags_horizontal = 6
 custom_styles/panel = ExtResource( 8 )
@@ -259,9 +261,9 @@ text = "Restart"
 [node name="Grabber" type="ColorRect" parent="MainInterface/MarginContainer/VBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
 material = SubResource( 3 )
-margin_top = 91.0
+margin_top = 95.0
 margin_right = 960.0
-margin_bottom = 99.0
+margin_bottom = 103.0
 rect_min_size = Vector2( 0, 8 )
 
 [node name="ContinuousTimer" type="Timer" parent="."]

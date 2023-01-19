@@ -158,44 +158,64 @@ func _on_run_test_pressed():
 			_print_console("sorter.next_step() finished after " + str(iterations) + " iterations")
 		
 	else: # skip_to_last_step()
-		var new_indexes : Array = sorter_object.skip_to_last_step()
-		if new_indexes.size() != _current_input.size():
+		var sort_result : Array = sorter_object.skip_to_last_step()
+		if sort_result.size() != _current_input.size():
 			_print_console(
-				"returned array size (" + str(new_indexes.size()) +
+				"returned array size (" + str(sort_result.size()) +
 				") doesn't match input array size (" + str(_current_input.size()) + ")", _bad_color
 			)
 			has_errors = true
 		else:
 			var new_arr : Array
-			new_arr.resize(new_indexes.size())
+			new_arr.resize(sort_result.size())
 			
-			for i in new_indexes.size():
-				new_arr[i] = _current_input[new_indexes[i]]
+			for i in sort_result.size():
+				new_arr[i] = _current_input[sort_result[i]]
 			
 			_current_input = new_arr
 	
 	if has_errors == false:
-		# validate returned array
+		# validate that items in returned array are the same as items in original array
+		var values_record : Dictionary
+		for el in original_array:
+			if values_record.has(el) == false: values_record[el] = 0
+			values_record[el] += 1
+		for el in _current_input:
+			if values_record.has(el) == false:
+				_print_console("sorted array has different elements than input array, data is corrupted", _bad_color)
+				has_errors = true
+				break
+			
+			values_record[el] -= 1
+		
+		if has_errors == false:
+			for val in values_record.values():
+				if val != 0:
+					_print_console("sorted array has different elements than input array, data is corrupted", _bad_color)
+					has_errors = true
+					break
+		
+		
+	if has_errors == false:
+		# validate returned array order
 		for i in range(1, _current_input.size()):
 			if _current_input[i] < _current_input[i-1]:
 				_print_console("sorted array order is wrong", _bad_color)
 				has_errors = true
 				break
 		
-		# TODO: we only check for size match, we don't see if the content is the same
-		#       this has already tricked me once
 		
-		if _array_size < _max_printable_array_size:
-			_print_console("input array:")
-			_print_console(str(original_array))
-			_print_console("result array:")
-			_print_console(str(_current_input))
-		else:
-			_print_console(
-				"array is too big to print, make array size smaller than " +
-				str(_max_printable_array_size) +
-				" if you want to see its content"
-			)
+	if _array_size < _max_printable_array_size:
+		_print_console("input array:")
+		_print_console(str(original_array))
+		_print_console("result array:")
+		_print_console(str(_current_input))
+	else:
+		_print_console(
+			"array is too big to print, make array size smaller than " +
+			str(_max_printable_array_size) +
+			" if you want to see its content"
+		)
 	
 	if has_errors:
 		_print_console("sorting finished with errors", _bad_color)

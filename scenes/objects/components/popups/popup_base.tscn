@@ -101,11 +101,18 @@ margin_top = 2.0
 margin_right = 118.0
 margin_bottom = 60.0
 
-[node name="Label" type="Label" parent="Error/Error/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Error/Error/HBoxContainer"]
 margin_right = 116.0
 margin_bottom = 26.0
+custom_constants/margin_right = 6
+custom_constants/margin_left = 6
+
+[node name="Label" type="Label" parent="Error/Error/HBoxContainer/MarginContainer"]
+margin_left = 6.0
+margin_right = 110.0
+margin_bottom = 26.0
 size_flags_vertical = 1
-custom_colors/font_color = Color( 1, 0.690196, 0.639216, 1 )
+custom_colors/font_color = Color( 1, 0.933333, 0.8, 1 )
 text = "Error: ..."
 align = 1
 

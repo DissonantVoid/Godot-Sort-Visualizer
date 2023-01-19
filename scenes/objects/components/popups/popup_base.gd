@@ -4,7 +4,7 @@ signal ok(data) # data : dictionary
 signal cancel
 
 onready var _error_panel : MarginContainer = $Error
-onready var _error_txt : Label = $Error/Error/HBoxContainer/Label
+onready var _error_label : Label = $Error/Error/HBoxContainer/MarginContainer/Label
 
 const _fade_in_time : float = 0.08
 const _max_fade_depth : int = 3 # fade in nodes as long as they're not this deep in tree
@@ -54,5 +54,5 @@ func _error(text : String):
 		var tween : SceneTreeTween = get_tree().create_tween()
 		tween.tween_property(_error_panel, "modulate:a", 1.0, _err_show_time).from(0.0)
 	
-	_error_txt.text = "Error: " + text
+	_error_label.text = "Error: " + text
 	_error_panel.show()
