@@ -1,12 +1,10 @@
-Current Task: merge sort and quick sort
-Next Task: ability to change visualizer at run-time. a visualizer or two
+Current Task: merge sort
+Next Task: two new visualizers
 
 
 Todo (also see in-code todos by searching in all files for "todo"):
-	-"move" sort action is not testing, implement merge or quick sort and then test all visualizers
   -replace some buttons with icons
 	-sfx
-	-disabled buttons don't look very disabled
   -sorters descriptions and comments are inconsistent, some of them are more detailed than others
 
 Plan:

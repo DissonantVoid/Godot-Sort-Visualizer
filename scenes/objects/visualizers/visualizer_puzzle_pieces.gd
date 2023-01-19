@@ -8,6 +8,7 @@ var _order : Array # idx : piece,   idx 1 is top left piece, idx size-1 is botto
 
 const _switch_tween_time : float = 0.8
 
+# TODO: puzzle pieces are hidden when main interface is shown, do something about it ya lazy bastard
 
 func _ready():
 	_board.hide()
@@ -34,6 +35,13 @@ func _ready():
 			tex_rect.texture = texture
 			_order.append(tex_rect)
 			_pieces_container.add_child(tex_rect)
+
+# override
+static func get_metadata() -> Dictionary:
+	return {
+		"title":"puzzle_pieces", "image":"puzzle_pieces.png",
+		"description":"An image split into a grid of puzzle pieces that get sorted in the right order to show the image"
+	}
 
 # override
 func reset():
@@ -92,7 +100,7 @@ func update_all(new_indexes : Array):
 
 # override
 func set_ui_visibility(is_visible : bool):
-	pass
+	return
 
 # override
 func finish():

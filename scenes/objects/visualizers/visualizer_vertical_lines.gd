@@ -12,6 +12,8 @@ var _default_clr : Color = Color("ffeecc")
 var _selected_high_clr : Color = Color("ff6973")
 var _selected_low_clr : Color = Color("00b9be")
 
+# TODO: make lines have same gap, sorted lines will look better this way
+
 func _ready():
 	for i in _rect_count:
 		var rect : ColorRect = ColorRect.new()
@@ -22,6 +24,13 @@ func _ready():
 		rect.rect_min_size.y = _rect_max_height
 		
 		_rects_container.add_child(rect)
+
+# override
+static func get_metadata() -> Dictionary:
+	return {
+		"title":"vertical_lines", "image":"vertical_rects.png",
+		"description":"The classic vertical rectangles with different height that get sorter in ascending order from left to right"
+	}
 
 # override
 func reset():
@@ -78,7 +87,7 @@ func update_all(new_indexes : Array):
 
 # override
 func set_ui_visibility(is_visible : bool):
-	pass
+	return
 
 # override
 func finish():

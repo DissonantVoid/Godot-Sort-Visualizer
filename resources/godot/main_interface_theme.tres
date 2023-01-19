@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=7 format=2]
+[gd_resource type="Theme" load_steps=8 format=2]
 
 [ext_resource path="res://resources/fonts/libre-baskerville/LibreBaskerville-Regular.ttf" type="DynamicFontData" id=1]
 
@@ -43,6 +43,17 @@ corner_radius_top_right = 1
 corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 1, 0.933333, 0.8, 1 )
+border_width_left = 1
+border_width_right = 1
+border_color = Color( 1, 0.933333, 0.8, 1 )
+border_blend = true
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
 [sub_resource type="DynamicFont" id=2]
 size = 20
 use_mipmaps = true
@@ -60,3 +71,4 @@ Button/styles/normal = SubResource( 5 )
 Button/styles/pressed = SubResource( 4 )
 HSeparator/styles/separator = SubResource( 6 )
 Label/colors/font_color = Color( 1, 0.933333, 0.8, 1 )
+VSeparator/styles/separator = SubResource( 7 )

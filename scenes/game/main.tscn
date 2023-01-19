@@ -3,10 +3,10 @@
 [ext_resource path="res://resources/godot/main_interface_theme.tres" type="Theme" id=1]
 [ext_resource path="res://scenes/game/main.gd" type="Script" id=2]
 [ext_resource path="res://scenes/game/main_interface.gd" type="Script" id=3]
-[ext_resource path="res://scenes/objects/visualizers/visualizer_planets.tscn" type="PackedScene" id=4]
 [ext_resource path="res://resources/fonts/libre-baskerville/LibreBaskerville-Bold.ttf" type="DynamicFontData" id=5]
-[ext_resource path="res://resources/godot/main_interface_panel.tres" type="StyleBox" id=6]
+[ext_resource path="res://resources/godot/main_interface_panel_upper.tres" type="StyleBox" id=6]
 [ext_resource path="res://resources/shaders/glow.tres" type="Shader" id=7]
+[ext_resource path="res://resources/godot/main_interface_panel_lower.tres" type="StyleBox" id=8]
 
 [sub_resource type="DynamicFont" id=2]
 size = 20
@@ -19,9 +19,6 @@ shader = ExtResource( 7 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )
-_visualizer_path = NodePath("VisualizerPlanets")
-
-[node name="VisualizerPlanets" parent="." instance=ExtResource( 4 )]
 
 [node name="MainInterface" type="CanvasLayer" parent="."]
 script = ExtResource( 3 )
@@ -38,43 +35,52 @@ margin_bottom = 540.0
 mouse_filter = 2
 custom_constants/separation = 0
 
-[node name="Content" type="PanelContainer" parent="MainInterface/MarginContainer/VBoxContainer"]
+[node name="Content" type="VBoxContainer" parent="MainInterface/MarginContainer/VBoxContainer"]
 margin_right = 960.0
-margin_bottom = 78.0
+margin_bottom = 91.0
+custom_constants/separation = -2
+
+[node name="Upper" type="PanelContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content"]
+margin_right = 960.0
+margin_bottom = 48.0
 size_flags_vertical = 0
 custom_styles/panel = ExtResource( 6 )
 
-[node name="MarginContainer" type="MarginContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content"]
+[node name="MarginContainer" type="MarginContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/Upper"]
 margin_right = 960.0
-margin_bottom = 76.0
+margin_bottom = 46.0
 custom_constants/margin_right = 6
 custom_constants/margin_left = 6
 custom_constants/margin_bottom = 6
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/Upper/MarginContainer"]
 margin_left = 6.0
 margin_right = 954.0
-margin_bottom = 70.0
+margin_bottom = 40.0
 
-[node name="Options" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer"]
-margin_top = 15.0
+[node name="Options" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/Upper/MarginContainer/HBoxContainer"]
 margin_right = 100.0
-margin_bottom = 55.0
+margin_bottom = 40.0
 rect_min_size = Vector2( 100, 40 )
 focus_mode = 0
 mouse_default_cursor_shape = 2
 size_flags_vertical = 6
 text = "Options"
 
-[node name="Center" type="VBoxContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer"]
-margin_left = 334.0
-margin_right = 614.0
-margin_bottom = 70.0
+[node name="Center" type="VBoxContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/Upper/MarginContainer/HBoxContainer"]
+margin_left = 300.0
+margin_right = 648.0
+margin_bottom = 40.0
 rect_min_size = Vector2( 280, 0 )
 size_flags_horizontal = 6
 
-[node name="Algorithm" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Center"]
-margin_right = 280.0
+[node name="HBoxContainer" type="HBoxContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/Upper/MarginContainer/HBoxContainer/Center"]
+margin_right = 348.0
+margin_bottom = 28.0
+custom_constants/separation = 12
+
+[node name="Sorter" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/Upper/MarginContainer/HBoxContainer/Center/HBoxContainer"]
+margin_right = 141.0
 margin_bottom = 28.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
@@ -82,50 +88,101 @@ custom_colors/font_color = Color( 1, 0.933333, 0.8, 1 )
 custom_colors/font_color_hover = Color( 1, 0.411765, 0.45098, 1 )
 custom_colors/font_color_pressed = Color( 1, 0.411765, 0.45098, 1 )
 custom_fonts/font = SubResource( 2 )
-text = "<Select Algorithm>"
+text = "<sorter here>"
 flat = true
 
-[node name="HSeparator" type="HSeparator" parent="MainInterface/MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Center"]
+[node name="VSeparator" type="VSeparator" parent="MainInterface/MarginContainer/VBoxContainer/Content/Upper/MarginContainer/HBoxContainer/Center/HBoxContainer"]
+margin_left = 153.0
+margin_right = 157.0
+margin_bottom = 28.0
+
+[node name="Visualizer" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/Upper/MarginContainer/HBoxContainer/Center/HBoxContainer"]
+margin_left = 169.0
+margin_right = 348.0
+margin_bottom = 28.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+custom_colors/font_color = Color( 1, 0.933333, 0.8, 1 )
+custom_colors/font_color_hover = Color( 1, 0.411765, 0.45098, 1 )
+custom_colors/font_color_pressed = Color( 1, 0.411765, 0.45098, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "<visualizer here>"
+flat = true
+
+[node name="HSeparator" type="HSeparator" parent="MainInterface/MarginContainer/VBoxContainer/Content/Upper/MarginContainer/HBoxContainer/Center"]
 margin_top = 32.0
-margin_right = 280.0
+margin_right = 348.0
 margin_bottom = 36.0
 
-[node name="Idle" type="HBoxContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Center"]
-margin_top = 40.0
-margin_right = 280.0
-margin_bottom = 70.0
+[node name="Hide" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/Upper/MarginContainer/HBoxContainer"]
+margin_left = 848.0
+margin_right = 948.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 100, 40 )
+focus_mode = 0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 8
+size_flags_vertical = 6
+text = "Hide"
 
-[node name="Start" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Idle"]
-margin_right = 138.0
+[node name="Lower" type="PanelContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content"]
+margin_left = 280.0
+margin_top = 46.0
+margin_right = 680.0
+margin_bottom = 91.0
+rect_min_size = Vector2( 400, 45 )
+size_flags_horizontal = 6
+custom_styles/panel = ExtResource( 8 )
+
+[node name="MarginContainer" type="MarginContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/Lower"]
+margin_left = 2.0
+margin_right = 398.0
+margin_bottom = 43.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 0
+custom_constants/margin_left = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/Lower/MarginContainer"]
+margin_left = 20.0
+margin_top = 6.0
+margin_right = 376.0
+margin_bottom = 36.0
+size_flags_vertical = 6
+
+[node name="Idle" type="HBoxContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/Lower/MarginContainer/VBoxContainer"]
+margin_right = 356.0
+margin_bottom = 30.0
+
+[node name="Start" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/Lower/MarginContainer/VBoxContainer/Idle"]
+margin_right = 176.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 0, 30 )
 focus_mode = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-disabled = true
 text = "Start"
 
-[node name="NextStep" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Idle"]
-margin_left = 142.0
-margin_right = 280.0
+[node name="NextStep" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/Lower/MarginContainer/VBoxContainer/Idle"]
+margin_left = 180.0
+margin_right = 356.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 0, 30 )
 focus_mode = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-disabled = true
 text = "Next Step"
 
-[node name="Running" type="HBoxContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Center"]
+[node name="Running" type="HBoxContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/Lower/MarginContainer/VBoxContainer"]
 visible = false
-margin_top = 86.0
-margin_right = 280.0
-margin_bottom = 116.0
+margin_left = 58.0
+margin_top = -22.0
+margin_right = 338.0
+margin_bottom = 8.0
 size_flags_horizontal = 5
 
-[node name="Pause" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Running"]
+[node name="Pause" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/Lower/MarginContainer/VBoxContainer/Running"]
 margin_right = 138.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 0, 30 )
@@ -134,7 +191,7 @@ mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 text = "Pause"
 
-[node name="Stop" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Running"]
+[node name="Stop" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/Lower/MarginContainer/VBoxContainer/Running"]
 margin_left = 142.0
 margin_right = 280.0
 margin_bottom = 30.0
@@ -144,46 +201,53 @@ mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 text = "Stop"
 
-[node name="Paused" type="HBoxContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Center"]
+[node name="Paused" type="HBoxContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/Lower/MarginContainer/VBoxContainer"]
 visible = false
-margin_top = 86.0
-margin_right = 306.0
-margin_bottom = 116.0
-size_flags_horizontal = 6
+margin_top = 34.0
+margin_right = 356.0
+margin_bottom = 64.0
+size_flags_horizontal = 5
 
-[node name="Continue" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Paused"]
-margin_right = 98.0
+[node name="Continue" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/Lower/MarginContainer/VBoxContainer/Paused"]
+margin_right = 116.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 0, 30 )
 focus_mode = 0
 mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 text = "Continue"
 
-[node name="NextStep" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Paused"]
-margin_left = 102.0
-margin_right = 205.0
+[node name="NextStep" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/Lower/MarginContainer/VBoxContainer/Paused"]
+margin_left = 120.0
+margin_right = 236.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 0, 30 )
 focus_mode = 0
 mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 text = "Next Step"
 
-[node name="LastStep" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Paused"]
-margin_left = 209.0
-margin_right = 306.0
+[node name="LastStep" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/Lower/MarginContainer/VBoxContainer/Paused"]
+margin_left = 240.0
+margin_right = 356.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 0, 30 )
 focus_mode = 0
 mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 text = "Last Step"
 
-[node name="Restart" type="HBoxContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Center"]
+[node name="Restart" type="HBoxContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/Lower/MarginContainer/VBoxContainer"]
 visible = false
-margin_top = 74.0
-margin_right = 280.0
-margin_bottom = 104.0
+margin_left = 58.0
+margin_top = -34.0
+margin_right = 338.0
+margin_bottom = -4.0
 
-[node name="Restart" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Restart"]
+[node name="Restart" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/Lower/MarginContainer/VBoxContainer/Restart"]
 margin_right = 280.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 0, 30 )
@@ -192,39 +256,33 @@ mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 text = "Restart"
 
-[node name="Hide" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer"]
-margin_left = 848.0
-margin_top = 15.0
-margin_right = 948.0
-margin_bottom = 55.0
-rect_min_size = Vector2( 100, 40 )
-focus_mode = 0
-mouse_default_cursor_shape = 2
-size_flags_horizontal = 8
-size_flags_vertical = 6
-text = "Hide"
-
 [node name="Grabber" type="ColorRect" parent="MainInterface/MarginContainer/VBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
 material = SubResource( 3 )
-margin_top = 78.0
+margin_top = 91.0
 margin_right = 960.0
-margin_bottom = 86.0
+margin_bottom = 99.0
 rect_min_size = Vector2( 0, 8 )
 
 [node name="ContinuousTimer" type="Timer" parent="."]
 one_shot = true
 
-[connection signal="pressed" from="MainInterface/MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Options" to="MainInterface" method="_on_button_clicked" binds= [ "options" ]]
-[connection signal="pressed" from="MainInterface/MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Algorithm" to="MainInterface" method="_on_title_pressed"]
-[connection signal="pressed" from="MainInterface/MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Idle/Start" to="MainInterface" method="_on_button_clicked" binds= [ "start" ]]
-[connection signal="pressed" from="MainInterface/MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Idle/NextStep" to="MainInterface" method="_on_button_clicked" binds= [ "next" ]]
-[connection signal="pressed" from="MainInterface/MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Running/Pause" to="MainInterface" method="_on_button_clicked" binds= [ "pause" ]]
-[connection signal="pressed" from="MainInterface/MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Running/Stop" to="MainInterface" method="_on_button_clicked" binds= [ "stop" ]]
-[connection signal="pressed" from="MainInterface/MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Paused/Continue" to="MainInterface" method="_on_button_clicked" binds= [ "continue" ]]
-[connection signal="pressed" from="MainInterface/MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Paused/NextStep" to="MainInterface" method="_on_button_clicked" binds= [ "next" ]]
-[connection signal="pressed" from="MainInterface/MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Paused/LastStep" to="MainInterface" method="_on_button_clicked" binds= [ "last" ]]
-[connection signal="pressed" from="MainInterface/MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Restart/Restart" to="MainInterface" method="_on_button_clicked" binds= [ "restart" ]]
-[connection signal="pressed" from="MainInterface/MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Hide" to="MainInterface" method="_on_button_clicked" binds= [ "hide" ]]
+[connection signal="button_pressed" from="MainInterface" to="." method="_on_interface_button_pressed"]
+[connection signal="options_changed" from="MainInterface" to="." method="_on_interface_options_changed"]
+[connection signal="sorter_changed" from="MainInterface" to="." method="_on_interface_sorter_changed"]
+[connection signal="ui_visibility_changed" from="MainInterface" to="." method="_on_interface_ui_visibility_changed"]
+[connection signal="visualizer_changed" from="MainInterface" to="." method="_on_interface_visualizer_changed"]
+[connection signal="pressed" from="MainInterface/MarginContainer/VBoxContainer/Content/Upper/MarginContainer/HBoxContainer/Options" to="MainInterface" method="_on_button_clicked" binds= [ "options" ]]
+[connection signal="pressed" from="MainInterface/MarginContainer/VBoxContainer/Content/Upper/MarginContainer/HBoxContainer/Center/HBoxContainer/Sorter" to="MainInterface" method="_on_sorter_pressed"]
+[connection signal="pressed" from="MainInterface/MarginContainer/VBoxContainer/Content/Upper/MarginContainer/HBoxContainer/Center/HBoxContainer/Visualizer" to="MainInterface" method="_on_visualizer_pressed"]
+[connection signal="pressed" from="MainInterface/MarginContainer/VBoxContainer/Content/Upper/MarginContainer/HBoxContainer/Hide" to="MainInterface" method="_on_button_clicked" binds= [ "hide" ]]
+[connection signal="pressed" from="MainInterface/MarginContainer/VBoxContainer/Content/Lower/MarginContainer/VBoxContainer/Idle/Start" to="MainInterface" method="_on_button_clicked" binds= [ "start" ]]
+[connection signal="pressed" from="MainInterface/MarginContainer/VBoxContainer/Content/Lower/MarginContainer/VBoxContainer/Idle/NextStep" to="MainInterface" method="_on_button_clicked" binds= [ "next" ]]
+[connection signal="pressed" from="MainInterface/MarginContainer/VBoxContainer/Content/Lower/MarginContainer/VBoxContainer/Running/Pause" to="MainInterface" method="_on_button_clicked" binds= [ "pause" ]]
+[connection signal="pressed" from="MainInterface/MarginContainer/VBoxContainer/Content/Lower/MarginContainer/VBoxContainer/Running/Stop" to="MainInterface" method="_on_button_clicked" binds= [ "stop" ]]
+[connection signal="pressed" from="MainInterface/MarginContainer/VBoxContainer/Content/Lower/MarginContainer/VBoxContainer/Paused/Continue" to="MainInterface" method="_on_button_clicked" binds= [ "continue" ]]
+[connection signal="pressed" from="MainInterface/MarginContainer/VBoxContainer/Content/Lower/MarginContainer/VBoxContainer/Paused/NextStep" to="MainInterface" method="_on_button_clicked" binds= [ "next" ]]
+[connection signal="pressed" from="MainInterface/MarginContainer/VBoxContainer/Content/Lower/MarginContainer/VBoxContainer/Paused/LastStep" to="MainInterface" method="_on_button_clicked" binds= [ "last" ]]
+[connection signal="pressed" from="MainInterface/MarginContainer/VBoxContainer/Content/Lower/MarginContainer/VBoxContainer/Restart/Restart" to="MainInterface" method="_on_button_clicked" binds= [ "restart" ]]
 [connection signal="mouse_entered" from="MainInterface/MarginContainer/VBoxContainer/Grabber" to="MainInterface" method="_on_grabber_mouse_entered"]
 [connection signal="timeout" from="ContinuousTimer" to="." method="_on_continuous_timeout"]

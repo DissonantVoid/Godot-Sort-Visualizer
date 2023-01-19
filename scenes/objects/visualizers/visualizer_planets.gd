@@ -39,11 +39,6 @@ func _ready():
 	_background.rect_size = _window_size * 2
 	_background.rect_position = -_background.rect_size/2
 	
-	# removing the yield will cause _star_center to be 0,0 at start
-	# but only if visualizer_planets is not the root node
-	# not sure why but I suspect it has something to do with layout
-	# not applying untill root control is ready?
-	yield(get_tree().root, "ready")
 	_star.rect_pivot_offset = _star.rect_size/2
 	_star_center = _star.rect_global_position + _star.rect_size/2
 	
@@ -55,6 +50,13 @@ func _ready():
 			_star_center - Vector2(
 				_planets_offset + (_planets_distance * i), planet.rect_size.y/2)
 			)
+
+# override
+static func get_metadata() -> Dictionary:
+	return {
+		"title":"planets", "image":"planets.png",
+		"description":"Planets in a solar system that get sorter so that the smallest planet is closest to the star, and the biggest is the farthest"
+	}
 
 # override
 func reset():

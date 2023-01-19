@@ -1,6 +1,6 @@
 extends Control
 
-# base class for all visualizers (objects that are sorted by the algorithms)
+# base class for all visualizers (objects that are sorted by sorters)
 
 # we use these signals to allow visualizers to take their time and do any effects etc
 signal updated_indexes
@@ -8,10 +8,15 @@ signal updated_all
 signal finished
 
 # override
-# NOTE: reset is called after an algorithm is chosen, so we can show a "default"
-#       visual in _ready before this is called (see visualizer_rect for example)
+static func get_metadata() -> Dictionary:
+	# "title"
+	# "image": name and extension of an image in "res://resources/textures/visualizer_images/"
+	# "description": short description
+	return {}
+
+# override
 func reset():
-	pass
+	return
 
 # override
 # used by sorters to know how many indexes there are
@@ -34,7 +39,7 @@ func update_all(new_indexes : Array):
 
 # override, called when user hides or shows main_interface panel
 func set_ui_visibility(is_visible : bool):
-	pass
+	return
 
 # override, for additional effects etc.. after sorting is finished
 func finish():

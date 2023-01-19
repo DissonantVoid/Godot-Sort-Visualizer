@@ -1,12 +1,12 @@
 extends MarginContainer
 
-onready var _algo_options_container : HFlowContainer = $MarginContainer/VBoxContainer/Sorter/Algorithms/Options
+onready var _sorters_container : HFlowContainer = $MarginContainer/VBoxContainer/Sorter/Algorithms/Options
 onready var _methods_container : HBoxContainer = $MarginContainer/VBoxContainer/Method/PanelContainer/Method
 
 onready var _run_btn : Button = $MarginContainer/VBoxContainer/InputOutput/VBoxContainer/Run/Button
 onready var _console : RichTextLabel = $MarginContainer/VBoxContainer/InputOutput/VBoxContainer/VBoxContainer/Console
 
-var _selected_algorithm_name : String
+var _selected_sorter_name : String
 var _use_next_step_func : bool = true
 var _array_size : int = 10
 var _allow_duplicates : bool = true
@@ -22,17 +22,17 @@ const _good_color : String = "#92e229"
 
 func _ready():
 	# add sorters
-	for key in FilesTracker.get_dict():
+	for key in FilesTracker.get_sorters_dict():
 		var box : CheckBox = CheckBox.new()
 		box.text = key
 		box.focus_mode = Control.FOCUS_NONE
 		box.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 		box.connect("toggled", self, "_on_sorter_toggled", [box])
-		_algo_options_container.add_child(box)
+		_sorters_container.add_child(box)
 	
-	var first_sorter_box : CheckBox = _algo_options_container.get_child(0)
+	var first_sorter_box : CheckBox = _sorters_container.get_child(0)
 	first_sorter_box.set_pressed_no_signal(true)
-	_selected_algorithm_name = first_sorter_box.text
+	_selected_sorter_name = first_sorter_box.text
 	
 	# connect methods
 	for method_box in _methods_container.get_children():
@@ -40,8 +40,8 @@ func _ready():
 
 func _on_sorter_toggled(toggled : bool, box : CheckBox):
 	if toggled:
-		_toggle_checkbox(box, _algo_options_container.get_children())
-		_selected_algorithm_name = box.text
+		_toggle_checkbox(box, _sorters_container.get_children())
+		_selected_sorter_name = box.text
 	else:
 		box.set_pressed_no_signal(true)
 
@@ -81,11 +81,11 @@ func _on_run_test_pressed():
 			_current_input[rand_idx] = temp_i
 	
 	# setup, sorter
-	var sorter_object = load(FilesTracker.get_dict()[_selected_algorithm_name]).new()
+	var sorter_object = load(FilesTracker.get_sorters_dict()[_selected_sorter_name]).new()
 	sorter_object.setup(_array_size, funcref(self, "_is_bigger"))
 	
 	# summery
-	_print_console("Running tests for [b]" + _selected_algorithm_name + "[/b]")
+	_print_console("Running tests for [b]" + _selected_sorter_name + "[/b]")
 	if _use_next_step_func:
 		_print_console("using [b]sorter.next_step()[/b]")
 	else:

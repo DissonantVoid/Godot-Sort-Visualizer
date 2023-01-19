@@ -1,12 +1,10 @@
 extends Control
 
-export(NodePath) var _visualizer_path : NodePath
-
 onready var _interface : CanvasLayer = $MainInterface
 onready var _continous_timer : Timer = $ContinuousTimer
-onready var _visualizer : Control = get_node(_visualizer_path)
 
 var _sorter : Sorter = null
+var _visualizer = null
 
 enum RunningMode {step, continuous} # step requires user input to do next sort, continous relies on timer
 var _running_mode : int = RunningMode.step
@@ -53,23 +51,27 @@ class Settings:
 
 
 func _ready():
-	assert(_visualizer_path.is_empty() == false, "assign visualizer scene to main node")
-	
-	# setup
+	# apply settings from file
 	_continous_timer.wait_time = _settings.time_per_step / 1000
 	
-	_visualizer.connect("updated_indexes", self, "_on_visualizer_updated_indexes")
-	_visualizer.connect("updated_all", self, "_on_visualizer_updated_all")
-	_visualizer.connect("finished", self, "_on_visualizer_finished")
+	# initial sorter/visualizer
+	var initial_visualizer : String = "vertical_lines"
+	var initial_sorter : String = "bubble_sort"
 	
-	_interface.connect("algorithm_changed", self, "_on_interface_algo_changed")
-	_interface.connect("options_changed", self, "_on_interface_options_changed")
-	_interface.connect("button_pressed", self, "_on_interface_button_pressed")
-	_interface.connect("ui_visibility_changed", self, "_on_interface_ui_visibility_changed")
+	_set_visualizer(load(FilesTracker.get_visualizers_dict()[initial_visualizer]).instance())
+	_visualizer.reset()
+	
+	_sorter = load(FilesTracker.get_sorters_dict()[initial_sorter]).new()
+	_sorter.setup(_visualizer.get_content_count(), funcref(_visualizer, "determine_priority"))
+	
+	_interface.setup(initial_visualizer, initial_sorter)
 
-func _on_interface_algo_changed(new_sorter):
-	_running_mode = RunningMode.step
+func _on_interface_sorter_changed(new_sorter):
 	_sorter = new_sorter
+	_reset()
+
+func _on_interface_visualizer_changed(new_visualizer):
+	_set_visualizer(new_visualizer)
 	_reset()
 
 func _on_interface_options_changed(settings : Settings):
@@ -79,6 +81,9 @@ func _on_interface_options_changed(settings : Settings):
 	_continous_timer.wait_time = _settings.time_per_step / 1000
 	
 	_settings.write()
+
+func _on_interface_ui_visibility_changed(is_visible : bool):
+	_visualizer.set_ui_visibility(is_visible)
 
 func _on_interface_button_pressed(button : String):
 	match button:
@@ -93,7 +98,6 @@ func _on_interface_button_pressed(button : String):
 			_running_mode = RunningMode.step
 			_continous_timer.stop()
 		"stop":
-			_running_mode = RunningMode.step
 			_reset()
 		"last":
 			_continous_timer.stop()
@@ -101,7 +105,6 @@ func _on_interface_button_pressed(button : String):
 			_interface.set_ui_active(false)
 			_visualizer.update_all(_sorter.skip_to_last_step())
 		"restart":
-			_running_mode = RunningMode.step
 			_reset()
 
 func _on_visualizer_updated_indexes():
@@ -118,12 +121,20 @@ func _on_visualizer_finished():
 	_interface.set_ui_active(true)
 	_interface.sorter_finished()
 
-func _on_interface_ui_visibility_changed(is_visible : bool):
-	_visualizer.set_ui_visibility(is_visible)
-
 func _on_continuous_timeout():
 	if _is_waiting_for_visualizer == false:
 		_next_step()
+
+func _set_visualizer(visualizer):
+	if _visualizer != null:
+		_visualizer.queue_free()
+	
+	_visualizer = visualizer
+	add_child(_visualizer)
+	move_child(_visualizer, 0)
+	_visualizer.connect("updated_indexes", self, "_on_visualizer_updated_indexes")
+	_visualizer.connect("updated_all", self, "_on_visualizer_updated_all")
+	_visualizer.connect("finished", self, "_on_visualizer_finished")
 
 func _next_step():
 	var step_data : Dictionary = _sorter.next_step()
@@ -147,6 +158,7 @@ func _next_step():
 		_visualizer.update_indexes(step_data["action"], step_data["indexes"][0], step_data["indexes"][1])
 
 func _reset():
+	_running_mode = RunningMode.step
 	_continous_timer.stop()
 	_interface.set_ui_active(true) # in case we change sorter mid sort
 	_visualizer.reset()

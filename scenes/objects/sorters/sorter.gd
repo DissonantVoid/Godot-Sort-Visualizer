@@ -1,5 +1,5 @@
-extends Reference
 class_name Sorter
+extends Reference
 
 # base class for all sorting algorithms
 

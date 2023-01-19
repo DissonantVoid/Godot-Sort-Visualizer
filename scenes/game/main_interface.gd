@@ -1,21 +1,26 @@
 extends CanvasLayer
 
-signal algorithm_changed(new_algorithn)
+signal sorter_changed(new_sorter)
+signal visualizer_changed(new_visualizer)
 signal options_changed(data) # data : dictionary
 signal button_pressed(button)
 signal ui_visibility_changed(is_visible)
 
 onready var _root_child : MarginContainer = $MarginContainer
-onready var _content_container : PanelContainer = $MarginContainer/VBoxContainer/Content
-onready var _selected_algo_btn : Button = $MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Algorithm
-onready var _idle_buttons : HBoxContainer = $MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Idle
-onready var _running_buttons : HBoxContainer = $MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Running
-onready var _paused_buttons : HBoxContainer = $MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Paused
-onready var _restart_buttons : HBoxContainer = $MarginContainer/VBoxContainer/Content/MarginContainer/HBoxContainer/Center/Restart
+onready var _content_container : VBoxContainer = $MarginContainer/VBoxContainer/Content
+onready var _selected_sorter_btn : Button = $MarginContainer/VBoxContainer/Content/Upper/MarginContainer/HBoxContainer/Center/HBoxContainer/Sorter
+onready var _idle_buttons : HBoxContainer = $MarginContainer/VBoxContainer/Content/Lower/MarginContainer/VBoxContainer/Idle
+onready var _running_buttons : HBoxContainer = $MarginContainer/VBoxContainer/Content/Lower/MarginContainer/VBoxContainer/Running
+onready var _paused_buttons : HBoxContainer = $MarginContainer/VBoxContainer/Content/Lower/MarginContainer/VBoxContainer/Paused
+onready var _restart_buttons : HBoxContainer = $MarginContainer/VBoxContainer/Content/Lower/MarginContainer/VBoxContainer/Restart
+
+onready var _selected_visualizer_btn : Button = $MarginContainer/VBoxContainer/Content/Upper/MarginContainer/HBoxContainer/Center/HBoxContainer/Visualizer
+
 onready var _grabber : ColorRect = $MarginContainer/VBoxContainer/Grabber
 
 const _options_popup_scene : PackedScene = preload("res://scenes/objects/components/popups/popup_main_interface_options.tscn")
-const _algorithms_popup_scene : PackedScene = preload("res://scenes/objects/components/popups/popup_main_interface_algorithms.tscn")
+const _sorter_popup_scene : PackedScene = preload("res://scenes/objects/components/popups/popup_main_interface_algorithms.tscn")
+const _visualizer_popup_scene : PackedScene = preload("res://scenes/objects/components/popups/popup_main_interface_visualizer.tscn")
 
 var _visualizer_control_buttons : Array # cache for set_ui_active()
 const _moving_time : float = 0.85
@@ -33,6 +38,10 @@ func _ready():
 	for child in _restart_buttons.get_children():
 		if child is Button: _visualizer_control_buttons.append(child)
 
+func setup(visualizer_name : String, sorter_name : String):
+	_selected_visualizer_btn.text = visualizer_name
+	_selected_sorter_btn.text = sorter_name
+
 func sorter_finished():
 	_toggle_button_group(_restart_buttons)
 
@@ -46,10 +55,15 @@ func show_options_popup(settings):
 	add_child(instance)
 	instance.setup(settings)
 
-func _on_title_pressed():
-		var instance := _algorithms_popup_scene.instance()
-		add_child(instance)
-		instance.connect("ok", self, "_on_algorithms_popup_ok")
+func _on_sorter_pressed():
+	var instance := _sorter_popup_scene.instance()
+	add_child(instance)
+	instance.connect("ok", self, "_on_sorter_popup_ok")
+
+func _on_visualizer_pressed():
+	var instance := _visualizer_popup_scene.instance()
+	add_child(instance)
+	instance.connect("ok", self, "_on_visualizer_popup_ok")
 
 func _on_button_clicked(button : String):
 	match button:
@@ -91,15 +105,17 @@ func _on_button_clicked(button : String):
 			_toggle_button_group(_idle_buttons)
 			emit_signal("button_pressed", button)
 
-func _on_algorithms_popup_ok(data : Dictionary):
-	emit_signal("algorithm_changed", load(data["path"]).new())
+func _on_sorter_popup_ok(data : Dictionary):
+	emit_signal("sorter_changed", load(data["path"]).new())
 	
-	_selected_algo_btn.text = data["name"]
+	_selected_sorter_btn.text = data["name"]
 	_toggle_button_group(_idle_buttons)
+
+func _on_visualizer_popup_ok(data : Dictionary):
+	emit_signal("visualizer_changed", load(data["path"]).instance())
 	
-	for child in _idle_buttons.get_children():
-		if child is Button && child.disabled:
-			child.disabled = false
+	_selected_visualizer_btn.text = data["name"]
+	_toggle_button_group(_idle_buttons)
 
 func _on_options_popup_ok(data : Dictionary):
 	emit_signal("options_changed", data["settings"])

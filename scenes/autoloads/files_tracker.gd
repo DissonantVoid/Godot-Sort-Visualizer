@@ -1,11 +1,15 @@
 extends Node
 
-# NOTE: we may need to track visualizers too in the future
-
 const _sorters_path : String = "res://scenes/objects/sorters/"
+const _visualizers_path : String = "res://scenes/objects/visualizers/"
 var _sorters : Dictionary # {name:path,..}
+var _visualizers : Dictionary # {name:path,..}
+
+const screenshots_path : String = "res://resources/textures/visualizer_images/"
+
 
 func _ready():
+	# sorters
 	var dir : Directory = Directory.new()
 	dir.open(_sorters_path)
 	dir.list_dir_begin(true, true)
@@ -13,12 +17,29 @@ func _ready():
 	while curr_dir.empty() == false:
 		# ignore base class
 		if curr_dir != "sorter.gd":
-			assert(curr_dir.begins_with("sorter_"), "sorter scripts should start with 'sorter_'")
+			assert(curr_dir.begins_with("sorter_"), "sorter scripts must start with 'sorter_'")
 			
 			var sorter_name : String = curr_dir.substr(7).get_basename()
 			_sorters[sorter_name] = _sorters_path + curr_dir
 		
 		curr_dir = dir.get_next()
+	
+	# visualizers
+	dir.open(_visualizers_path)
+	dir.list_dir_begin(true, true)
+	curr_dir = dir.get_next()
+	while curr_dir.empty() == false:
+		# ignore scripts and base class
+		if curr_dir.ends_with(".tscn") && curr_dir != "visualizer.tscn":
+			assert(curr_dir.begins_with("visualizer_"), "visualizer scenes must start with 'visualizer_'")
+			
+			var visualizer_name : String = curr_dir.substr(11).get_basename()
+			_visualizers[visualizer_name] = _visualizers_path + curr_dir
+		
+		curr_dir = dir.get_next()
 
-func get_dict() -> Dictionary:
+func get_sorters_dict() -> Dictionary:
 	return _sorters
+
+func get_visualizers_dict() -> Dictionary:
+	return _visualizers
