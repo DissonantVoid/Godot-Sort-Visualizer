@@ -7,6 +7,9 @@ const _visualizer_data_scene : PackedScene = preload("res://scenes/objects/compo
 
 var _chosen_visualizer_path : String
 
+# TODO: there is a problem with the scroll container,
+#       try to scroll inside the scroll bar of the card with title "singing_lazers"
+#       it should scroll the description without scrolling cards
 
 func _ready():
 	for key in FilesTracker.get_visualizers_dict():
@@ -14,9 +17,17 @@ func _ready():
 		#       one for scene and other for script. or maybe return scene name without the extension
 		#       so we can add the extension we need, if we do this get_sorters_dict() should do the same
 		#       for the sake of consistency
+		
+		# TODO: something about this load causes errors in debugger, something to do with shaders??
+		#       note that the error never appeared before I made visualizer_singing_lazers
 		var metadata : Dictionary = load(
 			FilesTracker.get_visualizers_dict()[key].replace(".tscn",".gd")
 		).get_metadata()
+		
+		assert(
+			metadata.has("title") && metadata.has("image") && metadata.has("description"),
+			"visualizer.get_metadata() must return 3 entries even if empty: 'title' 'image' 'description'"
+		)
 		
 		var instance := _visualizer_data_scene.instance()
 		instance.connect("pressed", self, "_on_visualizer_pressed")

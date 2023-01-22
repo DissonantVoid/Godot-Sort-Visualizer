@@ -8,7 +8,7 @@ var _order : Array # idx : piece,   idx 1 is top left piece, idx size-1 is botto
 
 const _switch_tween_time : float = 0.8
 
-# TODO: puzzle pieces are hidden when main interface is shown, do something about it ya lazy bastard
+# TODO: puzzle pieces are partly hidden when main interface is shown, do something about it ya lazy bastard
 
 func _ready():
 	_board.hide()

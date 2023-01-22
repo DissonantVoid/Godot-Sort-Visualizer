@@ -2,6 +2,19 @@ extends Node # can't be a reference since godot automaticaly adds a node to auto
 
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
 
+class MultiSignalYield:
+	signal all_signals_yielded
+	var awaiting : int = 0
+	
+	func add_signal(object : Object, signal_ : String):
+		awaiting += 1
+		object.connect(signal_, self, "on_signal_done")
+	
+	func on_signal_done():
+		awaiting -= 1
+		if awaiting == 0:
+			emit_signal("all_signals_yielded")
+
 func _init():
 	randomize()
 	rng.randomize()
@@ -42,3 +55,23 @@ func subarr_first_index_to_1d(arr : Array, subarr_idx : int) -> int:
 		index_1d += arr[i].size()
 	
 	return index_1d
+
+func await_multiple_signals(objects_n_signals : Array) -> MultiSignalYield:
+	# objects_n_signals: [object1,signal1,object2,signal2 etc...]
+	# this helps with the multi yield issues in godot where you can't await more than 1 signal because
+	# some signals may emit before others making the yield order problematic
+	# Usage: yield(Utility.await_multiple_signals(...), "all_signals_yielded")
+	# note that this method doesn't return any information about the signal's arguments so it's
+	# only reliable to yield multiple signals and nothing more
+	var multi_signal_yield : MultiSignalYield = MultiSignalYield.new()
+	var assert_message : String = "items in objects_n_signals should be in the order: [object1, signal name1, object2, signal name2, ...]"
+	
+	assert(objects_n_signals.size() % 2 == 0, assert_message)
+	for i in objects_n_signals.size():
+		if i%2 == 0:
+			assert(objects_n_signals[i] is Object, assert_message)
+			multi_signal_yield.add_signal(objects_n_signals[i], objects_n_signals[i+1])
+		else:
+			assert(objects_n_signals[i] is String, assert_message)
+	
+	return multi_signal_yield

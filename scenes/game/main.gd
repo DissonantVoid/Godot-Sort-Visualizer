@@ -10,14 +10,13 @@ enum RunningMode {step, continuous} # step requires user input to do next sort, 
 var _running_mode : int = RunningMode.step
 var _is_waiting_for_visualizer : bool = false
 
-var _settings_file : ConfigFile = ConfigFile.new()
-
 var _settings : Settings = Settings.new()
 class Settings:
 	# NOTE: a class instead of a dict, because dict keys are not checked untill runtime
 	# making them prone to error and hard to keep track of reads/writes to the same key
 	# this functions more like like a c++ Struct
 	var time_per_step : float = 40.0
+	var volume : float = 100
 	
 	var _file : ConfigFile = ConfigFile.new()
 	var _settings_file_path : String
@@ -42,17 +41,19 @@ class Settings:
 	
 	func read():
 		time_per_step = _file.get_value(_section_name, "time_per_step", time_per_step)
+		volume = _file.get_value(_section_name, "volume", volume)
 		# ...
 	
 	func write():
 		_file.set_value(_section_name, "time_per_step", time_per_step)
+		_file.set_value(_section_name, "volume", volume)
 		# ...
 		_file.save(_settings_file_path)
 
 
 func _ready():
 	# apply settings from file
-	_continous_timer.wait_time = _settings.time_per_step / 1000
+	_apply_settings()
 	
 	# initial sorter/visualizer
 	var initial_visualizer : String = "vertical_lines"
@@ -66,6 +67,15 @@ func _ready():
 	
 	_interface.setup(initial_visualizer, initial_sorter)
 
+func _apply_settings():
+	_continous_timer.wait_time = _settings.time_per_step / 1000
+	if _settings.volume == 0:
+		AudioServer.set_bus_mute(0, true)
+		AudioServer.set_bus_volume_db(0, range_lerp(_settings.volume, 0, 100, -40, 0))
+	else:
+		if AudioServer.is_bus_mute(0): AudioServer.set_bus_mute(0, false)
+		AudioServer.set_bus_volume_db(0, range_lerp(_settings.volume, 0, 100, -40, 0))
+
 func _on_interface_sorter_changed(new_sorter):
 	_sorter = new_sorter
 	_reset()
@@ -76,9 +86,7 @@ func _on_interface_visualizer_changed(new_visualizer):
 
 func _on_interface_options_changed(settings : Settings):
 	_settings = settings
-	
-	# apply settings
-	_continous_timer.wait_time = _settings.time_per_step / 1000
+	_apply_settings()
 	
 	_settings.write()
 
@@ -107,6 +115,17 @@ func _on_interface_button_pressed(button : String):
 		"restart":
 			_reset()
 
+func _set_visualizer(visualizer):
+	if _visualizer != null:
+		_visualizer.queue_free()
+	
+	_visualizer = visualizer
+	add_child(_visualizer)
+	move_child(_visualizer, 0)
+	_visualizer.connect("updated_indexes", self, "_on_visualizer_updated_indexes")
+	_visualizer.connect("updated_all", self, "_on_visualizer_updated_all")
+	_visualizer.connect("finished", self, "_on_visualizer_finished")
+
 func _on_visualizer_updated_indexes():
 	_is_waiting_for_visualizer = false
 	_interface.set_ui_active(true)
@@ -124,17 +143,6 @@ func _on_visualizer_finished():
 func _on_continuous_timeout():
 	if _is_waiting_for_visualizer == false:
 		_next_step()
-
-func _set_visualizer(visualizer):
-	if _visualizer != null:
-		_visualizer.queue_free()
-	
-	_visualizer = visualizer
-	add_child(_visualizer)
-	move_child(_visualizer, 0)
-	_visualizer.connect("updated_indexes", self, "_on_visualizer_updated_indexes")
-	_visualizer.connect("updated_all", self, "_on_visualizer_updated_all")
-	_visualizer.connect("finished", self, "_on_visualizer_finished")
 
 func _next_step():
 	var step_data : Dictionary = _sorter.next_step()

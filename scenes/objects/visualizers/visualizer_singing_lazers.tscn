@@ -1,0 +1,58 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/objects/visualizers/visualizer_singing_lazers.gd" type="Script" id=1]
+[ext_resource path="res://scenes/objects/visualizers/visualizer.tscn" type="PackedScene" id=2]
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 0 ), 0.0, 8.45454, 0, 0, Vector2( 0.0572917, 0.995454 ), -0.0484848, -0.0484848, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[node name="VisualizerSingingLazers" instance=ExtResource( 2 )]
+script = ExtResource( 1 )
+
+[node name="Background" type="ColorRect" parent="." index="0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.27451, 0.258824, 0.368627, 1 )
+
+[node name="Fireworks" type="Node2D" parent="." index="1"]
+
+[node name="Firework" type="CPUParticles2D" parent="Fireworks" index="0"]
+emitting = false
+amount = 120
+lifetime = 3.0
+one_shot = true
+explosiveness = 1.0
+local_coords = false
+spread = 180.0
+gravity = Vector2( 0, 66 )
+initial_velocity = 200.0
+initial_velocity_random = 0.6
+damping = 100.0
+damping_random = 0.2
+angle = 90.0
+angle_random = 1.0
+scale_amount = 8.0
+scale_amount_random = 0.8
+scale_amount_curve = SubResource( 1 )
+
+[node name="MarginContainer" type="MarginContainer" parent="." index="2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Lazers" type="HBoxContainer" parent="MarginContainer" index="0"]
+margin_top = 540.0
+margin_right = 960.0
+margin_bottom = 540.0
+size_flags_vertical = 10
+custom_constants/separation = 0
+
+[node name="Receivers" type="HBoxContainer" parent="MarginContainer" index="1"]
+margin_right = 960.0
+size_flags_vertical = 0
+custom_constants/separation = 0
+
+[node name="MusicSyncTimer" type="Timer" parent="." index="3"]
+
+[node name="FireworksTimer" type="Timer" parent="." index="4"]
+
+[connection signal="timeout" from="FireworksTimer" to="." method="_on_fireworks_timeout"]

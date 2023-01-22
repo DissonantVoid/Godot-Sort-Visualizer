@@ -14,7 +14,7 @@ var _selected_low_clr : Color = Color("00b9be")
 
 
 func _ready():
-	# split gap evenly between rects
+	# split height gap evenly between rects
 	var rect_size_intervals : Array
 	rect_size_intervals.resize(_rect_count)
 	var gap_size : float = (_rect_max_height - _rect_min_height) / _rect_count

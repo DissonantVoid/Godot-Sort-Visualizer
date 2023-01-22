@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=14 format=2]
+[gd_resource type="Theme" load_steps=16 format=2]
 
 [ext_resource path="res://resources/fonts/libre-baskerville/LibreBaskerville-Regular.ttf" type="DynamicFontData" id=1]
 
@@ -45,6 +45,23 @@ corner_radius_top_right = 1
 corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 
+[sub_resource type="StyleBoxFlat" id=14]
+bg_color = Color( 1, 0.411765, 0.45098, 1 )
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id=15]
+bg_color = Color( 0, 0.72549, 0.745098, 1 )
+border_width_top = 2
+border_width_bottom = 2
+border_color = Color( 0, 0.72549, 0.745098, 1 )
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
 [sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 0, 0.72549, 0.745098, 1 )
 border_width_left = 2
@@ -90,6 +107,9 @@ HScrollBar/styles/grabber_highlight = SubResource( 12 )
 HScrollBar/styles/grabber_pressed = SubResource( 12 )
 HScrollBar/styles/scroll = SubResource( 13 )
 HSeparator/styles/separator = SubResource( 6 )
+HSlider/styles/grabber_area = SubResource( 14 )
+HSlider/styles/grabber_area_highlight = SubResource( 14 )
+HSlider/styles/slider = SubResource( 15 )
 Label/colors/font_color = Color( 1, 0.933333, 0.8, 1 )
 LineEdit/colors/font_color = Color( 1, 0.933333, 0.8, 1 )
 LineEdit/styles/normal = SubResource( 7 )

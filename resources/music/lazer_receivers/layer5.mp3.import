@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/layer5.mp3-8da15bc44044a55a6f22067c6baf6435.mp3str"
+
+[deps]
+
+source_file="res://resources/music/lazer_receivers/layer5.mp3"
+dest_files=[ "res://.import/layer5.mp3-8da15bc44044a55a6f22067c6baf6435.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

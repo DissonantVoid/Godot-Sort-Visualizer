@@ -11,7 +11,7 @@ Any help is greatly appreciated, and I'm very much open to suggestions and PRs.
 code optimizations are also needed at the moment and any contributions in that regard would help speed up the process.
 The project uses a slightly modified version of the [godot style guide](https://docs.godotengine.org/en/3.5/tutorials/scripting/gdscript/gdscript_styleguide.html), so it's highly appreciated if you can stick to the original guide, but I can take care of reformating otherwise.
 
-## Project Structure:
+## Project Structure
 The main components are **Sorters** and **Visualizers**,
 **Sorters** are scripts that contain the sorting algorithm, each script inherites
 from `sorter.gd` and must override its virtual methods to interact with the algorithm.

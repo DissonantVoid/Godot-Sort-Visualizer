@@ -1,0 +1,23 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type canvas_item;
+
+const float wiggle_dist = 5.0;
+uniform float offset = 1.0;
+
+void vertex()
+{
+	// not the smoothest way to do this, should try again later
+	VERTEX.x += sin(TIME * offset * VERTEX.y * 0.4) * wiggle_dist;
+}
+
+const float lazer_size = 0.1;
+const float gap_size = 1.4;
+const float speed = 0.5;
+
+void fragment()
+{
+	if (mod(UV.x - (TIME+offset) * speed, lazer_size) > lazer_size / gap_size)
+		COLOR.a = 0.4;
+}"

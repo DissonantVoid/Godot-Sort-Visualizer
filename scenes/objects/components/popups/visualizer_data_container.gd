@@ -1,5 +1,7 @@
 extends Control
 
+# TODO: update screenshots
+
 signal pressed(title, path)
 
 onready var _title_label : Label = $HBoxContainer/TextContainer/VBoxContainer/Title
