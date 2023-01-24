@@ -3,6 +3,8 @@ extends Control
 onready var _interface : CanvasLayer = $MainInterface
 onready var _continous_timer : Timer = $ContinuousTimer
 
+const _initial_visualizer : String = "vertical_lines"
+const _initial_sorter : String = "bubble_sort"
 var _sorter : Sorter = null
 var _visualizer = null
 
@@ -56,16 +58,14 @@ func _ready():
 	_apply_settings()
 	
 	# initial sorter/visualizer
-	var initial_visualizer : String = "vertical_lines"
-	var initial_sorter : String = "bubble_sort"
 	
-	_set_visualizer(load(FilesTracker.get_visualizers_dict()[initial_visualizer]).instance())
+	_set_visualizer(load(FilesTracker.get_visualizers_dict()[_initial_visualizer]["scene"]).instance())
 	_visualizer.reset()
 	
-	_sorter = load(FilesTracker.get_sorters_dict()[initial_sorter]).new()
+	_sorter = load(FilesTracker.get_sorters_dict()[_initial_sorter]).new()
 	_sorter.setup(_visualizer.get_content_count(), funcref(_visualizer, "determine_priority"))
 	
-	_interface.setup(initial_visualizer, initial_sorter)
+	_interface.setup(_initial_visualizer, _initial_sorter)
 
 func _apply_settings():
 	_continous_timer.wait_time = _settings.time_per_step / 1000

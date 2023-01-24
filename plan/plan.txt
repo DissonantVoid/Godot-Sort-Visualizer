@@ -1,4 +1,4 @@
-Current Task: merge sort
+Current Task: Merge sort, heap sort
 Next Task: 1 new visualizers
 
 Todo (also see in-code todos by searching in all files for "todo"):
@@ -11,7 +11,7 @@ Plan:
   -sorters (easy to hard):
 		[X] Bubble sort,   [X] Selection sort,   [X] Insertion sort
 		[X] Gnome sort,    [X] Shell sort,       [X] Quick sort
-		[!] Merge sort,    [ ] Heap sort,        [ ] Radix sort
+		[!] Merge sort,    [X] Heap sort,        [ ] Radix sort
 		[ ] Bitonic sort,  [ ] Bogo sort
 
   -visualizers: there should be at least 5 visualizers

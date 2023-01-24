@@ -9,19 +9,16 @@ var _chosen_visualizer_path : String
 
 # TODO: there is a problem with the scroll container,
 #       try to scroll inside the scroll bar of the card with title "singing_lazers"
-#       it should scroll the description without scrolling cards
+#       it should scroll the description text without moving cards
 
 func _ready():
 	for key in FilesTracker.get_visualizers_dict():
-		# TODO: hacky, maybe FilesTracker.get_visualizers_dict should return dict with 2 entries
-		#       one for scene and other for script. or maybe return scene name without the extension
-		#       so we can add the extension we need, if we do this get_sorters_dict() should do the same
-		#       for the sake of consistency
+		var curr_visualizer_entry : Dictionary = FilesTracker.get_visualizers_dict()[key]
 		
 		# TODO: something about this load causes errors in debugger, something to do with shaders??
 		#       note that the error never appeared before I made visualizer_singing_lazers
 		var metadata : Dictionary = load(
-			FilesTracker.get_visualizers_dict()[key].replace(".tscn",".gd")
+			curr_visualizer_entry["script"]
 		).get_metadata()
 		
 		assert(
@@ -33,7 +30,7 @@ func _ready():
 		instance.connect("pressed", self, "_on_visualizer_pressed")
 		_visualizers_container.add_child(instance)
 		instance.setup(
-			metadata["title"], metadata["image"], metadata["description"], FilesTracker.get_visualizers_dict()[key]
+			metadata["title"], metadata["image"], metadata["description"], curr_visualizer_entry["scene"]
 		)
 
 func _on_ok_pressed():

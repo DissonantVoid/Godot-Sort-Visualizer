@@ -60,7 +60,7 @@ func await_multiple_signals(objects_n_signals : Array) -> MultiSignalYield:
 	# objects_n_signals: [object1,signal1,object2,signal2 etc...]
 	# this helps with the multi yield issues in godot where you can't await more than 1 signal because
 	# some signals may emit before others making the yield order problematic
-	# Usage: yield(Utility.await_multiple_signals(...), "all_signals_yielded")
+	# Usage: yield(Utility.await_multiple_signals([...]), "all_signals_yielded")
 	# note that this method doesn't return any information about the signal's arguments so it's
 	# only reliable to yield multiple signals and nothing more
 	var multi_signal_yield : MultiSignalYield = MultiSignalYield.new()
