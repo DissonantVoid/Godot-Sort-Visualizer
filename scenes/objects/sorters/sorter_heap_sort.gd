@@ -28,18 +28,14 @@ func setup(data_size : int, priority_callback : FuncRef):
 func next_step() -> Dictionary:
 	if _index == _data_size: return {"done":true}
 	
-	# TODO: this syncs _heap_arr with the visualizer data but it's ugly and dumb,
-	#       it's also no technicaly a heap-sort because we re-heapify the array each time
-	#       I tried some other solutions with no success
-	#       I'm tired of staring at the screen for so long without any progress
-	#       I shall try again later!
-	#       thank goodness I only have 2 more algorithms left, can't wait
-	#       to be done with this pain of a project
-	_heap_arr.clear()
-	for i in range(_index, _data_size): _heap_arr.append(i)
-	_heapify(_heap_arr)
-	
 	var smallest_idx : int = _h_pop_root(_heap_arr)
+	
+	# once the smallest index is poped, and the visualizer switches the 2 children
+	# we update the index in _heap_arr to sync with the content of the visualizer
+	var index_pos_in_heap : int = _heap_arr.find(_index)
+	if index_pos_in_heap != -1:
+		_heap_arr[index_pos_in_heap] = smallest_idx
+	
 	_index += 1
 	
 	if smallest_idx == _index-1:
