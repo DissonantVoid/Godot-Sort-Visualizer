@@ -1,5 +1,10 @@
 extends MarginContainer
 
+# TODO: add button "run untill error", which keeps running the current operation
+#       repeatedly untill an error occurs
+
+# TODO: after running tests multiple times with failure show a button called "cry"
+
 onready var _sorters_container : HFlowContainer = $MarginContainer/VBoxContainer/Sorter/Algorithms/Options
 onready var _methods_container : HBoxContainer = $MarginContainer/VBoxContainer/Method/PanelContainer/Method
 
@@ -16,8 +21,9 @@ const _max_printable_array_size : int = 30 # _current_input is printed to consol
 var _current_input : Array
 var _prev_report_end_idx_cache : int = -1
 
-const _bad_color : String = "#a21515"
 const _good_color : String = "#92e229"
+const _warn_color : String = "#c9c14b"
+const _bad_color : String = "#a21515"
 
 
 func _ready():
@@ -130,6 +136,13 @@ func _on_run_test_pressed():
 					_print_console(incomplete_entry_err, _bad_color)
 					has_errors = true
 					break
+				
+				if result["indexes"][0] == result["indexes"][1]:
+					_print_console(
+						"sorter.next_step() 'indexes' both values are the same," +
+						"this is pointless and can cause issues with some visualizers",
+						 _warn_color
+					)
 				
 				if result["action"] == Sorter.SortAction.switch:
 					Utility.swap(_current_input, result["indexes"][0], result["indexes"][1])

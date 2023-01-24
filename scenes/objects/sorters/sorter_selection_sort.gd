@@ -17,7 +17,7 @@ func setup(data_size : int, priority_callback : FuncRef):
 
 # override
 func next_step() -> Dictionary:
-	if _index == _data_size-1: return {"done":true}
+	if _index == _data_size: return {"done":true}
 	
 	var smallest_idx : int = _index
 	for j in range(_index+1, _data_size):
@@ -25,7 +25,8 @@ func next_step() -> Dictionary:
 				smallest_idx = j
 	
 	_index += 1
-	if smallest_idx == _index-1: return next_step()
+	if smallest_idx == _index-1:
+		return next_step()
 	else:
 		return {"done":false, "action":SortAction.switch, "indexes":[_index-1, smallest_idx]}
 
