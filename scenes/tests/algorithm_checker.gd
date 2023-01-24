@@ -9,6 +9,7 @@ onready var _run_btn : Button = $MarginContainer/VBoxContainer/InputOutput/VBoxC
 onready var _run_util_err_btn : Button = $MarginContainer/VBoxContainer/InputOutput/VBoxContainer/Run/MarginContainer/HBoxContainer/RunUntilErr
 onready var _console : RichTextLabel = $MarginContainer/VBoxContainer/InputOutput/VBoxContainer/VBoxContainer/Console
 
+const _starting_sorter : String = "bubble_sort"
 var _selected_sorter_name : String
 var _use_next_step_func : bool = true
 var _array_size : int = 10
@@ -16,9 +17,9 @@ var _allow_duplicates : bool = true
 var _trace_steps : bool = false
 
 const _max_printable_array_size : int = 30 # _current_input is printed to console as long as it's smaller than this
+const _continuous_test_max_loops : int = 100
 var _current_input : Array
 var _prev_report_end_idx_cache : int = -1
-const _continuous_test_max_loops : int = 100
 var _dash_char_width : float
 
 const _good_color : String = "#92e229"
@@ -39,9 +40,12 @@ func _ready():
 		box.connect("toggled", self, "_on_sorter_toggled", [box])
 		_sorters_container.add_child(box)
 	
-	var first_sorter_box : CheckBox = _sorters_container.get_child(0)
-	first_sorter_box.set_pressed_no_signal(true)
-	_selected_sorter_name = first_sorter_box.text
+	# pick one sorter by default
+	_selected_sorter_name = _starting_sorter
+	for sorter_box in _sorters_container.get_children():
+		if sorter_box.text == _starting_sorter:
+			sorter_box.set_pressed_no_signal(true)
+			break
 	
 	# connect methods
 	for method_box in _methods_container.get_children():

@@ -44,7 +44,7 @@ func skip_to_last_step() -> Array:
 	
 	while true:
 		var changed : bool = false
-		for i in range(0, _data_size-1):
+		for i in _data_size-1:
 			if _priority_callback.call_func(indexes[i], indexes[i+1]):
 				changed = true
 				Utility.swap(indexes, i, i+1)

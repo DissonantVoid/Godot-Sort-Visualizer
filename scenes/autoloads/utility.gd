@@ -50,7 +50,7 @@ func subarr_first_index_to_1d(arr : Array, subarr_idx : int) -> int:
 	
 	# NOTE: only checks 1 depth (array of arrays), doesn't work on array of arrays of arrays and so on
 	var index_1d : int = 0
-	for i in range(0, subarr_idx):
+	for i in subarr_idx:
 		assert(arr[i] is Array, "array must contains arrays")
 		index_1d += arr[i].size()
 	
