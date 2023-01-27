@@ -58,8 +58,8 @@ func skip_to_last_step() -> Array:
 	indexes.resize(_data_size)
 	for i in _data_size: indexes[i] = i
 	
-	# we use half the size as a gap
-	# but there are other more efficent sequences like Marcin Ciura's sequence
+	# we use half the size as a gap and increment linearly (Natural sequence)
+	# but there are other more efficent sequences like Marcin Ciura's sequence and Knuth Sequence (see wiki link above)
 	var gap : int = indexes.size() / 2
 	while gap > 0:
 		for i in range(gap, indexes.size()):

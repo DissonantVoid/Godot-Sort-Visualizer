@@ -178,7 +178,7 @@ func _print_test_summery(is_running_once : bool):
 	
 	_console_print("using array of size " + str(_array_size) +
 					(", duplicates allowed" if _allow_duplicates else ", no duplicates") )
-	if _array_size < _max_printable_array_size:
+	if is_running_once && _array_size < _max_printable_array_size:
 		_console_print("input array: " + str(_current_input))
 	if is_running_once == false:
 		_console_print("this test will run [b]repeatedly[/b] until an error occurs or it has run " + str(_continuous_test_max_loops) + " times")

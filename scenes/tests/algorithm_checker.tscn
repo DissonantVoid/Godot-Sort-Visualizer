@@ -46,7 +46,7 @@ margin_bottom = 65.0
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Sorter"]
 margin_right = 870.0
 margin_bottom = 21.0
-text = "Choose a sorter:"
+text = "Sorter:"
 align = 1
 
 [node name="Algorithms" type="PanelContainer" parent="MarginContainer/VBoxContainer/Sorter"]
@@ -70,7 +70,7 @@ margin_bottom = 150.0
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Method"]
 margin_right = 870.0
 margin_bottom = 21.0
-text = "Choose the method:"
+text = "Method:"
 align = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/Method"]
@@ -112,7 +112,7 @@ margin_bottom = 243.0
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Data"]
 margin_right = 870.0
 margin_bottom = 21.0
-text = "Choose Input data:"
+text = "Input Data:"
 align = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/Data"]

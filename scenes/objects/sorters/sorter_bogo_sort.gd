@@ -8,13 +8,9 @@ extends "res://scenes/objects/sorters/sorter.gd"
 #
 # time complexity: O(N * N!)
 
-
-# override
-func setup(data_size : int, priority_callback : FuncRef):
-	.setup(data_size, priority_callback)
-
 # NOTE: using any of the functions below in a large array (by large I mean bigger than 5 or so)
 #          will take so long to sort that the game window will stop responding
+
 
 # override
 func next_step() -> Dictionary:

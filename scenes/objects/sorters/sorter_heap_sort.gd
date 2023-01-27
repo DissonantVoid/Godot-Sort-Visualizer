@@ -6,6 +6,9 @@ extends "res://scenes/objects/sorters/sorter.gd"
 # in the unsorted half and move it ... 
 # but instead of linearly iterating over the unsorted half, we use a heap
 # data structure
+# NOTE: in Array.sort(), godot seems to use heap-sort as well as quick-sort
+#       mixed together in an intro-sort. I could be wrong but this is what
+#       I can see here: github.com/godotengine/godot/blob/master/core/templates/sort_array.h
 #
 # time complexity: O(N LOG N)
 
