@@ -29,6 +29,15 @@ config/icon="res://icon.png"
 Utility="*res://scenes/autoloads/utility.gd"
 FilesTracker="*res://scenes/autoloads/files_tracker.gd"
 
+[debug]
+
+gdscript/warnings/shadowed_variable=false
+gdscript/warnings/unused_argument=false
+gdscript/warnings/narrowing_conversion=false
+gdscript/warnings/incompatible_ternary=false
+gdscript/warnings/return_value_discarded=false
+gdscript/warnings/standalone_ternary=false
+
 [display]
 
 window/size/width=960
