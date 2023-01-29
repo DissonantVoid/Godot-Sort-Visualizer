@@ -234,7 +234,7 @@ func _run_single_test(sorter_object : Sorter, original_input : Array) -> bool:
 					)
 				
 				if result["action"] == Sorter.SortAction.switch:
-					Utility.swap(_current_input, result["indexes"][0], result["indexes"][1])
+					Utility.swap_elements(_current_input, result["indexes"][0], result["indexes"][1])
 				elif result["action"] == Sorter.SortAction.move:
 					Utility.move_element(_current_input, result["indexes"][0], result["indexes"][1])
 				

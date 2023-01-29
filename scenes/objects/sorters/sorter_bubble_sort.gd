@@ -47,7 +47,7 @@ func skip_to_last_step() -> Array:
 		for i in _data_size-1:
 			if _priority_callback.call_func(indexes[i], indexes[i+1]):
 				changed = true
-				Utility.swap(indexes, i, i+1)
+				Utility.swap_elements(indexes, i, i+1)
 		if changed == false: break
 	
 	return indexes

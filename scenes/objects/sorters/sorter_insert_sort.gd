@@ -53,10 +53,10 @@ func skip_to_last_step() -> Array:
 	
 	for i in indexes.size()-1: # NOTE: size()-1 is actually size()-2 because 'in' is exclusive
 		if _priority_callback.call_func(indexes[i], indexes[i+1]):
-			Utility.swap(indexes, i, i+1)
+			Utility.swap_elements(indexes, i, i+1)
 			# keep swaping backward untill [i] is in the right position
 			for j in range(i, 0, -1):
 				if _priority_callback.call_func(indexes[j-1], indexes[j]):
-					Utility.swap(indexes, j, j-1)
+					Utility.swap_elements(indexes, j, j-1)
 	
 	return indexes

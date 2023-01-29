@@ -64,10 +64,10 @@ func skip_to_last_step() -> Array:
 	while gap > 0:
 		for i in range(gap, indexes.size()):
 			if _priority_callback.call_func(indexes[i-gap], indexes[i]):
-				Utility.swap(indexes, i-gap, i)
+				Utility.swap_elements(indexes, i-gap, i)
 				for j in range(i-gap-gap, -1, -gap):
 					if _priority_callback.call_func(indexes[j], indexes[j+gap]):
-						Utility.swap(indexes,j ,j+gap )
+						Utility.swap_elements(indexes,j ,j+gap )
 		
 		gap /= 2
 	

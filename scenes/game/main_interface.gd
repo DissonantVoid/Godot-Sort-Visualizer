@@ -9,10 +9,10 @@ signal ui_visibility_changed(is_visible)
 onready var _root_child : MarginContainer = $MarginContainer
 onready var _content_container : VBoxContainer = $MarginContainer/VBoxContainer/Content
 onready var _selected_sorter_btn : Button = $MarginContainer/VBoxContainer/Content/Upper/MarginContainer/HBoxContainer/Center/HBoxContainer/Sorter
-onready var _idle_buttons : HBoxContainer = $MarginContainer/VBoxContainer/Content/Lower/MarginContainer/VBoxContainer/Idle
-onready var _running_buttons : HBoxContainer = $MarginContainer/VBoxContainer/Content/Lower/MarginContainer/VBoxContainer/Running
-onready var _paused_buttons : HBoxContainer = $MarginContainer/VBoxContainer/Content/Lower/MarginContainer/VBoxContainer/Paused
-onready var _restart_buttons : HBoxContainer = $MarginContainer/VBoxContainer/Content/Lower/MarginContainer/VBoxContainer/Restart
+onready var _idle_buttons : HBoxContainer = $MarginContainer/VBoxContainer/Content/Lower/Lower/MarginContainer/VBoxContainer/Idle
+onready var _running_buttons : HBoxContainer = $MarginContainer/VBoxContainer/Content/Lower/Lower/MarginContainer/VBoxContainer/Running
+onready var _paused_buttons : HBoxContainer = $MarginContainer/VBoxContainer/Content/Lower/Lower/MarginContainer/VBoxContainer/Paused
+onready var _restart_buttons : HBoxContainer = $MarginContainer/VBoxContainer/Content/Lower/Lower/MarginContainer/VBoxContainer/Restart
 
 onready var _selected_visualizer_btn : Button = $MarginContainer/VBoxContainer/Content/Upper/MarginContainer/HBoxContainer/Center/HBoxContainer/Visualizer
 
@@ -27,6 +27,8 @@ const _moving_time : float = 0.85
 var _is_moving : bool = false
 var _is_hidden : bool = false
 
+
+# TODO: add keyboard shortcuts
 
 func _ready():
 	# NOTE: _running_buttons are not included, because we want to allow

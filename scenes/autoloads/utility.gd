@@ -1,6 +1,7 @@
 extends Node # can't be a reference since godot automaticaly adds a node to autoload scripts
 
 var rng : RandomNumberGenerator = RandomNumberGenerator.new()
+var viewport_size : Vector2 = Vector2(ProjectSettings.get_setting("display/window/size/width"), ProjectSettings.get_setting("display/window/size/height"))
 
 class MultiSignalYield:
 	signal all_signals_yielded
@@ -19,7 +20,7 @@ func _init():
 	randomize()
 	rng.randomize()
 
-func swap(arr : Array, idx1 : int, idx2 : int):
+func swap_elements(arr : Array, idx1 : int, idx2 : int):
 	assert(idx1 >= 0 && idx1 < arr.size() && idx2 >= 0 && idx2 < arr.size(), "index out of bound")
 	
 	var temp = arr[idx1]

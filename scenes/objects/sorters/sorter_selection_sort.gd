@@ -43,6 +43,6 @@ func skip_to_last_step() -> Array:
 			if _priority_callback.call_func(indexes[smallest_idx], indexes[j]):
 				smallest_idx = j
 				
-		Utility.swap(indexes, i, smallest_idx)
+		Utility.swap_elements(indexes, i, smallest_idx)
 	
 	return indexes

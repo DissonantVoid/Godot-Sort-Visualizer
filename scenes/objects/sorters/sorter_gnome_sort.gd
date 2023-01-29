@@ -47,7 +47,7 @@ func skip_to_last_step() -> Array:
 			return indexes
 		
 		if _priority_callback.call_func(indexes[i], indexes[i+1]):
-			Utility.swap(indexes, i, i+1)
+			Utility.swap_elements(indexes, i, i+1)
 			if i > 0: i -= 1
 			else: i += 1
 		else:

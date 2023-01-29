@@ -1,5 +1,5 @@
-Current Task: new visualizer
-Next Task: cleanup/todos, Merge sort, Bitonic sort
+Current Task: Bitonic sort
+Next Task: cleanup/todos, Merge sort
 
 Todo (also see in-code todos by searching in all files for "todo"):
   -replace some buttons with icons
@@ -16,7 +16,6 @@ Plan:
 		[ ] Bitonic sort,  [X] Bogo sort
 
   -visualizers: there should be at least 5 visualizers
-      -lines based on this image: en.wikipedia.org/wiki/Shellsort#/media/File:Shell_sorting_algorithm_color_bars.svg
       -bunch of cakes in unmatching boxes, on each sort 2 cakes are moved into a conveyor belt
         and transfered to each other position
       -humans shooting zombies, each human shoots a type of zombie, but each type require specific weapon
@@ -26,7 +25,6 @@ Keep in mind:
      -since this is potentially an educational project, always keep a short description on how the algorithm works
       + wiki link and keep code easy to read
   UI:
-     -pallete: 3 left color used for background/panels etc.., 3 right colors used for ui (button etc..)
      -no UI focus
      -all clickables should have a hand pointer
 

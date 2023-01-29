@@ -35,3 +35,7 @@ these 2 funtions a **Sorter** compares indexes and passes data back to the visua
 what's neat about this approach (if I do say so myself :-) ) is that a sorter doesn't have to know the nature of data it's sorting, from a sorter point of view it just sorts indexes based on the callback function
 which allow for great control over the implementation.
 
+## Credits
+libre-baskerville (SIL Open Font License)
+
+All other assets including audio and art are original and follow the same license as the project

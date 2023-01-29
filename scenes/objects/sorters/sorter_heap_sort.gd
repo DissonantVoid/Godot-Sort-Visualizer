@@ -70,7 +70,7 @@ func _h_pop_root(arr : Array) -> int:
 	var root_idx : int = arr[0]
 	
 	# swap root with last element, then descend new root down the tree untill it's in the right spot
-	Utility.swap(arr, 0, arr.size()-1)
+	Utility.swap_elements(arr, 0, arr.size()-1)
 	# delete previous root
 	arr.remove(arr.size()-1)
 	_h_sift_down(arr, 0)
@@ -109,7 +109,7 @@ func _h_sift_down(arr : Array, index : int): # no I didn't loose my teeth, it's 
 		# swap with the smallest child
 		
 		if (_priority_callback.call_func(arr[index], arr[smallest_idx])):
-			Utility.swap(arr, index, smallest_idx)
+			Utility.swap_elements(arr, index, smallest_idx)
 			index = smallest_idx
 			continue
 		
