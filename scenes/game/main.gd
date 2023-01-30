@@ -157,7 +157,7 @@ func _next_step():
 	_interface.set_ui_active(false)
 	
 	if step_data["done"]:
-		if _is_stoping_next: _is_stoping_next = false
+		if _is_stoping_next: _is_stoping_next = false # in case we press stop right before the last iteration
 		if _running_mode == RunningMode.continuous:
 			_continous_timer.stop()
 		_visualizer.finish()

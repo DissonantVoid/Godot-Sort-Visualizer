@@ -41,10 +41,7 @@ func _ready():
 			# find the right color based on maping i from (int)[0,_working_lazers_count] to (float)[0,_rainbow_colors.size()-1]
 			# and using its floored number as index, and its decimal as lerp value
 			var normalized_i : float = float(i) / _working_lazers_count
-			var factor : float = normalized_i * (_gradient_colors.size()-1)
-			var curr_color : Color = _gradient_colors[factor]
-			var next_color : Color = _gradient_colors[(int(factor) + 1) % _gradient_colors.size()]
-			var color : Color = lerp(curr_color, next_color, factor - floor(factor))
+			var color : Color = Utility.lerp_color_arr(_gradient_colors, normalized_i, true)
 			
 			lazer_instance.setup(false, color, i)
 			

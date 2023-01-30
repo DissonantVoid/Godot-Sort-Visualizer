@@ -57,6 +57,18 @@ func subarr_first_index_to_1d(arr : Array, subarr_idx : int) -> int:
 	
 	return index_1d
 
+func lerp_color_arr(gradient : Array, weight : float, can_loop : bool) -> Color:
+	var index_decimal : float = weight * (gradient.size()-1)
+	var index : int = int(index_decimal)
+	index_decimal -= floor(index_decimal)
+	
+	if can_loop == false && index == gradient.size()-1:
+		return gradient[index]
+	
+	var curr_color : Color = gradient[index]
+	var next_color : Color = gradient[(index + 1) % gradient.size()]
+	return lerp(curr_color, next_color, index_decimal)
+
 func await_multiple_signals(objects_n_signals : Array) -> MultiSignalYield:
 	# objects_n_signals: [object1,signal1,object2,signal2 etc...]
 	# this helps with the multi yield issues in godot where you can't await more than 1 signal because

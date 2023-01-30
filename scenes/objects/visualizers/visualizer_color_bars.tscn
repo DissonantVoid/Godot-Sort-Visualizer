@@ -1,13 +1,22 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/objects/visualizers/visualizer.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/objects/visualizers/visualizer_color_bars.gd" type="Script" id=2]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 1, 1, 1, 1 )
+[sub_resource type="StyleBoxFlat" id=3]
 draw_center = false
-border_width_left = 4
-border_width_right = 4
+border_width_left = 10
+border_width_right = 10
+border_color = Color( 1, 0.411765, 0.45098, 1 )
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id=1]
+draw_center = false
+border_width_left = 10
+border_width_right = 10
 border_color = Color( 1, 0.933333, 0.8, 1 )
 corner_radius_top_left = 6
 corner_radius_top_right = 6
@@ -16,11 +25,10 @@ corner_radius_bottom_left = 6
 
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.0823529, 0.470588, 0.54902, 1 )
-border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color( 1, 0.933333, 0.8, 1 )
+border_color = Color( 0, 0.72549, 0.745098, 1 )
 corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
@@ -54,10 +62,10 @@ margin_left = 13.0
 margin_top = -21.0
 margin_right = -13.0
 margin_bottom = -9.0
-custom_styles/grabber_highlight = SubResource( 1 )
+custom_styles/grabber_highlight = SubResource( 3 )
 custom_styles/grabber = SubResource( 1 )
 custom_styles/scroll = SubResource( 2 )
-custom_styles/grabber_pressed = SubResource( 1 )
+custom_styles/grabber_pressed = SubResource( 3 )
 max_value = 1.0
 
 [connection signal="scrolling" from="CanvasLayer/HScrollBar" to="." method="_on_scroll"]
