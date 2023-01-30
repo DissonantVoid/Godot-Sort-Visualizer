@@ -11,6 +11,7 @@ var _visualizer = null
 enum RunningMode {step, continuous} # step requires user input to do next sort, continous relies on timer
 var _running_mode : int = RunningMode.step
 var _is_waiting_for_visualizer : bool = false
+var _is_stoping_next : bool = false
 
 var _settings : Settings = Settings.new()
 class Settings:
@@ -58,7 +59,6 @@ func _ready():
 	_apply_settings()
 	
 	# initial sorter/visualizer
-	
 	_set_visualizer(load(FilesTracker.get_visualizers_dict()[_initial_visualizer]["scene"]).instance())
 	_visualizer.reset()
 	
@@ -106,7 +106,7 @@ func _on_interface_button_pressed(button : String):
 			_running_mode = RunningMode.step
 			_continous_timer.stop()
 		"stop":
-			_reset()
+			_is_stoping_next = true
 		"last":
 			_continous_timer.stop()
 			_is_waiting_for_visualizer = true
@@ -129,8 +129,13 @@ func _set_visualizer(visualizer):
 func _on_visualizer_updated_indexes():
 	_is_waiting_for_visualizer = false
 	_interface.set_ui_active(true)
-	if _running_mode == RunningMode.continuous && _continous_timer.is_stopped():
-		_continous_timer.start()
+	
+	if _is_stoping_next:
+		_is_stoping_next = false
+		_reset()
+	else:
+		if _running_mode == RunningMode.continuous && _continous_timer.is_stopped():
+			_continous_timer.start()
 
 func _on_visualizer_updated_all():
 	_visualizer.finish()
@@ -152,6 +157,7 @@ func _next_step():
 	_interface.set_ui_active(false)
 	
 	if step_data["done"]:
+		if _is_stoping_next: _is_stoping_next = false
 		if _running_mode == RunningMode.continuous:
 			_continous_timer.stop()
 		_visualizer.finish()
