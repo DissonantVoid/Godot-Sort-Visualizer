@@ -203,7 +203,7 @@ func update_indexes(action : int, idx1 : int, idx2 : int):
 			yield(tween, "finished")
 			Utility.move_element(_lines_order, idx1, idx2)
 	
-	_extend_all_lines(_next_x)
+	yield(_extend_all_lines(_next_x), "completed")
 	_next_x += _horizontal_gap
 	_resize_scroll_grabber()
 	emit_signal("updated_indexes")
@@ -238,7 +238,7 @@ func set_ui_visibility(is_visible : bool):
 # override
 func finish():
 	# extend one last time
-	_extend_all_lines(_next_x)
+	yield(_extend_all_lines(_next_x), "completed")
 	_next_x += _horizontal_gap
 	
 	_resize_scroll_grabber()
@@ -282,7 +282,7 @@ func _on_scroll():
 		update()
 
 func _resize_scroll_grabber():
-	# if the scroll bar was scrolled to the end, move along new lines
+	# if the scroll bar was scrolled to the end, move along new points
 	# this is similar to a Twitch chat for example, everytime a new chat appears
 	# the bar will auto-scroll to follow it as long as it was previously scrolled
 	# all the way down

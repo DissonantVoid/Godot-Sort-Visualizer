@@ -16,7 +16,8 @@ func _ready():
 		var curr_visualizer_entry : Dictionary = FilesTracker.get_visualizers_dict()[key]
 		
 		# TODO: something about this load causes errors in debugger, something to do with shaders??
-		#       note that the error never appeared before I made visualizer_singing_lazers
+		#       when visualizer_singing_lazers is loaded cryptic errors appear, I suspect it's something
+		#       to do with it preloading the lazer_shooter since the shooter has a line2D that uses a shader
 		var metadata : Dictionary = load(
 			curr_visualizer_entry["script"]
 		).get_metadata()

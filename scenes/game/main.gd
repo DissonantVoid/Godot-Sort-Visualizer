@@ -133,9 +133,8 @@ func _on_visualizer_updated_indexes():
 	if _is_stoping_next:
 		_is_stoping_next = false
 		_reset()
-	else:
-		if _running_mode == RunningMode.continuous && _continous_timer.is_stopped():
-			_continous_timer.start()
+	elif _running_mode == RunningMode.continuous && _continous_timer.is_stopped():
+		_continous_timer.start()
 
 func _on_visualizer_updated_all():
 	_visualizer.finish()
