@@ -1,10 +1,13 @@
 extends "res://scenes/objects/sorters/sorter.gd"
 
 # https://en.wikipedia.org/wiki/Selection_sort
-# this algorithm sorts an array by repeatedly finding the smallest
-# element and putting it at the beginning
+# the array is virtually split into a sorted and an unsorted sides, each time we
+# move the smallest element from the unsorted half to the end of the sorted half
+# untill all elements are sorted
 #
-# time complexity: O(N^2)
+# time complexity: Average: O(N^2)
+#                  Worst:   O(N^2)
+#                  Best:    O(N^2)
 
 var _index : int
 

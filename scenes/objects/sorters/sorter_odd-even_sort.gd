@@ -4,7 +4,9 @@ extends "res://scenes/objects/sorters/sorter.gd"
 # similar to bubble sort, but instead of comparing each element to the next
 # we iterate over even and odd indexes separately
 #
-# time complexity: O(N^2)
+# time complexity: Average: O(N^2)
+#                  Worst:   O(N^2)
+#                  Best:    O(N)
 
 var _is_even : bool
 var _index : int

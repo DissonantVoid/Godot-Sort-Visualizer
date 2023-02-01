@@ -2,10 +2,12 @@ extends "res://scenes/objects/sorters/sorter.gd"
 
 # https://en.wikipedia.org/wiki/Shellsort
 # similar to insertion sort, it first sorts elements that are far apart
-# from each other and successively reduces the interval between the elements
+# from each other and progressively reduces the gap between the elements
 # to be sorted
 #
-# time complexity: O(N^2)
+# time complexity: Average: (depends on the sequence used) O(N^(4/3)) in our case
+#                  Worst:   O(N^2)
+#                  Best:    O(N log N)
 
 var _gap : int
 var _index : int

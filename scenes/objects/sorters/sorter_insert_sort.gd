@@ -1,10 +1,13 @@
 extends "res://scenes/objects/sorters/sorter.gd"
 
 # https://en.wikipedia.org/wiki/Insertion_sort
-# The array is virtually split into a sorted and an unsorted sides, values from
-# the unsorted side are picked and placed at the correct position in the sorted side
+# the array is virtually split into a sorted and an unsorted sides, each iteration
+# the algorithm removes the first element from the unsorted part
+# and inserts it into the correct position in the sorted part, shifting other elements as necessary.
 #
-# time complexity: O(N^2)
+# time complexity: Average: O(N^2)
+#                  Worst:   O(N^2)
+#                  Best:    O(N)
 
 var _index : int
 var _sub_idx : int

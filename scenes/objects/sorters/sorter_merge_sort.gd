@@ -1,11 +1,13 @@
 extends "res://scenes/objects/sorters/sorter.gd"
 
 # https://en.wikipedia.org/wiki/Merge_sort
-# based on the Divide and Conquer paradigm
-# in this algorithm, the array is initially divided into two equal halves
-# and then they are combined in a sorted manner
+# a divide-and-conquer sorting algorithm that works by dividing the unsorted list
+# into n sub-lists, each containing one element, and then repeatedly merging sub-lists
+# into sorted sub-lists until there is only one sub-list remaining
 #
-# time complexity: O(N log N)
+# time complexity: Average: O(N log N)
+#                  Worst:   O(N log N)
+#                  Best:    O(N log N)
 
 var _division_arrays : Array
 var _pending_switches : Array # [[idx1, idx2], .. ]

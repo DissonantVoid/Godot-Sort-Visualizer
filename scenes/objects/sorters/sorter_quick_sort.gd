@@ -1,11 +1,14 @@
 extends "res://scenes/objects/sorters/sorter.gd"
 
 # https://en.wikipedia.org/wiki/Quicksort
-# based on the Divide and Conquer paradigm, in this algorithm
-# we pick a pivot and partitioning the other elements into two sub-arrays
-# according to whether they are less or greater than the pivot
+# based on the Divide and Conquer paradigm,
+# we pick a pivot and partition the other elements into two sub-arrays
+# according to whether they are lesser or greater than the pivot
+# the sub-arrays are then sorted recursively in the same way
 #
-# time complexity: O(N log N)
+# time complexity: Average: O(N log N)
+#                  Worst:   O(N^2)
+#                  Best:    O(N log N)
 
 var _pivot_idx : int
 var _index : int

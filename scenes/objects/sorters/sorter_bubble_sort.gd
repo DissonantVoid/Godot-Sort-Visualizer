@@ -2,9 +2,11 @@ extends "res://scenes/objects/sorters/sorter.gd"
 
 # https://en.wikipedia.org/wiki/Bubble_sort
 # the simplest sorting algorithm that works by repeatedly
-# swapping the adjacent elements if they are in the wrong order
+# swapping adjacent elements if they are in the wrong order
 #
-# time complexity: O(N^2)
+# time complexity: Average: O(N^2)
+#                  Worst:   O(N^2)
+#                  Best:    O(N)
 
 var _index : int
 

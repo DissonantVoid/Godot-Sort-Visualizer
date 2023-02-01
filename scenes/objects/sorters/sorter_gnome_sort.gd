@@ -4,7 +4,9 @@ extends "res://scenes/objects/sorters/sorter.gd"
 # almost the same as insert_sort, except that we use
 # a single loop to iterate instead of nested loops
 #
-# time complexity: O(N^2)
+# time complexity: Average: O(N^2)
+#                  Worst:   O(N^2)
+#                  Best:    O(N)
 
 var _index : int
 

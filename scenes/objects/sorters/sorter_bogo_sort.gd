@@ -3,10 +3,12 @@ extends "res://scenes/objects/sorters/sorter.gd"
 # https://en.wikipedia.org/wiki/Bogosort
 # this is more of a joke if anything, we simply shuffle indexes randomly
 # and wish for a miracle. keep in mind that there is a non zero
-# possibility that a bogo sort will sort your array faster than any other
-# algorithm in existence
+# possibility that a bogo sort will sort your array faster than the majority of other
+# algorithm
 #
-# time complexity: O(N * N!)
+# time complexity: Average: O(N * N!)
+#                  Worst:   O(infinity)
+#                  Best:    O(N)
 
 # NOTE: using any of the functions below in a large array (by large I mean bigger than 5 or so)
 #          will take so long to sort that the game window will stop responding
