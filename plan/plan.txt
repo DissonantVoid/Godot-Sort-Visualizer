@@ -10,15 +10,22 @@ Todo (also see in-code todos by searching in all files for "todo"):
 Plan:
   -keep sorting implementation code independent so we can apply the sort on any custom scene
   -sorters (easy to hard):
-		[X] Bubble sort,   [X] Selection sort,   [X] Insertion sort
-		[X] Gnome sort,    [X] Shell sort,       [X] Quick sort
-		[!] Merge sort,    [X] Heap sort,        [-] Radix sort (not possible)
-		[ ] Bitonic sort,  [X] Bogo sort
+		[X] Bubble sort,   [X] Odd-Even sort,    [X] Selection sort,
+    [X] Insertion sort [X] Gnome sort,       [X] Shell sort,
+    [X] Quick sort     [!] Merge sort,       [X] Heap sort,
+    [X] Bogo sort
+
+    [-] Radix sort (not possible, only works on comparable data like ints and strings, not indexes)
+    [-] Bitonic sort (not possible, requires size of the sorted list to be power of 2, quite a shame)
+
+  -additional sorters for the future (if I even come back to this project :<\ ):
+    comb sort, gravity sort, flash sort, pancake sort
 
   -visualizers: there should be at least 5 visualizers
       -bunch of cakes in unmatching boxes, on each sort 2 cakes are moved into a conveyor belt
         and transfered to each other position
       -humans shooting zombies, each human shoots a type of zombie, but each type require specific weapon
+      -something like this fanciness right here: https://youtu.be/2ck0JDMsQco
 
 Keep in mind:
   Sorters:

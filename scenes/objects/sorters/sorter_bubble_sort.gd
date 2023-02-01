@@ -18,23 +18,27 @@ func setup(data_size : int, priority_callback : FuncRef):
 # override
 func next_step() -> Dictionary:
 	var indexes : Array
+	indexes.resize(2)
 	
 	var changed : bool = false
 	for i in range(_index, _data_size-1):
 		if _priority_callback.call_func(i, i+1):
 			changed = true
-			indexes.append(i)
-			indexes.append(i+1)
+			indexes[0] = i
+			indexes[1] = i+1
 			_index = i+1
 			break
 	
 	# if no change happened then we know we're done
 	# but! if we didn't start checking from 0, recheck 
-	if changed == false && _index > 0:
-		_index = 0
-		return next_step()
+	if changed == false:
+		if _index > 0:
+			_index = 0
+			return next_step()
+		else:
+			return {"done":true}
 	else:
-		return {"done":!changed, "action":SortAction.switch, "indexes":indexes}
+		return {"done":false, "action":SortAction.switch, "indexes":indexes}
 
 # override
 func skip_to_last_step() -> Array:
@@ -44,7 +48,7 @@ func skip_to_last_step() -> Array:
 	
 	while true:
 		var changed : bool = false
-		for i in _data_size-1:
+		for i in indexes.size()-1:
 			if _priority_callback.call_func(indexes[i], indexes[i+1]):
 				changed = true
 				Utility.swap_elements(indexes, i, i+1)
