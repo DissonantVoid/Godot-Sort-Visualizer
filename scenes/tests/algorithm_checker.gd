@@ -309,9 +309,7 @@ func _test_callback(idx1 : int, idx2 : int) -> bool:
 	return _current_input[idx1] > _current_input[idx2]
 
 func _console_print(text : String, color_hex : String = ""):
-	# TODO: we can't make color_hex of type Color, because the color tag
-	#       in bbcode doesn't support rgb, I should send an issue about this
-	#       so that either Color can return a hex code or the color tag can accept rgb
+	# TODO: make an issue about how it isn't obvious how Color.to_html() returns a hex string
 	if color_hex.empty() == false:
 		text = "[color=" + color_hex + "]" + text + "[/color]"
 	

@@ -6,7 +6,7 @@ onready var _trail : Line2D = $Trail
 
 const _default_line_width : float = 8.7
 const _max_trail_segments : int = 12
-const _next_trail_time : float = 0.07
+const _next_trail_time : float = 0.06
 var _next_trail_timer : float
 
 var _initial_size : Vector2
@@ -14,7 +14,8 @@ var _pivot : Vector2
 var _local_center : Vector2
 var _orbit_speed : float
 
-const _move_to_speed : float = 0.6
+const _move_speed : float = 340.0
+var _curve_speed : float # _curve_speed is meant to convert _move_speed into a lerp value [0-1]
 var _move_start : Vector2
 var _move_end : Vector2
 
@@ -22,8 +23,8 @@ const _arc_height : float = 124.0
 var _arc_point : Vector2
 var _curr_arc_offset : float = 0 # [0 - 1]
 
-enum State {rotating, moving_to}
-var _curr_state : int = State.rotating
+enum State {orbiting, moving_to}
+var _curr_state : int = State.orbiting
 
 
 func _ready():
@@ -47,13 +48,13 @@ func _ready():
 	flip_v = bool(Utility.rng.randi_range(0,1))
 
 func _process(delta):
-	if _curr_state == State.rotating:
+	if _curr_state == State.orbiting:
 		_rotate(deg2rad(_orbit_speed * delta))
 	
 	elif _curr_state == State.moving_to:
 		# we use quadratic bezier curve (see docs.godotengine.org/en/stable/tutorials/math/beziers_and_curves.html)
 		# p0 is our pos
-		# p1 is half distance between p0 and p1 raised by _arc_height
+		# p1 is half distance between p0 and p2 raised by _arc_height
 		# p2 is target pos
 		
 		var q0 : Vector2 = _move_start.linear_interpolate(_arc_point, _curr_arc_offset)
@@ -61,6 +62,7 @@ func _process(delta):
 		var pos : Vector2 = q0.linear_interpolate(q1, _curr_arc_offset)
 		rect_global_position = pos
 		
+		# trail
 		_next_trail_timer -= delta
 		if _next_trail_timer <= 0:
 			_next_trail_timer = _next_trail_time
@@ -68,9 +70,10 @@ func _process(delta):
 			if _trail.points.size() > _max_trail_segments:
 				_trail.remove_point(0)
 		
-		_curr_arc_offset += _move_to_speed * delta
+		_curr_arc_offset += _curve_speed * delta
 		if _curr_arc_offset > 1.0:
-			_curr_state = State.rotating
+			rect_global_position = _move_end
+			_curr_state = State.orbiting
 			_trail.clear_points()
 			
 			emit_signal("moved")
@@ -82,7 +85,7 @@ func setup(pivot : Vector2, start_position : Vector2):
 func reset(size_scale : float, orbit_speed : float, start_angle : float):
 	# reset
 	if _curr_state == State.moving_to:
-		_curr_state = State.rotating
+		_curr_state = State.orbiting
 		_trail.clear_points()
 		_next_trail_timer = 0
 	
@@ -99,13 +102,14 @@ func reset(size_scale : float, orbit_speed : float, start_angle : float):
 func move_to(other_planet):
 	_move_start = get_center()
 	_move_end = other_planet.get_center() - rect_size/2 # move our center to the new position
+	_curve_speed = _move_speed / _move_start.distance_to(_move_end)
 	
 	var distance : Vector2 = _move_end - _move_start
 	_arc_point = (_move_start + distance/2) + Vector2(0, _arc_height).rotated(distance.normalized().angle())
 	
 	_curr_arc_offset = 0
-	_curr_state = State.moving_to
 	_next_trail_timer = _next_trail_time
+	_curr_state = State.moving_to
 	
 	# don't change orbit speed immediately because other_planet
 	# will also call our get_orbit_speed()

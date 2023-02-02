@@ -50,15 +50,15 @@ custom_styles/panel = ExtResource( 6 )
 [node name="MarginContainer" type="MarginContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/Upper"]
 margin_right = 960.0
 margin_bottom = 50.0
-custom_constants/margin_right = 5
+custom_constants/margin_right = 8
 custom_constants/margin_top = 5
-custom_constants/margin_left = 5
+custom_constants/margin_left = 8
 custom_constants/margin_bottom = 5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/Upper/MarginContainer"]
-margin_left = 5.0
+margin_left = 8.0
 margin_top = 5.0
-margin_right = 955.0
+margin_right = 952.0
 margin_bottom = 45.0
 
 [node name="Options" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/Upper/MarginContainer/HBoxContainer"]
@@ -71,8 +71,8 @@ size_flags_vertical = 6
 text = "Options"
 
 [node name="Center" type="VBoxContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/Upper/MarginContainer/HBoxContainer"]
-margin_left = 301.0
-margin_right = 649.0
+margin_left = 298.0
+margin_right = 646.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 280, 0 )
 size_flags_horizontal = 6
@@ -118,8 +118,8 @@ margin_right = 348.0
 margin_bottom = 36.0
 
 [node name="Hide" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/Upper/MarginContainer/HBoxContainer"]
-margin_left = 850.0
-margin_right = 950.0
+margin_left = 844.0
+margin_right = 944.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 100, 40 )
 focus_mode = 0
@@ -128,12 +128,32 @@ size_flags_horizontal = 8
 size_flags_vertical = 6
 text = "Hide"
 
+[node name="VLines" type="HBoxContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/Upper/MarginContainer"]
+margin_left = 8.0
+margin_top = 5.0
+margin_right = 952.0
+margin_bottom = 45.0
+mouse_filter = 2
+
+[node name="VSeparator" type="VSeparator" parent="MainInterface/MarginContainer/VBoxContainer/Content/Upper/MarginContainer/VLines"]
+margin_right = 470.0
+margin_bottom = 40.0
+mouse_filter = 2
+size_flags_horizontal = 3
+
+[node name="VSeparator2" type="VSeparator" parent="MainInterface/MarginContainer/VBoxContainer/Content/Upper/MarginContainer/VLines"]
+margin_left = 474.0
+margin_right = 944.0
+margin_bottom = 40.0
+mouse_filter = 2
+size_flags_horizontal = 3
+
 [node name="Lower" type="MarginContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content"]
 margin_top = 50.0
 margin_right = 960.0
 margin_bottom = 95.0
 
-[node name="EasterEgg" type="Label" parent="MainInterface/MarginContainer/VBoxContainer/Content/Lower"]
+[node name="Label" type="Label" parent="MainInterface/MarginContainer/VBoxContainer/Content/Lower"]
 margin_left = 302.0
 margin_top = 9.0
 margin_right = 658.0

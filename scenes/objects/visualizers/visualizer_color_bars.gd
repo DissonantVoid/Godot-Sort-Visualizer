@@ -11,7 +11,7 @@ const _max_height : float = 520.0
 const _horizontal_gap : float = 45.0
 const _lines_count : int = 20
 const _line_width : float = 6.8
-const _line_tween_time : float = 0.11
+const _line_tween_time : float = 0.06
 
 const _ruler_big_line_width : float = 2.2
 const _ruler_small_line_width : float = 0.6
@@ -47,7 +47,6 @@ func _ready():
 		_lines_container.add_child(line)
 		var y_pos : float = _min_height + v_gap * i
 		line.global_position = Vector2(0, y_pos)
-		line.add_point(Vector2.ZERO)
 		line.set_meta("correct_order", i)
 		
 		_lines_order[i] = line
@@ -101,6 +100,7 @@ func reset():
 	# clear points
 	for line in _lines_order:
 		line.clear_points()
+		# keep first 2 points
 		line.add_point(Vector2.ZERO)
 		line.add_point(Vector2(_horizontal_gap, 0))
 	

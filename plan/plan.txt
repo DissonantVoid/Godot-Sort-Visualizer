@@ -1,5 +1,5 @@
-Current Task: Bitonic sort
-Next Task: cleanup/todos, Merge sort
+Current Task: cleanup/todos, Merge sort
+Next Task:
 
 Todo (also see in-code todos by searching in all files for "todo"):
   -replace some buttons with icons

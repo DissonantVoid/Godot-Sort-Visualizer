@@ -18,7 +18,7 @@ class Settings:
 	# NOTE: a class instead of a dict, because dict keys are not checked untill runtime
 	# making them prone to error and hard to keep track of reads/writes to the same key
 	# this functions more like like a c++ Struct
-	var time_per_step : float = 40.0
+	var time_per_step : float = 25.0
 	var volume : float = 100
 	
 	var _file : ConfigFile = ConfigFile.new()

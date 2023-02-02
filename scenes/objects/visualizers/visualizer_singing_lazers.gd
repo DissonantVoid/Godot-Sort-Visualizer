@@ -1,11 +1,5 @@
 extends "res://scenes/objects/visualizers/visualizer.gd"
 
-# TODO: lazers are jerky after they dissapear due to _lazers_container sorting them
-#       tried multiple solution like using NOTIFICATION_MOVED_IN_PARENT
-#       forcing _lazers_container to sort_children,
-#       saving children position before sort and restoring it (which worked but was horribly inefficient)
-#       I'll try again later. or maybe not I don't know time is running out and I gotta move on to the next project soon
-
 onready var _lazers_container : HBoxContainer = $MarginContainer/Lazers
 onready var _receivers_container : HBoxContainer = $MarginContainer/Receivers
 onready var _sync_timer : Timer = $MusicSyncTimer
@@ -99,6 +93,7 @@ func update_indexes(action : int, idx1 : int, idx2 : int):
 			
 			Utility.switch_children(_lazers_container, idx1, idx2)
 			
+			yield(get_tree(), "idle_frame") # wait for container to sort children
 			child1.appear()
 			child2.appear()
 		
@@ -107,6 +102,7 @@ func update_indexes(action : int, idx1 : int, idx2 : int):
 			child.disappear()
 			yield(child, "disappeared")
 			
+			yield(get_tree(), "idle_frame") # wait for container to sort children
 			_lazers_container.move_child(child, idx2)
 			child.appear()
 		
@@ -131,6 +127,8 @@ func update_all(new_indexes : Array):
 	
 	for i in range(ordered_lazers.size()-1, -1, -1):
 		_lazers_container.move_child(ordered_lazers[i], 0)
+	
+	yield(get_tree(), "idle_frame") # wait for container to sort children
 	
 	for lazer in _lazers_container.get_children():
 		lazer.appear()

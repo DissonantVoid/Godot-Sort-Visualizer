@@ -2,13 +2,14 @@ extends "res://scenes/objects/visualizers/visualizer.gd"
 
 onready var _board : TextureRect = $MarginContainer/MarginContainer/Board
 onready var _pieces_container : GridContainer = $MarginContainer/MarginContainer/Pieces
+onready var _margin : MarginContainer = $MarginContainer/MarginContainer
 
 const _piece_size : int = 32 # can also be 16, 64 etc..
-var _order : Array # idx : piece,   idx 1 is top left piece, idx size-1 is bottom right piece
+var _order : Array # idx : piece,   idx 0 is top left piece, idx size-1 is bottom right piece
 
-const _switch_tween_time : float = 0.8
+const _switch_all_tween_time : float = 0.8
+const _pieces_scale_factor : float = 0.8 # scale down to make space for the interface
 
-# TODO: puzzle pieces are partly hidden when main interface is shown, do something about it ya lazy bastard
 
 func _ready():
 	_board.hide()
@@ -33,6 +34,9 @@ func _ready():
 			)
 			texture.create_from_image(image, 0)
 			tex_rect.texture = texture
+			tex_rect.expand = true
+			tex_rect.rect_min_size = Vector2.ONE * _piece_size * _pieces_scale_factor 
+			
 			_order.append(tex_rect)
 			_pieces_container.add_child(tex_rect)
 
@@ -45,8 +49,8 @@ static func get_metadata() -> Dictionary:
 
 # override
 func reset():
-	_pieces_container.add_constant_override("hseparation", 1)
-	_pieces_container.add_constant_override("vseparation", 1)
+	_pieces_container.add_constant_override("hseparation", 2)
+	_pieces_container.add_constant_override("vseparation", 2)
 	
 	# shuffle pieces
 	for i in _pieces_container.get_child_count():
@@ -88,7 +92,7 @@ func update_all(new_indexes : Array):
 		var first_child : TextureRect = _pieces_container.get_child(new_indexes[i])
 		var second_child : TextureRect = _pieces_container.get_child(i)
 		tween.tween_property(
-			first_child, "rect_position", second_child.rect_position, _switch_tween_time
+			first_child, "rect_position", second_child.rect_position, _switch_all_tween_time
 		).from(first_child.rect_position)
 		tween.parallel()
 	

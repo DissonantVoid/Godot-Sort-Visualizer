@@ -20,7 +20,7 @@ onready var _grabber : ColorRect = $MarginContainer/VBoxContainer/Grabber
 
 const _options_popup_scene : PackedScene = preload("res://scenes/objects/components/popups/popup_main_interface_options.tscn")
 const _sorter_popup_scene : PackedScene = preload("res://scenes/objects/components/popups/popup_main_interface_algorithms.tscn")
-const _visualizer_popup_scene : PackedScene = preload("res://scenes/objects/components/popups/popup_main_interface_visualizer.tscn")
+const _visualizer_popup_scene : PackedScene = preload("res://scenes/objects/components/popups/popup_main_interface_visualizers.tscn")
 
 var _visualizer_control_buttons : Array # cache for set_ui_active()
 const _moving_time : float = 0.85

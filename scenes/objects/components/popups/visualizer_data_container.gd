@@ -1,7 +1,5 @@
 extends Control
 
-# TODO: update screenshots
-
 signal pressed(title, path)
 
 onready var _title_label : Label = $HBoxContainer/TextContainer/VBoxContainer/Title
@@ -11,6 +9,7 @@ onready var _panel_stylebox : StyleBoxFlat = $HBoxContainer/TextContainer.get("c
 
 var _title : String
 var _path : String
+
 
 func setup(title : String, image_path : String, description : String, path : String):
 	_title = title

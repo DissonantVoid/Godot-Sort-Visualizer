@@ -33,12 +33,14 @@ func disappear():
 	tween.tween_property(self, "rect_position:y", rect_size.y, _move_time)
 	
 	yield(tween, "finished")
+	modulate = Color.transparent # hide to avoid jerkiness as the container sorts its children
 	emit_signal("disappeared")
 
 func appear():
 	var tween : SceneTreeTween = get_tree().create_tween()
 	tween.tween_property(self, "rect_position:y", 0.0, _move_time).from(rect_size.y)
 	
+	modulate = Color.white
 	yield(tween, "finished")
 	if _is_brocken == false:
 		_line.show()

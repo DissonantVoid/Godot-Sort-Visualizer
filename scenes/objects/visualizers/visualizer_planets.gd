@@ -17,22 +17,22 @@ var _window_size : Vector2 = Vector2(
 
 var _star_center : Vector2
 const _planets_count : int = 10
-const _planets_offset : float = 140.0 # initial offset from the sun
-const _planets_distance : float = 80.0
+const _star_offset : float = 140.0 # initial offset from the sun
+const _planets_gap : float = 80.0
 
 const _min_planet_scale : float = 0.4
 const _max_planet_scale : float = 2.8
 const _planets_speed_modifier : float = 0.2
 # used to determine planets orbit speed
 var _furthest_planet_distance : float =\
-	Vector2(_planets_offset + _planets_count * _planets_distance, 0).length()
+	Vector2(_star_offset + _planets_count * _planets_gap, 0).length()
 
 var _waiting_for_planets : int = 0
 var _is_updating_all : bool = false
 
-var _zoom_level : int = 1
 const _zoom_min : int = 0
 const _zoom_max : int = 3
+var _zoom_level : int = 1
 
 
 func _ready():
@@ -48,7 +48,7 @@ func _ready():
 		_planets_container.add_child(planet)
 		planet.setup(_star_center, 
 			_star_center - Vector2(
-				_planets_offset + (_planets_distance * i), planet.rect_size.y/2)
+				_star_offset + (_planets_gap * i), planet.rect_size.y/2)
 			)
 
 # override

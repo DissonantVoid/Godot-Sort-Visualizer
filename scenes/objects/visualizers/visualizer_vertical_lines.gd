@@ -2,8 +2,8 @@ extends "res://scenes/objects/visualizers/visualizer.gd"
 
 onready var _rects_container : HBoxContainer = $MarginContainer/HBoxContainer
 
-const _rect_count : int = 60
-const _rect_width : float = 12.0
+const _h_gap : int = 2
+const _rect_count : int = 120
 const _rect_min_height : float = 10.0
 const _rect_max_height : float = 460.0
 
@@ -14,22 +14,23 @@ var _selected_low_clr : Color = Color("00b9be")
 
 
 func _ready():
+	_rects_container.add_constant_override("separation", _h_gap)
+	
 	# split height gap evenly between rects
 	var rect_size_intervals : Array
 	rect_size_intervals.resize(_rect_count)
-	var gap_size : float = (_rect_max_height - _rect_min_height) / _rect_count
+	var v_gap : float = (_rect_max_height - _rect_min_height) / _rect_count
 	for i in _rect_count:
-		rect_size_intervals[i] = _rect_min_height + gap_size * i
-	
+		rect_size_intervals[i] = _rect_min_height + v_gap * i
 	rect_size_intervals.shuffle() # NOTE: Utility calls randomize() 
 	
-	
+	var rect_width : float = (Utility.viewport_size.x - _h_gap*_rect_count) / _rect_count
 	for i in _rect_count:
 		var rect : ColorRect = ColorRect.new()
 		rect.color = _default_clr
 		rect.size_flags_horizontal = 0 # no SIZE_NONE ???
 		rect.size_flags_vertical = SIZE_SHRINK_END
-		rect.rect_min_size.x = _rect_width
+		rect.rect_min_size.x = rect_width
 		rect.rect_min_size.y = rect_size_intervals.pop_back()
 		
 		_rects_container.add_child(rect)

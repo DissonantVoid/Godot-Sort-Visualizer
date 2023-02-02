@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/objects/components/popups/popup_base.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/objects/components/popups/popup_main_interface_visualizer.gd" type="Script" id=2]
+[ext_resource path="res://scenes/objects/components/popups/popup_main_interface_visualizers.gd" type="Script" id=2]
 [ext_resource path="res://resources/godot/popup_panel.tres" type="StyleBox" id=3]
 
 [node name="PopupMainInterfaceVisualizer" instance=ExtResource( 1 )]
