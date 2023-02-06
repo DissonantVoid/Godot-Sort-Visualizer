@@ -1,5 +1,5 @@
-Current Task: cleanup/todos, Merge sort
-Next Task:
+Current Task: Merge sort
+Next Task: Final touches
 
 Todo (also see in-code todos by searching in all files for "todo"):
   -replace some buttons with icons

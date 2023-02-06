@@ -10,7 +10,7 @@ extends "res://scenes/objects/sorters/sorter.gd"
 #                  Best:    O(N log N)
 
 var _division_arrays : Array
-var _pending_switches : Array # [[idx1, idx2], .. ]
+var _pending_moves : Array # [[idx1, idx2], .. ]
 
 
 # override
@@ -19,105 +19,92 @@ func setup(data_size : int, priority_callback : FuncRef):
 	
 	_division_arrays.resize(_data_size)
 	for i in _data_size: _division_arrays[i] = [i]
-	_pending_switches.clear()
+	_pending_moves.clear()
 
 # override
-# TODO: THIS IS UNFINISHED, the impementation is almost done but not yet complete
-#       I have already wasted too much time getting this one function to work
-#       as much as I like a good challenge, I also know my limits, and have
-#       to leave it for now and come back in the future,
 func next_step() -> Dictionary:
 	# start with array of arrays (_division_array) where each subarray contains 1 index
 	# merge first 2 indexes into 1 array, then next 2. combine them into 4, then merge another 2 and 2 into 4
 	# and merge the 4 and 4 into 8 etc.. it's like 2048 the game
-	# this way we can merge once, keep record of what has changed in that merge (_pending_switches)
-	# and for each call to this func, return 1 switch from the record, once the record is empty
+	# this way we can merge once, keep record of what has changed in that merge (_pending_moves)
+	# and for each call to this func, return 1 move from the record, once the record is empty
 	# we merge the next 2 arrays and so on
-	var should_skip_to_next : bool = false
-	if _pending_switches.empty():
-		var i = 1
-		while i < _division_arrays.size():
+	if _pending_moves.empty():
+		var i : int = 0
+		while i < _division_arrays.size()-1:
 			# everytime we have 2 subarrays with the same size next to each other we merge them
 			# we also merge if we have only 2 arrays left regardless of the size
-			if (_division_arrays[i-1].size() == _division_arrays[i].size() || 
+			if (_division_arrays[i].size() == _division_arrays[i+1].size() ||
 					_division_arrays.size() == 2):
 				
 				# merge the two subarrays
-				var merged_divisions : Array = _merge(_division_arrays[i-1], _division_arrays[i])
+				var merged_divisions : Array = _merge(_division_arrays[i], _division_arrays[i+1])
 				
-				var division_idx_1d : int = Utility.subarr_first_index_to_1d(_division_arrays, i-1)
+				# covert i from a 2d index where the first element is [0], to 1d index
+				# where the first element is the sum of all previous indexes in all previous arrays
+				var division_idx_1d : int = Utility.subarr_first_index_to_1d(_division_arrays, i)
 				
-				# merged_divisions contains ordered merge, and _division_arrays[i-1] now contains
-				# unordered merge, we use the diff between them to fill _pending_switches
-				_division_arrays[i-1].append_array(_division_arrays[i])
-				_division_arrays.remove(i)
+				# merged_divisions contains ordered merge, and _division_arrays[i] now contains
+				# unordered merge, we use the diff between them to fill _pending_moves
+				_division_arrays[i].append_array(_division_arrays[i+1])
+				_division_arrays.remove(i+1)
 				
-				# compare merged_divisions to _division_arr[i-1]
-				for j in _division_arrays[i-1].size():
-					if _division_arrays[i-1][j] == merged_divisions[j]:
-						continue
+				# compare merged_divisions to _division_arr[i]
+				while true:
+					var changed : bool = false
+					for j in _division_arrays[i].size():
+						if _division_arrays[i][j] == merged_divisions[j]:
+							continue
+						
+						var new_index : int
+						for k in merged_divisions.size():
+							# NOTE: since we're working with indexes, no 2 entries are the same
+							if merged_divisions[k] == _division_arrays[i][j]:
+								new_index = k
+								Utility.move_element(_division_arrays[i], j, new_index)
+								break
+						
+						changed = true
+						_pending_moves.append([
+							division_idx_1d + j,
+							division_idx_1d + new_index
+						])
+#						_pending_moves.append([
+#							# biggest index first because [1,0] is not the same as [0,1]
+#							division_idx_1d + max(j,new_index),
+#							division_idx_1d + min(j,new_index)
+#						])
 					
-					var new_index : int
-					for k in merged_divisions.size():
-						# NOTE: since we're working with indexes, no 2 entries are the same
-						if merged_divisions[k] == _division_arrays[i-1][j]:
-							new_index = k
-							break
-					
-					_pending_switches.append([
-						# biggest index first because [1,0] is not the same as [0,1]
-						division_idx_1d + max(j,new_index),
-						division_idx_1d + min(j,new_index)
-					])
+					if changed == false: break
 				
-				# TEMP: note that everything untill here is working as intended,
-				#       problems happen after this point 
-				
-				# remove duplicates
-				for j in _pending_switches.size():
-					for k in range(j+1, _pending_switches.size()):
-						if _pending_switches[j] == _pending_switches[k]:
-							_pending_switches.remove(k)
-							break
+#				# remove duplicates (this is probably useless)
+#				for j in _pending_moves.size():
+#					for k in range(j+1, _pending_moves.size()):
+#						if _pending_moves[j] == _pending_moves[k]:
+#							_pending_moves.remove(k)
+#							break
 				
 				# commit the ordered merge
-				_division_arrays[i-1] = merged_divisions
+				_division_arrays[i] = merged_divisions
 				
-				if _pending_switches.empty():
-					# arrays merged perfectly without having to change indexes i,e [1,2,3] + [4,5,6]
-					should_skip_to_next = true
-				
-				# TEMP
-				print("content:" + str(_division_arrays))
-				print("switches:" + str(_pending_switches))
 				break
 			
 			i += 1
 	
-	if should_skip_to_next:
-		return next_step()
-	elif _pending_switches.empty():
-		# still empty? we're done
+	if _division_arrays.size() == 1:
+		# TODO: sometimes we end up with _division_arrays looking like [(size 64), (32), (16), (8)]
+		#       preventing any further sorts hence the stackoverflow, this shouldn't happen
 		return {"done":true}
+	elif _pending_moves.empty() == false:
+		return {"done":false, "action":SortAction.move, "indexes": _pending_moves.pop_front()}
 	else:
-		var indexes_to_switch : Array = _pending_switches.pop_front()
-		
-		# update entries in indexes_to_switch
-#		if indexes_to_switch[0] > indexes_to_switch[1]:
-#			for switch in _pending_switches:
-#				for i in switch.size():
-#					if switch[i] == indexes_to_switch[0]: switch[i] = indexes_to_switch[1]
-#					elif switch[i] >= indexes_to_switch[1] && switch[i] < indexes_to_switch[0]:
-#						switch[i] += 1
-#		elif indexes_to_switch[0] < indexes_to_switch[1]:
-#			for switch in _pending_switches:
-#				for i in switch.size():
-#					if switch[i] == indexes_to_switch[0]: switch[i] = indexes_to_switch[1]-1
-#					elif switch[i] > indexes_to_switch[1] && switch[i] < indexes_to_switch[0]:
-#						switch[i] -= 1
-		
-		print("switches changed to: ", str(_pending_switches))
-		return {"done":false, "action":SortAction.move, "indexes": indexes_to_switch}
+		# TEMP
+		var sizes : Array
+		for subarr in _division_arrays:
+			sizes.append(subarr.size())
+		print(sizes)
+			
+		return next_step()
 
 # override
 func skip_to_last_step() -> Array:
@@ -127,9 +114,9 @@ func _divide_n_conquer_full(low_bound : int, high_bound : int) -> Array:
 	if low_bound == high_bound: # 1 item left
 		return [low_bound]
 	else:
-		var middle : int = low_bound + (high_bound - low_bound) / 2
-		var first_half : Array = _divide_n_conquer_full(low_bound, middle)
-		var second_half : Array = _divide_n_conquer_full(middle+1, high_bound)
+		var middle_idx : int = low_bound + (high_bound - low_bound) / 2
+		var first_half : Array = _divide_n_conquer_full(low_bound, middle_idx)
+		var second_half : Array = _divide_n_conquer_full(middle_idx+1, high_bound)
 		
 		return _merge(first_half, second_half)
 

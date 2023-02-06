@@ -7,6 +7,7 @@ var _visualizers : Dictionary # {name:{scene:scene path, script:script path}, ..
 
 const screenshots_path : String = "res://resources/textures/visualizer_images/"
 
+
 func _ready():
 	var dir : Directory = Directory.new()
 	assert(dir.dir_exists(_sorters_path), "sorters path has been removed or changed, either update _sorters_path or stop messing around")
