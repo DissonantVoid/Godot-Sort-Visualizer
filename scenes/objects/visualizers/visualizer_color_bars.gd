@@ -184,8 +184,8 @@ func update_indexes(action : int, idx1 : int, idx2 : int):
 			elif idx1 < idx2:
 				# move line at idx1 above line at idx2
 				# and shift lines in between up
-				var idx2_old_pos : Vector2 = _lines_order[idx2-1].points[-1]
-				for i in range(idx2-1, idx1, -1):
+				var idx2_old_pos : Vector2 = _lines_order[idx2].points[-1]
+				for i in range(idx2, idx1, -1):
 					var other_line : Line2D = _lines_order[i-1]
 					_add_point_and_tween_it(tween, _lines_order[i], Vector2(
 							_next_x,
@@ -196,7 +196,7 @@ func update_indexes(action : int, idx1 : int, idx2 : int):
 				_add_point_and_tween_it(tween, _lines_order[idx1], Vector2(
 						_next_x,
 						_transform_local_point_from_node_to_node(
-							_lines_order[idx2-1], idx2_old_pos, _lines_order[idx1]
+							_lines_order[idx2], idx2_old_pos, _lines_order[idx1]
 						).y
 				))
 			

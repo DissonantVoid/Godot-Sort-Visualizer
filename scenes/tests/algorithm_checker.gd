@@ -243,8 +243,12 @@ func _run_single_test(sorter_object : Sorter, original_input : Array) -> bool:
 					var content_string : String = "["
 					for i in _current_input.size():
 						var input_str : String = str(_current_input[i]) + ', '
-						if i == result["indexes"][0] || i == result["indexes"][1]:
+						
+						if i == result["indexes"][0]:
 							input_str = "[color=" + _good_color + "]" + input_str + "[/color]"
+						elif i == result["indexes"][1]:
+							input_str = "[color=" + _bad_color + "]" + input_str + "[/color]"
+						
 						content_string += input_str
 					content_string += "]"
 					

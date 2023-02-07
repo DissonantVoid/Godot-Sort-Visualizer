@@ -41,10 +41,7 @@ func move_element(arr : Array, el_idx : int, el_new_idx : int):
 	
 	var element = arr[el_idx]
 	arr.remove(el_idx)
-	if el_idx < el_new_idx:
-		arr.insert(el_new_idx-1, element)
-	else:
-		arr.insert(el_new_idx, element)
+	arr.insert(el_new_idx, element)
 
 func subarr_first_index_to_1d(arr : Array, subarr_idx : int) -> int:
 	assert(subarr_idx >= 0 && subarr_idx < arr.size(), "index out of bound")

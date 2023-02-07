@@ -56,6 +56,7 @@ func next_step() -> Dictionary:
 						if _division_arrays[i][j] == merged_divisions[j]:
 							continue
 						
+						changed = true
 						var new_index : int
 						for k in merged_divisions.size():
 							# NOTE: since we're working with indexes, no 2 entries are the same
@@ -64,25 +65,16 @@ func next_step() -> Dictionary:
 								Utility.move_element(_division_arrays[i], j, new_index)
 								break
 						
-						changed = true
 						_pending_moves.append([
 							division_idx_1d + j,
 							division_idx_1d + new_index
 						])
-#						_pending_moves.append([
-#							# biggest index first because [1,0] is not the same as [0,1]
-#							division_idx_1d + max(j,new_index),
-#							division_idx_1d + min(j,new_index)
-#						])
 					
-					if changed == false: break
-				
-#				# remove duplicates (this is probably useless)
-#				for j in _pending_moves.size():
-#					for k in range(j+1, _pending_moves.size()):
-#						if _pending_moves[j] == _pending_moves[k]:
-#							_pending_moves.remove(k)
-#							break
+					if changed == false:
+						# TEMP
+						print(_pending_moves)
+						
+						break
 				
 				# commit the ordered merge
 				_division_arrays[i] = merged_divisions
@@ -98,11 +90,11 @@ func next_step() -> Dictionary:
 	elif _pending_moves.empty() == false:
 		return {"done":false, "action":SortAction.move, "indexes": _pending_moves.pop_front()}
 	else:
-		# TEMP
-		var sizes : Array
-		for subarr in _division_arrays:
-			sizes.append(subarr.size())
-		print(sizes)
+#		# TEMP
+#		var sizes : Array
+#		for subarr in _division_arrays:
+#			sizes.append(subarr.size())
+#		print(sizes)
 			
 		return next_step()
 

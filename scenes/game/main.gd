@@ -29,7 +29,6 @@ class Settings:
 		# create save file if doesn't exist
 		var dir : Directory = Directory.new()
 		if OS.has_feature("standalone"):
-			# TODO: not tested
 			_settings_file_path = OS.get_executable_path().get_base_dir() + "/settings"
 		else:
 			_settings_file_path = "res://settings"
