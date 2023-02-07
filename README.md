@@ -2,11 +2,9 @@
 A "back-to-basics" project that implements a number of sorting algorithms in gdscript
 as well as visual effects to help see these algorithm in action!
 
-[TODO: update gifs]
+![](https://imgur.com/pvKQpVL.gif)
 
-![](https://imgur.com/qjLrCSn.gif)
-
-![](https://imgur.com/BP7AsK8.gif)
+![](https://imgur.com/NvqfeR8.gif)
 
 ## Contribution
 Any help is greatly appreciated, and I'm very much open to suggestions and PRs.
@@ -38,6 +36,6 @@ what's neat about this approach (if I do say so myself :-) ) is that a sorter do
 which allow for great control over the implementation.
 
 ## Credits
-libre-baskerville (SIL Open Font License)
+Font: libre-baskerville (SIL Open Font License)
 
 All other assets including audio and art are original and follow the same license as the project

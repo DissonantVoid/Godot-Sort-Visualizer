@@ -5,6 +5,7 @@ Todo (also see in-code todos by searching in all files for "todo"):
   -replace some buttons with icons
 	-sfx
   -sorters comments are inconsistent, some of them are more detailed than others
+  -add more images to puzzle visualizer
 
 Plan:
   -keep sorting implementation code independent so we can apply the sort on any custom scene
