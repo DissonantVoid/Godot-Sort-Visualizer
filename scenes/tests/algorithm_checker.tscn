@@ -217,7 +217,7 @@ size_flags_vertical = 3
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/InputOutput/VBoxContainer/VBoxContainer"]
 margin_right = 866.0
 margin_bottom = 21.0
-text = "Result:"
+text = "Results:"
 align = 1
 
 [node name="Console" type="RichTextLabel" parent="MarginContainer/VBoxContainer/InputOutput/VBoxContainer/VBoxContainer"]

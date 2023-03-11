@@ -83,12 +83,12 @@ func _draw():
 				_ruler_color,
 				_ruler_small_line_width
 			)
-
+ 
 # override
 static func get_metadata() -> Dictionary:
 	return {
 		"title":"color bars", "image":"color_bars.png",
-		"description":"Horizontal bars that continuously swap position while visually keeping record of their old positions"
+		"description":"Horizontal bars with different colors that are sorted from bright to dark, while visually keeping a record of their old positions"
 	}
 
 # override
@@ -245,7 +245,7 @@ func finish():
 	emit_signal("finished")
 
 func _transform_local_point_from_node_to_node(node1 : Node2D, point : Vector2, node2 : Node2D):
-	# points array of a Line2D contains points positions in relative space, making it quite painful to work with
+	# points array of a Line2D contain points positions in relative space, making it quite painful to work with
 	# since we have to convert a point to global space, then to local space of the second line that needs it
 	return node1.global_position + point - node2.global_position
 

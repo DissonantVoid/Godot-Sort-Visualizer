@@ -1,7 +1,5 @@
 extends MarginContainer
 
-# TODO: after running tests multiple times with failure show a button called "cry"
-
 onready var _sorters_container : HFlowContainer = $MarginContainer/VBoxContainer/Sorter/Algorithms/Options
 onready var _methods_container : HBoxContainer = $MarginContainer/VBoxContainer/Method/PanelContainer/Method
 

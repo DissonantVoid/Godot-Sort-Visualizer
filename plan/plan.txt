@@ -1,9 +1,7 @@
-Current Task: Merge sort
-Next Task: Final touches
+Current Task: Done!
 
 Todo (also see in-code todos by searching in all files for "todo"):
   -replace some buttons with icons
-	-sfx
   -sorters comments are inconsistent, some of them are more detailed than others
   -add more images to puzzle visualizer
 
@@ -32,7 +30,7 @@ Keep in mind:
      -since this is potentially an educational project, always keep a short description on how the algorithm works
       + wiki link and keep code easy to read
   UI:
-     -no UI focus
+     -no UI focus, i.e. focus is always set to none on UI elements
      -all clickables should have a hand pointer
 
 Deadline: 2 months (around february 30)

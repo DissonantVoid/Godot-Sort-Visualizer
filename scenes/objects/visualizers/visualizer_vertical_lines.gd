@@ -39,7 +39,7 @@ func _ready():
 static func get_metadata() -> Dictionary:
 	return {
 		"title":"vertical_lines", "image":"vertical_rects.png",
-		"description":"The classic vertical rectangles with different height that get sorter in ascending order from left to right"
+		"description":"The classic vertical rectangles with different height that are sorter in ascending order"
 	}
 
 # override

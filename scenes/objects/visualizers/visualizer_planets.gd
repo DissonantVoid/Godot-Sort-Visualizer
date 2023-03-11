@@ -55,7 +55,7 @@ func _ready():
 static func get_metadata() -> Dictionary:
 	return {
 		"title":"planets", "image":"planets.png",
-		"description":"Planets in a solar system that get sorter so that the smallest planet is closest to the star, and the biggest is the farthest"
+		"description":"Planets in a solar system that are sorter so that the smaller a planet is the closer it is to the star"
 	}
 
 # override

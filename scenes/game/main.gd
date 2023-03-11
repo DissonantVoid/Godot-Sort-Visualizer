@@ -1,19 +1,5 @@
 extends Control
 
-onready var _interface : CanvasLayer = $MainInterface
-onready var _continous_timer : Timer = $ContinuousTimer
-
-const _initial_visualizer : String = "vertical_lines"
-const _initial_sorter : String = "bubble_sort"
-var _sorter : Sorter = null
-var _visualizer = null
-
-enum RunningMode {step, continuous} # step requires user input to do next sort, continous relies on timer
-var _running_mode : int = RunningMode.step
-var _is_waiting_for_visualizer : bool = false
-var _is_stoping_next : bool = false
-
-var _settings : Settings = Settings.new()
 class Settings:
 	# NOTE: a class instead of a dict, because dict keys are not checked untill runtime
 	# making them prone to error and hard to keep track of reads/writes to the same key
@@ -52,6 +38,21 @@ class Settings:
 		# ...
 		_file.save(_settings_file_path)
 
+onready var _interface : CanvasLayer = $MainInterface
+onready var _continous_timer : Timer = $ContinuousTimer
+
+const _initial_visualizer : String = "vertical_lines"
+const _initial_sorter : String = "bubble_sort"
+var _sorter : Sorter = null
+var _visualizer = null
+
+enum RunningMode {step, continuous} # step requires user input to do next sort, continous relies on timer
+var _running_mode : int = RunningMode.step
+var _is_waiting_for_visualizer : bool = false
+var _is_stoping_next : bool = false
+
+var _settings : Settings = Settings.new()
+
 
 func _ready():
 	# apply settings from file
@@ -70,7 +71,6 @@ func _apply_settings():
 	_continous_timer.wait_time = _settings.time_per_step / 1000
 	if _settings.volume == 0:
 		AudioServer.set_bus_mute(0, true)
-		AudioServer.set_bus_volume_db(0, range_lerp(_settings.volume, 0, 100, -40, 0))
 	else:
 		if AudioServer.is_bus_mute(0): AudioServer.set_bus_mute(0, false)
 		AudioServer.set_bus_volume_db(0, range_lerp(_settings.volume, 0, 100, -40, 0))
@@ -166,7 +166,7 @@ func _next_step():
 		assert(step_data.has("indexes"), "no 'indexes' entry in sorter.next_step() return")
 		assert(step_data["indexes"].size() == 2, "'indexes' entry in sorter.next_step() return must have 2 indexes")
 		
-		# NOTE: this line should be last in case update_indexes() emits immediately like in visualizer_rect
+		# NOTE: this line should be last in case update_indexes() emits immediately like in visualizer_vertical_lines
 		_visualizer.update_indexes(step_data["action"], step_data["indexes"][0], step_data["indexes"][1])
 
 func _reset():

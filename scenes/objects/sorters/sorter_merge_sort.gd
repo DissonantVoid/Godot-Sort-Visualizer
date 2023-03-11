@@ -23,6 +23,11 @@ func setup(data_size : int, priority_callback : FuncRef):
 
 # override
 func next_step() -> Dictionary:
+	# I can't believe that I'm unable to solve this after 2 weeks of trying
+	# this has to be one of the most difficult coding challenges I've ever done
+	# or I'm consistently overlooking something obvious
+	push_error("This is Unfinished, Only skip_to_last_step works, see project README.md")
+	
 	# start with array of arrays (_division_array) where each subarray contains 1 index
 	# merge first 2 indexes into 1 array, then next 2. combine them into 4, then merge another 2 and 2 into 4
 	# and merge the 4 and 4 into 8 etc.. it's like 2048 the game
@@ -78,7 +83,6 @@ func next_step() -> Dictionary:
 				
 				# commit the ordered merge
 				_division_arrays[i] = merged_divisions
-				
 				break
 			
 			i += 1
@@ -90,12 +94,6 @@ func next_step() -> Dictionary:
 	elif _pending_moves.empty() == false:
 		return {"done":false, "action":SortAction.move, "indexes": _pending_moves.pop_front()}
 	else:
-#		# TEMP
-#		var sizes : Array
-#		for subarr in _division_arrays:
-#			sizes.append(subarr.size())
-#		print(sizes)
-			
 		return next_step()
 
 # override
