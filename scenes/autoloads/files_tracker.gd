@@ -37,7 +37,7 @@ func _ready():
 
 			var scene = load(_visualizers_path + script_name).new()
 			if scene.is_enabled():
-				var visualizer_name : String = curr_dir.substr(11).get_basename()
+				var visualizer_name : String = scene.get_visualizer_name()
 				_visualizers[visualizer_name] = Dictionary()
 				_visualizers[visualizer_name]["scene"] = _visualizers_path + curr_dir
 				_visualizers[visualizer_name]["script"] = _visualizers_path + script_name

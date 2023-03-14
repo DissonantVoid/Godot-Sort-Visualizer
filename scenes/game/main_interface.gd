@@ -41,8 +41,8 @@ func _ready():
 		if child is Button: _visualizer_control_buttons.append(child)
 
 func setup(visualizer_name : String, sorter_name : String):
-	_selected_visualizer_btn.text = visualizer_name
-	_selected_sorter_btn.text = sorter_name
+	_selected_visualizer_btn.text = tr(visualizer_name)
+	_selected_sorter_btn.text = tr(sorter_name)
 
 func sorter_finished():
 	_toggle_button_group(_restart_buttons)

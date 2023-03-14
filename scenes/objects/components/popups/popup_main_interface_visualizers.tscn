@@ -24,7 +24,7 @@ margin_bottom = 122.0
 
 [node name="Title" parent="Content/MarginContainer/VBoxContainer" index="0"]
 margin_right = 600.0
-text = "Choose a visualizer"
+text = "CHOOSE_VIZU"
 
 [node name="HSeparator" parent="Content/MarginContainer/VBoxContainer" index="1"]
 margin_right = 600.0
@@ -33,7 +33,7 @@ margin_right = 600.0
 margin_top = 40.0
 margin_right = 600.0
 margin_bottom = 66.0
-text = "<None>"
+text = "NONE"
 align = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Content/MarginContainer/VBoxContainer" index="3"]
@@ -43,7 +43,7 @@ margin_bottom = 82.0
 scroll_vertical_enabled = false
 
 [node name="PanelContainer" type="PanelContainer" parent="Content/MarginContainer/VBoxContainer/ScrollContainer" index="0"]
-margin_right = 12.0
+margin_right = 600.0
 margin_bottom = 12.0
 size_flags_horizontal = 3
 size_flags_vertical = 3

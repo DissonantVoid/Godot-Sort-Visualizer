@@ -1,0 +1,38 @@
+keys,en,fr
+OPTIONS,Options,Options
+HIDE,Hide,Cacher
+START,Start,Commencer
+NEXT,Next step,Étape suivante
+STOP,Stop,Arrêter
+LAST,Last step,Dernière étape
+CONTINUE,Continue,Continuer
+PAUSE,Pause,Pause
+RESTART,Restart,Recommencer
+OK,OK,OK
+CANCEL,Cancel,Annuler
+CHOOSE_ALGO,Choose an algorithm,Sélectionnez un algorithme
+NONE,None selected,Aucune sélection
+STEP_TIME,Step Time:,Délai entre deux étapes :
+VOLUME,Volume:,Volume :
+LANGUAGE,Language:,Langue :
+CHOOSE_VIZU,Choose a visualizer,Sélectionnez un visualisateur
+VERTICAL_TITLE,Vertical lines,Lignes verticales
+VERTICAL_DESC,The classic vertical rectangles with different height that are sorted in ascending order,Des lignes verticales de longueurs différentes qui sont triées par ordre croissant
+COLOR_TITLE,Color bars,Barres colorées
+COLOR_DESC,"Horizontal bars with different colors that are sorted from bright to dark, while visually keeping a record of their old positions","Des barres horizontales colorées qui sont triées du plus clair au plus foncé, tout en montrant l’historique des positions précédentes"
+PLANETS_TITLE,Planets,Planète
+PLANETS_DESC,Planets in a solar system that are sorted so that the smaller a planet is the closer it is to the star,Des planètes dans un système solaire qui sont triées de façon à obtenir que la plus petite planète est la plus proche du soleil
+PUZZLE_TITLE,Puzzle,Puzzle
+PUZZLE_DESC,An image split into a grid of puzzle pieces that get sorted in the right order to form the image,Une image découpée en une grille de pièces de puzzle qui sont triées pour obtenir l’image originelle
+LAZERS_TITLE,Singing lazers,Lazers chantants
+LAZERS_DESC,"Machines that shoot colorful Lazer into receivers with different colors, when a lazer matches the right receiver it will play a tune, once all lazers are in the right position they'll play a nice music (get the reference?)","Des machines qui tirent des lazers colorés vers des récepteurs colorés. Quand la couleur du lazer correspond à celle du récepteur, un son est joué. Quand tous les lazers sont correctement placés, les son forment une musique"
+BOGOSORT,Bogosort,Tri stupide
+BUBBLESORT,Bubble sort,Tri à bulles
+GNOMESORT,Gnome sort,Tri gnome
+HEAPSORT,Heap sort,Tri par tas
+INSERTIONSORT,Insertion sort,Tri par insertion
+MERGESORT,Merge sort,Tri par fusion
+ODDEVENSORT,Odd-even sort,Tri pair-impair
+QUICKSORT,Quick sort,Tri rapide (quicksort)
+SELECTIONSORT,Selection sort,Tri par permutation
+SHELLSORT,Shell sort,Tri de Shell

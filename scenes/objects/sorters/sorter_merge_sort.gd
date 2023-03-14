@@ -131,4 +131,4 @@ func is_enabled() -> bool:
 
 
 func get_sorter_name() -> String:
-	return tr("Merge sort")
+	return "MERGESORT"

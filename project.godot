@@ -73,6 +73,10 @@ texture={
 "svg/scale": 1.0
 }
 
+[locale]
+
+translations=PoolStringArray( "res://resources/i18n/i18n.en.translation", "res://resources/i18n/i18n.fr.translation" )
+
 [physics]
 
 common/enable_pause_aware_picking=true

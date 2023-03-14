@@ -6,6 +6,7 @@ class Settings:
 	# this functions more like like a c++ Struct
 	var time_per_step : float = 25.0
 	var volume : float = 100
+	var language: String = "en"
 	
 	var _file : ConfigFile = ConfigFile.new()
 	var _settings_file_path : String
@@ -30,19 +31,21 @@ class Settings:
 	func read():
 		time_per_step = _file.get_value(_section_name, "time_per_step", time_per_step)
 		volume = _file.get_value(_section_name, "volume", volume)
+		language = _file.get_value(_section_name, "language", language)
 		# ...
 	
 	func write():
 		_file.set_value(_section_name, "time_per_step", time_per_step)
 		_file.set_value(_section_name, "volume", volume)
+		_file.set_value(_section_name, "language", language)
 		# ...
 		_file.save(_settings_file_path)
 
 onready var _interface : CanvasLayer = $MainInterface
 onready var _continous_timer : Timer = $ContinuousTimer
 
-const _initial_visualizer : String = "vertical_lines"
-const _initial_sorter : String = "bubble_sort"
+const _initial_visualizer : String = "VERTICAL_TITLE"
+const _initial_sorter : String = "BUBBLESORT"
 var _sorter : Sorter = null
 var _visualizer = null
 
@@ -74,6 +77,9 @@ func _apply_settings():
 	else:
 		if AudioServer.is_bus_mute(0): AudioServer.set_bus_mute(0, false)
 		AudioServer.set_bus_volume_db(0, range_lerp(_settings.volume, 0, 100, -40, 0))
+	TranslationServer.set_locale(_settings.language)
+	if _sorter != null:
+		_interface.setup(_sorter.get_sorter_name(), _visualizer.get_visualizer_name())
 
 func _on_interface_sorter_changed(new_sorter):
 	_sorter = new_sorter

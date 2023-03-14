@@ -22,7 +22,7 @@ margin_bottom = 136.0
 
 [node name="Title" parent="Content/MarginContainer/VBoxContainer" index="0"]
 margin_right = 209.0
-text = "Options"
+text = "OPTIONS"
 
 [node name="HSeparator" parent="Content/MarginContainer/VBoxContainer" index="1"]
 margin_right = 209.0
@@ -36,7 +36,7 @@ columns = 2
 [node name="Step" type="Label" parent="Content/MarginContainer/VBoxContainer/GridContainer" index="0"]
 margin_right = 113.0
 margin_bottom = 26.0
-text = "Step Time:"
+text = "STEP_TIME"
 
 [node name="SpinBox" type="SpinBox" parent="Content/MarginContainer/VBoxContainer/GridContainer" index="1"]
 margin_left = 117.0
@@ -53,7 +53,7 @@ suffix = "ms"
 margin_top = 30.0
 margin_right = 113.0
 margin_bottom = 56.0
-text = "Volume:"
+text = "VOLUME"
 
 [node name="HSlider" type="HSlider" parent="Content/MarginContainer/VBoxContainer/GridContainer" index="3"]
 margin_left = 117.0
@@ -65,6 +65,18 @@ mouse_default_cursor_shape = 2
 size_flags_vertical = 1
 value = 100.0
 rounded = true
+
+[node name="Language" type="Label" parent="Content/MarginContainer/VBoxContainer/GridContainer" index="4"]
+margin_top = 61.0
+margin_right = 133.0
+margin_bottom = 87.0
+text = "LANGUAGE"
+
+[node name="OptionButton" type="OptionButton" parent="Content/MarginContainer/VBoxContainer/GridContainer" index="5"]
+margin_left = 137.0
+margin_top = 60.0
+margin_right = 229.0
+margin_bottom = 88.0
 
 [node name="Choice" parent="Content/MarginContainer/VBoxContainer" index="3"]
 margin_top = 100.0
