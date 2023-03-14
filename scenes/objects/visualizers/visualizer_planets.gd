@@ -153,3 +153,7 @@ func _on_zoom_pressed(is_in : bool):
 	
 	_zoom_out_btn.disabled = _zoom_level == _zoom_max
 	_zoom_in_btn.disabled = _zoom_level == _zoom_min
+
+
+func is_enabled() -> bool:
+	return true

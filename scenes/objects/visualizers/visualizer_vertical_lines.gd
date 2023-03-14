@@ -110,3 +110,7 @@ func _clear_colors():
 	for rect in _colored_rects:
 		rect.color = _default_clr
 	_colored_rects.clear()
+
+
+func is_enabled() -> bool:
+	return true

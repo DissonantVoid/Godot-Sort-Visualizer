@@ -305,3 +305,7 @@ func _resize_scroll_grabber():
 	
 	if auto_scroll_to_end:
 		_on_scroll()
+
+
+func is_enabled() -> bool:
+	return true

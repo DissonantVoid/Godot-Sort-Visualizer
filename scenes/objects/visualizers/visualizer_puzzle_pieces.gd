@@ -114,3 +114,7 @@ func finish():
 
 func _on_switch_all_tween_finished():
 	emit_signal("updated_all")
+
+
+func is_enabled() -> bool:
+	return true

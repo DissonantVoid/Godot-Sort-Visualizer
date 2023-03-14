@@ -168,3 +168,7 @@ func _update_receivers():
 			_lazers_container.get_child(i).get_order_index(),
 			_music_lenght - _sync_timer.time_left
 		)
+
+
+func is_enabled() -> bool:
+	return true

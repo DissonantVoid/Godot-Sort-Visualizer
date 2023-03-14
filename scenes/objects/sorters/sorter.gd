@@ -31,3 +31,14 @@ func next_step() -> Dictionary:
 #           without all the state keeping needed for next_step()
 func skip_to_last_step() -> Array:
 	return []
+
+
+# override, return true if and only if this sorter should be used.
+#			If false, the sorter does not appear in the popup
+func is_enabled() -> bool:
+	return false
+
+
+# override, return the name of the sorter
+func get_sorter_name() -> String:
+	return ""
