@@ -23,7 +23,7 @@ margin_bottom = 250.0
 
 [node name="Title" parent="Content/MarginContainer/VBoxContainer" index="0"]
 margin_right = 244.0
-text = "Choose an algorithm"
+text = "CHOOSE_ALGO"
 
 [node name="HSeparator" parent="Content/MarginContainer/VBoxContainer" index="1"]
 margin_right = 244.0
@@ -32,7 +32,7 @@ margin_right = 244.0
 margin_top = 40.0
 margin_right = 244.0
 margin_bottom = 66.0
-text = "<None>"
+text = "NONE"
 align = 1
 autowrap = true
 

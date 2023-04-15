@@ -9,92 +9,81 @@ extends "res://scenes/objects/sorters/sorter.gd"
 #                  Worst:   O(N log N)
 #                  Best:    O(N log N)
 
-var _division_arrays : Array
-var _pending_moves : Array # [[idx1, idx2], .. ]
+enum Action {
+	SPLIT,
+	MERGE,
+}
+
+# _pending_moves contains the moves to perform to sort the whole array. The next move is at the end of the array
+# It contains "tuples" starting with the action.
+#	If the action is SPLIT, the remaining data are 	the index of the first element of the sub-array to split
+#												and the size of the sub-array
+# 	If the action is MERGE, the remaining data are	the index of the first element of the first sub-array
+#													the size of the first sub-array
+#													the index of the first element of the second sub-array
+#												and the size of the second sub-array
+var _pending_moves : Array # [[action, idx1, idx2], .. ]
 
 
 # override
 func setup(data_size : int, priority_callback : FuncRef):
 	.setup(data_size, priority_callback)
 	
-	_division_arrays.resize(_data_size)
-	for i in _data_size: _division_arrays[i] = [i]
 	_pending_moves.clear()
+	# The first move is to split in half the whole array
+	_pending_moves.append([Action.SPLIT, 0, _data_size])
 
 # override
 func next_step() -> Dictionary:
-	# I can't believe that I'm unable to solve this after 2 weeks of trying
-	# this has to be one of the most difficult coding challenges I've ever done
-	# or I'm consistently overlooking something obvious
-	push_error("This is Unfinished, Only skip_to_last_step works, see project README.md")
-	
-	# start with array of arrays (_division_array) where each subarray contains 1 index
-	# merge first 2 indexes into 1 array, then next 2. combine them into 4, then merge another 2 and 2 into 4
-	# and merge the 4 and 4 into 8 etc.. it's like 2048 the game
-	# this way we can merge once, keep record of what has changed in that merge (_pending_moves)
-	# and for each call to this func, return 1 move from the record, once the record is empty
-	# we merge the next 2 arrays and so on
 	if _pending_moves.empty():
-		var i : int = 0
-		while i < _division_arrays.size()-1:
-			# everytime we have 2 subarrays with the same size next to each other we merge them
-			# we also merge if we have only 2 arrays left regardless of the size
-			if (_division_arrays[i].size() == _division_arrays[i+1].size() ||
-					_division_arrays.size() == 2):
-				
-				# merge the two subarrays
-				var merged_divisions : Array = _merge(_division_arrays[i], _division_arrays[i+1])
-				
-				# covert i from a 2d index where the first element is [0], to 1d index
-				# where the first element is the sum of all previous indexes in all previous arrays
-				var division_idx_1d : int = Utility.subarr_first_index_to_1d(_division_arrays, i)
-				
-				# merged_divisions contains ordered merge, and _division_arrays[i] now contains
-				# unordered merge, we use the diff between them to fill _pending_moves
-				_division_arrays[i].append_array(_division_arrays[i+1])
-				_division_arrays.remove(i+1)
-				
-				# compare merged_divisions to _division_arr[i]
-				while true:
-					var changed : bool = false
-					for j in _division_arrays[i].size():
-						if _division_arrays[i][j] == merged_divisions[j]:
-							continue
-						
-						changed = true
-						var new_index : int
-						for k in merged_divisions.size():
-							# NOTE: since we're working with indexes, no 2 entries are the same
-							if merged_divisions[k] == _division_arrays[i][j]:
-								new_index = k
-								Utility.move_element(_division_arrays[i], j, new_index)
-								break
-						
-						_pending_moves.append([
-							division_idx_1d + j,
-							division_idx_1d + new_index
-						])
-					
-					if changed == false:
-						# TEMP
-						print(_pending_moves)
-						
-						break
-				
-				# commit the ordered merge
-				_division_arrays[i] = merged_divisions
-				break
-			
-			i += 1
+		return {"done": true}
 	
-	if _division_arrays.size() == 1:
-		# TODO: sometimes we end up with _division_arrays looking like [(size 64), (32), (16), (8)]
-		#       preventing any further sorts hence the stackoverflow, this shouldn't happen
-		return {"done":true}
-	elif _pending_moves.empty() == false:
-		return {"done":false, "action":SortAction.move, "indexes": _pending_moves.pop_front()}
-	else:
+	var move = _pending_moves.pop_back()
+
+	if move[0] == Action.SPLIT:
+		var start_subarray: int = move[1]
+		var size_subarray: int = move[2]
+
+		var size_first: int = floor(size_subarray / 2.0)
+		var size_second: int
+		if size_first * 2 != size_subarray:
+			size_second = size_first + 1
+		else:
+			size_second = size_first
+
+		var start_second := start_subarray + size_first
+
+		_pending_moves.append([Action.MERGE, start_subarray, start_second, size_first, size_second])
+		if size_second > 1:
+			_pending_moves.append([Action.SPLIT, start_second, size_second])
+		if size_first > 1:
+			_pending_moves.append([Action.SPLIT, start_subarray, size_first])
+
 		return next_step()
+
+	else: # move[0] == Action.MERGE
+		var start_first: int = move[1]
+		var start_second: int = move[2]
+		var size_first: int = move[3]
+		var size_second: int = move[4]
+		
+		if size_first == 0 || size_second == 0 || start_second >= _data_size:
+			# Only one of the array contains values
+			# As the other array is already sorted, we have nothing to do
+			return next_step()
+
+		# Both arrays contain values. We pick the smallest value between start_first and start_second
+		# if array[_start_first] < array[_start_second]
+		if _priority_callback.call_func(start_second, start_first):
+			# We do not have to swap anything as the smallest value is already at the front
+			_pending_moves.append([Action.MERGE, start_first + 1, start_second, size_first - 1, size_second])
+			return next_step()
+		else:
+			# This time, we have to move the head of the second array to where the head of the first array currently lies
+			# As we move every unsorted value to the right, the index of the first array also moves to the right
+			_pending_moves.append([Action.MERGE, start_first + 1, start_second + 1, size_first, size_second - 1])
+			return {"done":false, "action":SortAction.move, "indexes": [start_second, start_first]}
+
 
 # override
 func skip_to_last_step() -> Array:
@@ -135,3 +124,11 @@ func _merge(first_half : Array, second_half : Array):
 		combined.append_array(second_half.slice(second_h_idx, second_half.size()-1))
 	
 	return combined
+
+
+func is_enabled() -> bool:
+	return true
+
+
+func get_sorter_name() -> String:
+	return "MERGESORT"

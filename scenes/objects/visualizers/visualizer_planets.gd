@@ -54,8 +54,8 @@ func _ready():
 # override
 static func get_metadata() -> Dictionary:
 	return {
-		"title":"planets", "image":"planets.png",
-		"description":"Planets in a solar system that are sorter so that the smaller a planet is the closer it is to the star"
+		"title":"PLANETS_TITLE", "image":"planets.png",
+		"description":"PLANETS_DESC"
 	}
 
 # override
@@ -153,3 +153,7 @@ func _on_zoom_pressed(is_in : bool):
 	
 	_zoom_out_btn.disabled = _zoom_level == _zoom_max
 	_zoom_in_btn.disabled = _zoom_level == _zoom_min
+
+
+func is_enabled() -> bool:
+	return true

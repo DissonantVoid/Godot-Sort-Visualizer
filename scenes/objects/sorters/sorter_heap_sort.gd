@@ -115,3 +115,11 @@ func _h_sift_down(arr : Array, index : int): # no I didn't loose my teeth, it's 
 		
 		# if we reach this, both children are bigger
 		break
+
+
+func is_enabled() -> bool:
+	return true
+
+
+func get_sorter_name() -> String:
+	return "HEAPSORT"

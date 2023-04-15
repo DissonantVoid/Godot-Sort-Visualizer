@@ -38,8 +38,8 @@ func _ready():
 # override
 static func get_metadata() -> Dictionary:
 	return {
-		"title":"vertical_lines", "image":"vertical_rects.png",
-		"description":"The classic vertical rectangles with different height that are sorter in ascending order"
+		"title":"VERTICAL_TITLE", "image":"vertical_rects.png",
+		"description":"VERTICAL_DESC"
 	}
 
 # override
@@ -110,3 +110,7 @@ func _clear_colors():
 	for rect in _colored_rects:
 		rect.color = _default_clr
 	_colored_rects.clear()
+
+
+func is_enabled() -> bool:
+	return true

@@ -50,3 +50,11 @@ func skip_to_last_step() -> Array:
 		indexes.shuffle()
 	
 	return indexes
+
+
+func is_enabled() -> bool:
+	return true
+
+
+func get_sorter_name() -> String:
+	return "BOGOSORT"

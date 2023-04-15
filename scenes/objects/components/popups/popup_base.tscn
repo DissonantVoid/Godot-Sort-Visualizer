@@ -78,7 +78,7 @@ margin_bottom = 28.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
-text = "Cancel"
+text = "CANCEL"
 
 [node name="Error" type="MarginContainer" parent="."]
 visible = false

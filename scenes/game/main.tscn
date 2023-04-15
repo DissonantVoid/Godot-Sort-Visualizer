@@ -62,17 +62,17 @@ margin_right = 952.0
 margin_bottom = 45.0
 
 [node name="Options" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/Upper/MarginContainer/HBoxContainer"]
-margin_right = 100.0
+margin_right = 109.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 100, 40 )
 focus_mode = 0
 mouse_default_cursor_shape = 2
 size_flags_vertical = 6
-text = "Options"
+text = "OPTIONS"
 
 [node name="Center" type="VBoxContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/Upper/MarginContainer/HBoxContainer"]
-margin_left = 298.0
-margin_right = 646.0
+margin_left = 302.0
+margin_right = 650.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 280, 0 )
 size_flags_horizontal = 6
@@ -126,7 +126,7 @@ focus_mode = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 8
 size_flags_vertical = 6
-text = "Hide"
+text = "HIDE"
 
 [node name="VLines" type="HBoxContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/Upper/MarginContainer"]
 margin_left = 8.0
@@ -198,7 +198,7 @@ focus_mode = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "Start"
+text = "START"
 
 [node name="NextStep" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/Lower/Lower/MarginContainer/VBoxContainer/Idle"]
 margin_left = 180.0
@@ -209,7 +209,7 @@ focus_mode = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "Next Step"
+text = "NEXT"
 
 [node name="Running" type="HBoxContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/Lower/Lower/MarginContainer/VBoxContainer"]
 visible = false
@@ -226,7 +226,7 @@ rect_min_size = Vector2( 0, 30 )
 focus_mode = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
-text = "Pause"
+text = "PAUSE"
 
 [node name="Stop" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/Lower/Lower/MarginContainer/VBoxContainer/Running"]
 margin_left = 142.0
@@ -236,7 +236,7 @@ rect_min_size = Vector2( 0, 30 )
 focus_mode = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
-text = "Stop"
+text = "STOP"
 
 [node name="Paused" type="HBoxContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/Lower/Lower/MarginContainer/VBoxContainer"]
 visible = false
@@ -253,7 +253,7 @@ focus_mode = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "Continue"
+text = "CONTINUE"
 
 [node name="NextStep" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/Lower/Lower/MarginContainer/VBoxContainer/Paused"]
 margin_left = 120.0
@@ -264,7 +264,7 @@ focus_mode = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "Next Step"
+text = "NEXT"
 
 [node name="LastStep" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/Lower/Lower/MarginContainer/VBoxContainer/Paused"]
 margin_left = 240.0
@@ -275,7 +275,7 @@ focus_mode = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "Last Step"
+text = "LAST"
 
 [node name="Restart" type="HBoxContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/Lower/Lower/MarginContainer/VBoxContainer"]
 visible = false
@@ -291,7 +291,7 @@ rect_min_size = Vector2( 0, 30 )
 focus_mode = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
-text = "Restart"
+text = "RESTART"
 
 [node name="Grabber" type="ColorRect" parent="MainInterface/MarginContainer/VBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )

@@ -12,11 +12,11 @@ var _path : String
 
 
 func setup(title : String, image_path : String, description : String, path : String):
-	_title = title
-	_title_label.text = title
+	_title = tr(title)
+	_title_label.text = _title
 	if image_path.empty() == false:
 		_image.texture = load(FilesTracker.screenshots_path + image_path)
-	_description_label.bbcode_text = description
+	_description_label.bbcode_text = tr(description)
 	_path = path
 
 func _on_gui_input(event):

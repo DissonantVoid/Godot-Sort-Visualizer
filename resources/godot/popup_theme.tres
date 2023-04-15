@@ -1,6 +1,7 @@
-[gd_resource type="Theme" load_steps=16 format=2]
+[gd_resource type="Theme" load_steps=17 format=2]
 
 [ext_resource path="res://resources/fonts/libre-baskerville/LibreBaskerville-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://resources/fonts/amiri/amiri.tres" type="DynamicFont" id=2]
 
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 1, 0.933333, 0.8, 1 )
@@ -99,6 +100,7 @@ default_font = SubResource( 5 )
 Button/colors/font_color = Color( 1, 0.933333, 0.8, 1 )
 Button/colors/font_color_hover = Color( 1, 0.411765, 0.45098, 1 )
 Button/colors/font_color_pressed = Color( 1, 0.411765, 0.45098, 1 )
+Button/fonts/font = ExtResource( 2 )
 Button/styles/hover = SubResource( 3 )
 Button/styles/normal = SubResource( 4 )
 Button/styles/pressed = SubResource( 3 )
@@ -111,7 +113,9 @@ HSlider/styles/grabber_area = SubResource( 14 )
 HSlider/styles/grabber_area_highlight = SubResource( 14 )
 HSlider/styles/slider = SubResource( 15 )
 Label/colors/font_color = Color( 1, 0.933333, 0.8, 1 )
+Label/fonts/font = ExtResource( 2 )
 LineEdit/colors/font_color = Color( 1, 0.933333, 0.8, 1 )
+LineEdit/fonts/font = ExtResource( 2 )
 LineEdit/styles/normal = SubResource( 7 )
 PanelContainer/styles/panel = SubResource( 2 )
 VScrollBar/styles/grabber = SubResource( 10 )
