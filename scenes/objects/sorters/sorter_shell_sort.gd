@@ -15,6 +15,10 @@ var _sub_idx : int
 
 
 # override
+static func get_metadata() -> Dictionary:
+	return {"name":"SHELLSORT", "is_enabled":true}
+
+# override
 func setup(data_size : int, priority_callback : FuncRef):
 	.setup(data_size, priority_callback)
 	
@@ -74,11 +78,3 @@ func skip_to_last_step() -> Array:
 		gap /= 2
 	
 	return indexes
-
-
-func is_enabled() -> bool:
-	return true
-
-
-func get_sorter_name() -> String:
-	return "SHELLSORT"

@@ -9,10 +9,11 @@ signal finished
 
 # override
 static func get_metadata() -> Dictionary:
-	# "title"
+	# "name"
 	# "image": name and extension of an image in "res://resources/textures/visualizer_images/"
 	# "description": short description
-	return {}
+	# "is_enabled": visualizer can be used
+	return {"name":"", "image":"", "description":"", "is_enabled":false}
 
 # override
 func reset():
@@ -44,13 +45,3 @@ func set_ui_visibility(is_visible : bool):
 # override, for additional effects etc.. after sorting is finished
 func finish():
 	emit_signal("finished")
-
-
-# override, return true if and only if this visualizer should be used.
-#			If false, the visualizer does not appear in the popup
-func is_enabled() -> bool:
-	return false
-
-
-func get_visualizer_name() -> String:
-	return get_metadata()["title"]

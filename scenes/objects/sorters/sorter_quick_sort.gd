@@ -17,6 +17,10 @@ var _curr_split_idx : int
 
 
 # override
+static func get_metadata() -> Dictionary:
+	return {"name":"QUICKSORT", "is_enabled":true}
+
+# override
 func setup(data_size : int, priority_callback : FuncRef):
 	.setup(data_size, priority_callback)
 	
@@ -90,11 +94,3 @@ func _divide_n_conquer_full(arr : Array, low_bound : int, high_bound : int) -> A
 	if pivot_idx+1 <= high_bound: ordered_arr.append_array(_divide_n_conquer_full(arr, pivot_idx+1, high_bound))
 	
 	return ordered_arr
-
-
-func is_enabled() -> bool:
-	return true
-
-
-func get_sorter_name() -> String:
-	return "QUICKSORT"

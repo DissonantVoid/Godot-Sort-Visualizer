@@ -26,6 +26,10 @@ var _pending_moves : Array # [[action, idx1, idx2], .. ]
 
 
 # override
+static func get_metadata() -> Dictionary:
+	return {"name":"MERGESORT", "is_enabled":true}
+
+# override
 func setup(data_size : int, priority_callback : FuncRef):
 	.setup(data_size, priority_callback)
 	
@@ -124,11 +128,3 @@ func _merge(first_half : Array, second_half : Array):
 		combined.append_array(second_half.slice(second_h_idx, second_half.size()-1))
 	
 	return combined
-
-
-func is_enabled() -> bool:
-	return true
-
-
-func get_sorter_name() -> String:
-	return "MERGESORT"

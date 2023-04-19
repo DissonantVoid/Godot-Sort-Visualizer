@@ -45,7 +45,7 @@ current = true
 [node name="Background" type="ColorRect" parent="Camera2D" index="0"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_min_size = Vector2( 960, 540 )
+rect_min_size = Vector2( 1024, 576 )
 color = Color( 0.27451, 0.258824, 0.368627, 1 )
 
 [node name="Lines" type="Control" parent="." index="1"]

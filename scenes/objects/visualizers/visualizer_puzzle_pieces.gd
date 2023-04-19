@@ -43,8 +43,8 @@ func _ready():
 # override
 static func get_metadata() -> Dictionary:
 	return {
-		"title":"PUZZLE_TITLE", "image":"puzzle_pieces.png",
-		"description":"PUZZLE_DESC"
+		"name":"PUZZLE_TITLE", "image":"puzzle_pieces.png",
+		"description":"PUZZLE_DESC", "is_enabled":true
 	}
 
 # override
@@ -114,7 +114,3 @@ func finish():
 
 func _on_switch_all_tween_finished():
 	emit_signal("updated_all")
-
-
-func is_enabled() -> bool:
-	return true

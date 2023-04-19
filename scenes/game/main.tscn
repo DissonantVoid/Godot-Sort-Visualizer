@@ -31,25 +31,25 @@ mouse_filter = 2
 theme = ExtResource( 1 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainInterface/MarginContainer"]
-margin_right = 960.0
-margin_bottom = 540.0
+margin_right = 1024.0
+margin_bottom = 576.0
 mouse_filter = 2
 custom_constants/separation = 0
 
 [node name="Content" type="VBoxContainer" parent="MainInterface/MarginContainer/VBoxContainer"]
-margin_right = 960.0
-margin_bottom = 95.0
+margin_right = 1024.0
+margin_bottom = 100.0
 custom_constants/separation = -2
 
 [node name="Upper" type="PanelContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content"]
-margin_right = 960.0
-margin_bottom = 52.0
+margin_right = 1024.0
+margin_bottom = 53.0
 size_flags_vertical = 0
 custom_styles/panel = ExtResource( 6 )
 
 [node name="MarginContainer" type="MarginContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/Upper"]
-margin_right = 960.0
-margin_bottom = 50.0
+margin_right = 1024.0
+margin_bottom = 51.0
 custom_constants/margin_right = 8
 custom_constants/margin_top = 5
 custom_constants/margin_left = 8
@@ -58,12 +58,12 @@ custom_constants/margin_bottom = 5
 [node name="HBoxContainer" type="HBoxContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/Upper/MarginContainer"]
 margin_left = 8.0
 margin_top = 5.0
-margin_right = 952.0
-margin_bottom = 45.0
+margin_right = 1016.0
+margin_bottom = 46.0
 
 [node name="Options" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/Upper/MarginContainer/HBoxContainer"]
-margin_right = 109.0
-margin_bottom = 40.0
+margin_right = 100.0
+margin_bottom = 41.0
 rect_min_size = Vector2( 100, 40 )
 focus_mode = 0
 mouse_default_cursor_shape = 2
@@ -71,9 +71,9 @@ size_flags_vertical = 6
 text = "OPTIONS"
 
 [node name="Center" type="VBoxContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/Upper/MarginContainer/HBoxContainer"]
-margin_left = 302.0
-margin_right = 650.0
-margin_bottom = 40.0
+margin_left = 330.0
+margin_right = 678.0
+margin_bottom = 41.0
 rect_min_size = Vector2( 280, 0 )
 size_flags_horizontal = 6
 
@@ -118,9 +118,9 @@ margin_right = 348.0
 margin_bottom = 36.0
 
 [node name="Hide" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/Upper/MarginContainer/HBoxContainer"]
-margin_left = 844.0
-margin_right = 944.0
-margin_bottom = 40.0
+margin_left = 908.0
+margin_right = 1008.0
+margin_bottom = 41.0
 rect_min_size = Vector2( 100, 40 )
 focus_mode = 0
 mouse_default_cursor_shape = 2
@@ -131,42 +131,42 @@ text = "HIDE"
 [node name="VLines" type="HBoxContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/Upper/MarginContainer"]
 margin_left = 8.0
 margin_top = 5.0
-margin_right = 952.0
-margin_bottom = 45.0
+margin_right = 1016.0
+margin_bottom = 46.0
 mouse_filter = 2
 
 [node name="VSeparator" type="VSeparator" parent="MainInterface/MarginContainer/VBoxContainer/Content/Upper/MarginContainer/VLines"]
-margin_right = 470.0
-margin_bottom = 40.0
+margin_right = 502.0
+margin_bottom = 41.0
 mouse_filter = 2
 size_flags_horizontal = 3
 
 [node name="VSeparator2" type="VSeparator" parent="MainInterface/MarginContainer/VBoxContainer/Content/Upper/MarginContainer/VLines"]
-margin_left = 474.0
-margin_right = 944.0
-margin_bottom = 40.0
+margin_left = 506.0
+margin_right = 1008.0
+margin_bottom = 41.0
 mouse_filter = 2
 size_flags_horizontal = 3
 
 [node name="Lower" type="MarginContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content"]
-margin_top = 50.0
-margin_right = 960.0
-margin_bottom = 95.0
+margin_top = 51.0
+margin_right = 1024.0
+margin_bottom = 100.0
 
 [node name="Label" type="Label" parent="MainInterface/MarginContainer/VBoxContainer/Content/Lower"]
-margin_left = 302.0
-margin_top = 9.0
-margin_right = 658.0
-margin_bottom = 35.0
+margin_left = 362.0
+margin_top = 5.0
+margin_right = 662.0
+margin_bottom = 44.0
 size_flags_horizontal = 4
 size_flags_vertical = 6
 custom_colors/font_color = Color( 1, 0.411765, 0.45098, 1 )
 text = "Congrats! you found an easter egg!"
 
 [node name="Lower" type="PanelContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/Lower"]
-margin_left = 280.0
-margin_right = 680.0
-margin_bottom = 45.0
+margin_left = 312.0
+margin_right = 712.0
+margin_bottom = 49.0
 rect_min_size = Vector2( 400, 45 )
 size_flags_horizontal = 6
 custom_styles/panel = ExtResource( 8 )
@@ -174,25 +174,25 @@ custom_styles/panel = ExtResource( 8 )
 [node name="MarginContainer" type="MarginContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/Lower/Lower"]
 margin_left = 2.0
 margin_right = 398.0
-margin_bottom = 43.0
-custom_constants/margin_right = 20
-custom_constants/margin_top = 0
-custom_constants/margin_left = 20
+margin_bottom = 47.0
+custom_constants/margin_right = 25
+custom_constants/margin_left = 25
+custom_constants/margin_bottom = 6
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/Lower/Lower/MarginContainer"]
-margin_left = 20.0
-margin_top = 6.0
-margin_right = 376.0
-margin_bottom = 36.0
-size_flags_vertical = 6
+margin_left = 25.0
+margin_right = 371.0
+margin_bottom = 41.0
+size_flags_vertical = 2
 
 [node name="Idle" type="HBoxContainer" parent="MainInterface/MarginContainer/VBoxContainer/Content/Lower/Lower/MarginContainer/VBoxContainer"]
-margin_right = 356.0
-margin_bottom = 30.0
+margin_right = 346.0
+margin_bottom = 41.0
+custom_constants/separation = 2
 
 [node name="Start" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/Lower/Lower/MarginContainer/VBoxContainer/Idle"]
-margin_right = 176.0
-margin_bottom = 30.0
+margin_right = 172.0
+margin_bottom = 41.0
 rect_min_size = Vector2( 0, 30 )
 focus_mode = 0
 mouse_default_cursor_shape = 2
@@ -201,9 +201,9 @@ size_flags_vertical = 3
 text = "START"
 
 [node name="NextStep" type="Button" parent="MainInterface/MarginContainer/VBoxContainer/Content/Lower/Lower/MarginContainer/VBoxContainer/Idle"]
-margin_left = 180.0
-margin_right = 356.0
-margin_bottom = 30.0
+margin_left = 174.0
+margin_right = 346.0
+margin_bottom = 41.0
 rect_min_size = Vector2( 0, 30 )
 focus_mode = 0
 mouse_default_cursor_shape = 2
@@ -296,9 +296,9 @@ text = "RESTART"
 [node name="Grabber" type="ColorRect" parent="MainInterface/MarginContainer/VBoxContainer"]
 modulate = Color( 1, 1, 1, 0 )
 material = SubResource( 3 )
-margin_top = 95.0
-margin_right = 960.0
-margin_bottom = 103.0
+margin_top = 100.0
+margin_right = 1024.0
+margin_bottom = 108.0
 rect_min_size = Vector2( 0, 8 )
 
 [node name="ContinuousTimer" type="Timer" parent="."]

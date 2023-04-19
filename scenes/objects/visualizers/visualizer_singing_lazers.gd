@@ -9,7 +9,7 @@ onready var _fireworks_timer : Timer = $FireworksTimer
 const _lazer_scene : PackedScene = preload("res://scenes/objects/components/lazer_shooter.tscn")
 const _lazer_receiver : PackedScene = preload("res://scenes/objects/components/lazer_receiver.tscn")
 
-const _lazers_count : int = 15
+const _lazers_count : int = 16
 const _working_lazers_count : int = 10 # this is based on available music inside resources/music/lazer_receivers/
 const _music_lenght : float = 5.16 # each lazer tune is this lenght
 const _gradient_colors : Array = [Color.red, Color.orange, Color.yellow, Color.green, Color.blue, Color.indigo, Color.violet]
@@ -53,8 +53,8 @@ func _ready():
 # override
 static func get_metadata() -> Dictionary:
 	return {
-		"title":"LAZERS_TITLE", "image":"singing_lazers.png",
-		"description":"LAZERS_DESC"
+		"name":"LAZERS_TITLE", "image":"singing_lazers.png",
+		"description":"LAZERS_DESC", "is_enabled":true
 	}
 
 # override
@@ -168,7 +168,3 @@ func _update_receivers():
 			_lazers_container.get_child(i).get_order_index(),
 			_music_lenght - _sync_timer.time_left
 		)
-
-
-func is_enabled() -> bool:
-	return true

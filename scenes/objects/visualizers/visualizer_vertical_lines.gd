@@ -3,9 +3,9 @@ extends "res://scenes/objects/visualizers/visualizer.gd"
 onready var _rects_container : HBoxContainer = $MarginContainer/HBoxContainer
 
 const _h_gap : int = 2
-const _rect_count : int = 120
+const _rect_count : int = 146
 const _rect_min_height : float = 10.0
-const _rect_max_height : float = 460.0
+const _rect_max_height : float = 480.0
 
 var _colored_rects : Array
 var _default_clr : Color = Color("ffeecc")
@@ -22,7 +22,13 @@ func _ready():
 	var v_gap : float = (_rect_max_height - _rect_min_height) / _rect_count
 	for i in _rect_count:
 		rect_size_intervals[i] = _rect_min_height + v_gap * i
-	rect_size_intervals.shuffle() # NOTE: Utility calls randomize() 
+	rect_size_intervals.shuffle() # NOTE: utility.gd calls randomize() 
+	
+	# TODO: there is a Godot bug that causes box containers to treat children size as int
+	#       when sorting instead of a float after some digging, this seems to be the problem:
+	#       https://github.com/godotengine/godot/blob/3.5/scene/gui/box_container.cpp#L64
+	#       see issue: https://github.com/godotengine/godot/issues/76265
+	#       for now the work around is the tweak _rect_count and _h_gap until it looks ok
 	
 	var rect_width : float = (Utility.viewport_size.x - _h_gap*_rect_count) / _rect_count
 	for i in _rect_count:
@@ -38,8 +44,8 @@ func _ready():
 # override
 static func get_metadata() -> Dictionary:
 	return {
-		"title":"VERTICAL_TITLE", "image":"vertical_rects.png",
-		"description":"VERTICAL_DESC"
+		"name":"VERTICAL_TITLE", "image":"vertical_rects.png",
+		"description":"VERTICAL_DESC", "is_enabled":true
 	}
 
 # override
@@ -110,7 +116,3 @@ func _clear_colors():
 	for rect in _colored_rects:
 		rect.color = _default_clr
 	_colored_rects.clear()
-
-
-func is_enabled() -> bool:
-	return true

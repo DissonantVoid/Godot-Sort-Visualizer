@@ -27,15 +27,15 @@ func _ready():
 		).get_metadata()
 		
 		assert(
-			metadata.has("title") && metadata.has("image") && metadata.has("description"),
-			"visualizer.get_metadata() must return 3 entries even if empty: 'title' 'image' 'description'"
+			metadata.has("name") && metadata.has("image") && metadata.has("description") && metadata.has("is_enabled"),
+			"visualizer.get_metadata() must return 4 entries even if empty: 'name' 'image' 'description' 'is_enabled'"
 		)
 		
 		var instance := _visualizer_data_scene.instance()
 		instance.connect("pressed", self, "_on_visualizer_pressed")
 		_visualizers_container.add_child(instance)
 		instance.setup(
-			metadata["title"], metadata["image"], metadata["description"], curr_visualizer_entry["scene"]
+			metadata["name"], metadata["image"], metadata["description"], curr_visualizer_entry["scene"]
 		)
 
 func _on_ok_pressed():

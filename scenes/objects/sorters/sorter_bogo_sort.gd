@@ -15,6 +15,10 @@ extends "res://scenes/objects/sorters/sorter.gd"
 
 
 # override
+static func get_metadata() -> Dictionary:
+	return {"name":"BOGOSORT", "is_enabled":true}
+
+# override
 func next_step() -> Dictionary:
 	# check if array is sorted
 	var is_sorted : bool = true
@@ -50,11 +54,3 @@ func skip_to_last_step() -> Array:
 		indexes.shuffle()
 	
 	return indexes
-
-
-func is_enabled() -> bool:
-	return true
-
-
-func get_sorter_name() -> String:
-	return "BOGOSORT"

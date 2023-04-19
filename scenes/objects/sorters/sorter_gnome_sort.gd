@@ -12,6 +12,10 @@ var _index : int
 
 
 # override
+static func get_metadata() -> Dictionary:
+	return {"name":"GNOMESORT", "is_enabled":true}
+
+# override
 func setup(data_size : int, priority_callback : FuncRef):
 	.setup(data_size, priority_callback)
 	
@@ -56,11 +60,3 @@ func skip_to_last_step() -> Array:
 			i += 1
 	
 	return indexes
-
-
-func is_enabled() -> bool:
-	return true
-
-
-func get_sorter_name() -> String:
-	return "GNOMESORT"

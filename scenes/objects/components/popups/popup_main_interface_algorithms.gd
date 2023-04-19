@@ -13,7 +13,7 @@ func _ready():
 		btn.text = key
 		btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 		btn.focus_mode = Control.FOCUS_NONE
-		btn.theme = preload("res://resources/godot/main_interface_popup_option.tres")
+		btn.theme = preload("res://resources/godot/algorithm_popup_option.tres")
 		_options_container.add_child(btn)
 		_options_container.add_child(HSeparator.new())
 		btn.connect("pressed", self, "_on_algo_option_pressed", [btn])

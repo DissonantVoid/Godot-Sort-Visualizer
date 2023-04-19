@@ -87,8 +87,8 @@ func _draw():
 # override
 static func get_metadata() -> Dictionary:
 	return {
-		"title":"COLOR_TITLE", "image":"color_bars.png",
-		"description":"COLOR_DESC"
+		"name":"COLOR_TITLE", "image":"color_bars.png",
+		"description":"COLOR_DESC", "is_enabled":true
 	}
 
 # override
@@ -305,7 +305,3 @@ func _resize_scroll_grabber():
 	
 	if auto_scroll_to_end:
 		_on_scroll()
-
-
-func is_enabled() -> bool:
-	return true

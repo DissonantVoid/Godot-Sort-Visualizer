@@ -16,9 +16,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" index="0"]
-margin_left = 480.0
-margin_top = 540.0
-margin_right = 480.0
-margin_bottom = 540.0
+margin_left = 512.0
+margin_top = 576.0
+margin_right = 512.0
+margin_bottom = 576.0
 size_flags_horizontal = 6
 size_flags_vertical = 10

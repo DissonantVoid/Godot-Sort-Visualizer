@@ -11,8 +11,8 @@ var _title : String
 var _path : String
 
 
-func setup(title : String, image_path : String, description : String, path : String):
-	_title = tr(title)
+func setup(name : String, image_path : String, description : String, path : String):
+	_title = tr(name)
 	_title_label.text = _title
 	if image_path.empty() == false:
 		_image.texture = load(FilesTracker.screenshots_path + image_path)

@@ -7,20 +7,24 @@
 [node name="PopupMainInterfaceVisualizer" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
+[node name="Background" parent="." index="0"]
+margin_right = 1024.0
+margin_bottom = 576.0
+
 [node name="Content" parent="." index="1"]
-margin_left = 170.0
-margin_top = 203.0
-margin_right = 790.0
-margin_bottom = 337.0
+margin_left = 202.0
+margin_top = 211.0
+margin_right = 822.0
+margin_bottom = 365.0
 rect_min_size = Vector2( 620, 0 )
 
 [node name="MarginContainer" parent="Content" index="0"]
 margin_right = 618.0
-margin_bottom = 132.0
+margin_bottom = 152.0
 
 [node name="VBoxContainer" parent="Content/MarginContainer" index="0"]
 margin_right = 608.0
-margin_bottom = 122.0
+margin_bottom = 142.0
 
 [node name="Title" parent="Content/MarginContainer/VBoxContainer" index="0"]
 margin_right = 600.0
@@ -32,14 +36,14 @@ margin_right = 600.0
 [node name="VisualizerChoice" type="Label" parent="Content/MarginContainer/VBoxContainer" index="2"]
 margin_top = 40.0
 margin_right = 600.0
-margin_bottom = 66.0
+margin_bottom = 76.0
 text = "NONE"
 align = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Content/MarginContainer/VBoxContainer" index="3"]
-margin_top = 70.0
+margin_top = 80.0
 margin_right = 600.0
-margin_bottom = 82.0
+margin_bottom = 92.0
 scroll_vertical_enabled = false
 
 [node name="PanelContainer" type="PanelContainer" parent="Content/MarginContainer/VBoxContainer/ScrollContainer" index="0"]
@@ -64,13 +68,24 @@ margin_right = 594.0
 margin_bottom = 6.0
 
 [node name="Choice" parent="Content/MarginContainer/VBoxContainer" index="4"]
-margin_top = 86.0
+margin_top = 96.0
 margin_right = 600.0
-margin_bottom = 114.0
+margin_bottom = 134.0
 
 [node name="OK" parent="Content/MarginContainer/VBoxContainer/Choice" index="0"]
 margin_right = 298.0
+margin_bottom = 38.0
 
 [node name="Cancel" parent="Content/MarginContainer/VBoxContainer/Choice" index="1"]
 margin_left = 302.0
 margin_right = 600.0
+margin_bottom = 38.0
+
+[node name="Error" parent="." index="2"]
+margin_left = 452.0
+margin_top = 560.0
+margin_right = 572.0
+margin_bottom = 576.0
+
+[node name="Label" parent="Error/Error/HBoxContainer/MarginContainer" index="0"]
+margin_bottom = 36.0

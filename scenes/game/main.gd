@@ -68,7 +68,7 @@ func _ready():
 	_sorter = load(FilesTracker.get_sorters_dict()[_initial_sorter]).new()
 	_sorter.setup(_visualizer.get_content_count(), funcref(_visualizer, "determine_priority"))
 	
-	_interface.setup(_initial_visualizer, _initial_sorter)
+	_interface.update_names(_initial_visualizer, _initial_sorter)
 
 func _apply_settings():
 	_continous_timer.wait_time = _settings.time_per_step / 1000
@@ -79,7 +79,7 @@ func _apply_settings():
 		AudioServer.set_bus_volume_db(0, range_lerp(_settings.volume, 0, 100, -40, 0))
 	TranslationServer.set_locale(_settings.language)
 	if _sorter != null:
-		_interface.setup(_sorter.get_sorter_name(), _visualizer.get_visualizer_name())
+		_interface.update_names(_sorter.get_sorter_name(), _visualizer.get_metadata()["name"])
 
 func _on_interface_sorter_changed(new_sorter):
 	_sorter = new_sorter

@@ -14,6 +14,10 @@ var _ordered_halves : int # 1=the even or odd half is sorted, 2=both are sorted
 
 
 # override
+static func get_metadata() -> Dictionary:
+	return {"name":"ODDEVENSORT", "is_enabled":true}
+
+# override
 func setup(data_size : int, priority_callback : FuncRef):
 	.setup(data_size, priority_callback)
 	
@@ -77,11 +81,3 @@ func skip_to_last_step() -> Array:
 		if changed == false: break
 	
 	return indexes
-
-
-func is_enabled() -> bool:
-	return true
-
-
-func get_sorter_name() -> String:
-	return "ODDEVENSORT"

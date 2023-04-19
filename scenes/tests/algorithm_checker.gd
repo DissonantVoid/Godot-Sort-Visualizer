@@ -7,7 +7,7 @@ onready var _run_btn : Button = $MarginContainer/VBoxContainer/InputOutput/VBoxC
 onready var _run_util_err_btn : Button = $MarginContainer/VBoxContainer/InputOutput/VBoxContainer/Run/MarginContainer/HBoxContainer/RunUntilErr
 onready var _console : RichTextLabel = $MarginContainer/VBoxContainer/InputOutput/VBoxContainer/VBoxContainer/Console
 
-const _starting_sorter : String = "bubble_sort"
+const _starting_sorter : String = "BUBBLESORT"
 var _selected_sorter_name : String
 var _use_next_step_func : bool = true
 var _array_size : int = 10
@@ -83,7 +83,7 @@ func _on_run_test_pressed():
 	_print_test_summery(true)
 	
 	# setup, sorter
-	var sorter_object = load(FilesTracker.get_sorters_dict()[_selected_sorter_name]).new()
+	var sorter_object : Sorter = load(FilesTracker.get_sorters_dict()[_selected_sorter_name]).new()
 	sorter_object.setup(_array_size, funcref(self, "_test_callback"))
 	
 	var original_input : Array = _current_input.duplicate()
@@ -115,7 +115,7 @@ func _on_run_test_until_err_pressed():
 	_print_test_summery(false)
 	
 	# setup, sorter
-	var sorter_object = load(FilesTracker.get_sorters_dict()[_selected_sorter_name]).new()
+	var sorter_object : Sorter = load(FilesTracker.get_sorters_dict()[_selected_sorter_name]).new()
 	sorter_object.setup(_array_size, funcref(self, "_test_callback"))
 	
 	# run tests
@@ -168,7 +168,7 @@ func _setup_test_input():
 
 func _print_test_summery(is_running_once : bool):
 	# print summery based on class variables
-	_console_print("running tests for [b]" + _selected_sorter_name + "[/b]")
+	_console_print("running tests for [b]" + tr(_selected_sorter_name) + "[/b]")
 	if _use_next_step_func:
 		_console_print("using [b]sorter.next_step()[/b]")
 	else:

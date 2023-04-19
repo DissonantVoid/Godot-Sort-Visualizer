@@ -20,13 +20,13 @@ theme = ExtResource( 2 )
 script = ExtResource( 1 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_right = 960.0
-margin_bottom = 540.0
+margin_right = 1024.0
+margin_bottom = 576.0
 color = Color( 0.27451, 0.258824, 0.368627, 1 )
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-margin_right = 960.0
-margin_bottom = 540.0
+margin_right = 1024.0
+margin_bottom = 576.0
 custom_constants/margin_right = 45
 custom_constants/margin_top = 6
 custom_constants/margin_left = 45
@@ -35,60 +35,60 @@ custom_constants/margin_bottom = 6
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 margin_left = 45.0
 margin_top = 6.0
-margin_right = 915.0
-margin_bottom = 534.0
-custom_constants/separation = 20
+margin_right = 979.0
+margin_bottom = 570.0
+custom_constants/separation = 12
 
 [node name="Sorter" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
-margin_right = 870.0
-margin_bottom = 65.0
+margin_right = 934.0
+margin_bottom = 80.0
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Sorter"]
-margin_right = 870.0
-margin_bottom = 21.0
+margin_right = 934.0
+margin_bottom = 36.0
 text = "Sorter:"
 align = 1
 
 [node name="Algorithms" type="PanelContainer" parent="MarginContainer/VBoxContainer/Sorter"]
-margin_top = 25.0
-margin_right = 870.0
-margin_bottom = 65.0
+margin_top = 40.0
+margin_right = 934.0
+margin_bottom = 80.0
 rect_min_size = Vector2( 0, 40 )
 
 [node name="Options" type="HFlowContainer" parent="MarginContainer/VBoxContainer/Sorter/Algorithms"]
 margin_top = 20.0
-margin_right = 870.0
+margin_right = 934.0
 margin_bottom = 20.0
 size_flags_vertical = 6
 custom_constants/hseparation = 20
 
 [node name="Method" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 85.0
-margin_right = 870.0
-margin_bottom = 150.0
+margin_top = 92.0
+margin_right = 934.0
+margin_bottom = 172.0
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Method"]
-margin_right = 870.0
-margin_bottom = 21.0
+margin_right = 934.0
+margin_bottom = 36.0
 text = "Method:"
 align = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/Method"]
-margin_top = 25.0
-margin_right = 870.0
-margin_bottom = 65.0
+margin_top = 40.0
+margin_right = 934.0
+margin_bottom = 80.0
 rect_min_size = Vector2( 0, 40 )
 
 [node name="Method" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Method/PanelContainer"]
-margin_top = 9.0
-margin_right = 870.0
-margin_bottom = 30.0
+margin_top = 2.0
+margin_right = 934.0
+margin_bottom = 38.0
 size_flags_vertical = 6
 
 [node name="Next" type="CheckBox" parent="MarginContainer/VBoxContainer/Method/PanelContainer/Method"]
-margin_left = 161.0
-margin_right = 272.0
-margin_bottom = 21.0
+margin_left = 176.0
+margin_right = 288.0
+margin_bottom = 36.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 6
@@ -96,56 +96,56 @@ pressed = true
 text = "next_step()"
 
 [node name="Last" type="CheckBox" parent="MarginContainer/VBoxContainer/Method/PanelContainer/Method"]
-margin_left = 566.0
-margin_right = 741.0
-margin_bottom = 21.0
+margin_left = 615.0
+margin_right = 788.0
+margin_bottom = 36.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 6
 text = "skip_to_last_step()"
 
 [node name="Data" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 170.0
-margin_right = 870.0
-margin_bottom = 243.0
+margin_top = 184.0
+margin_right = 934.0
+margin_bottom = 302.0
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Data"]
-margin_right = 870.0
-margin_bottom = 21.0
+margin_right = 934.0
+margin_bottom = 36.0
 text = "Input Data:"
 align = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/Data"]
-margin_top = 25.0
-margin_right = 870.0
-margin_bottom = 73.0
+margin_top = 40.0
+margin_right = 934.0
+margin_bottom = 118.0
 rect_min_size = Vector2( 0, 40 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Data/PanelContainer"]
-margin_right = 870.0
-margin_bottom = 48.0
+margin_right = 934.0
+margin_bottom = 78.0
 size_flags_vertical = 6
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Data/PanelContainer/VBoxContainer"]
-margin_right = 870.0
-margin_bottom = 23.0
+margin_right = 934.0
+margin_bottom = 38.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Data/PanelContainer/VBoxContainer/HBoxContainer3"]
-margin_left = 130.0
-margin_right = 302.0
-margin_bottom = 23.0
+margin_left = 143.0
+margin_right = 322.0
+margin_bottom = 38.0
 size_flags_horizontal = 6
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Data/PanelContainer/VBoxContainer/HBoxContainer3/HBoxContainer"]
 margin_top = 1.0
-margin_right = 90.0
-margin_bottom = 22.0
+margin_right = 85.0
+margin_bottom = 37.0
 text = "Array Size:"
 
 [node name="SpinBox" type="SpinBox" parent="MarginContainer/VBoxContainer/Data/PanelContainer/VBoxContainer/HBoxContainer3/HBoxContainer"]
-margin_left = 94.0
-margin_right = 172.0
-margin_bottom = 23.0
+margin_left = 89.0
+margin_right = 179.0
+margin_bottom = 38.0
 mouse_default_cursor_shape = 2
 min_value = 4.0
 max_value = 1000.0
@@ -154,106 +154,106 @@ rounded = true
 align = 1
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Data/PanelContainer/VBoxContainer/HBoxContainer3"]
-margin_left = 572.0
-margin_right = 734.0
-margin_bottom = 23.0
+margin_left = 623.0
+margin_right = 780.0
+margin_bottom = 38.0
 size_flags_horizontal = 6
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Data/PanelContainer/VBoxContainer/HBoxContainer3/HBoxContainer2"]
 margin_top = 1.0
-margin_right = 142.0
-margin_bottom = 22.0
+margin_right = 137.0
+margin_bottom = 37.0
 text = "Allow Duplicates:"
 
 [node name="CheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/Data/PanelContainer/VBoxContainer/HBoxContainer3/HBoxContainer2"]
-margin_left = 146.0
-margin_right = 162.0
-margin_bottom = 23.0
+margin_left = 141.0
+margin_right = 157.0
+margin_bottom = 38.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
 pressed = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Data/PanelContainer/VBoxContainer"]
-margin_top = 27.0
-margin_right = 870.0
-margin_bottom = 48.0
+margin_top = 42.0
+margin_right = 934.0
+margin_bottom = 78.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Data/PanelContainer/VBoxContainer/HBoxContainer"]
-margin_left = 377.0
-margin_right = 493.0
-margin_bottom = 21.0
+margin_left = 412.0
+margin_right = 522.0
+margin_bottom = 36.0
 size_flags_horizontal = 6
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Data/PanelContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
-margin_right = 96.0
-margin_bottom = 21.0
+margin_right = 90.0
+margin_bottom = 36.0
 text = "Trace Steps"
 
 [node name="CheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/Data/PanelContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
-margin_left = 100.0
-margin_right = 116.0
-margin_bottom = 21.0
+margin_left = 94.0
+margin_right = 110.0
+margin_bottom = 36.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
 
 [node name="InputOutput" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 263.0
-margin_right = 870.0
-margin_bottom = 528.0
+margin_top = 314.0
+margin_right = 934.0
+margin_bottom = 564.0
 size_flags_vertical = 3
 custom_styles/panel = SubResource( 1 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/InputOutput"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 868.0
-margin_bottom = 263.0
+margin_right = 932.0
+margin_bottom = 248.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/InputOutput/VBoxContainer"]
-margin_right = 866.0
-margin_bottom = 217.0
+margin_right = 930.0
+margin_bottom = 198.0
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/InputOutput/VBoxContainer/VBoxContainer"]
-margin_right = 866.0
-margin_bottom = 21.0
+margin_right = 930.0
+margin_bottom = 36.0
 text = "Results:"
 align = 1
 
 [node name="Console" type="RichTextLabel" parent="MarginContainer/VBoxContainer/InputOutput/VBoxContainer/VBoxContainer"]
-margin_top = 25.0
-margin_right = 866.0
-margin_bottom = 217.0
+margin_top = 40.0
+margin_right = 930.0
+margin_bottom = 198.0
 size_flags_vertical = 3
 bbcode_enabled = true
 scroll_following = true
 deselect_on_focus_loss_enabled = false
 
 [node name="Run" type="PanelContainer" parent="MarginContainer/VBoxContainer/InputOutput/VBoxContainer"]
-margin_top = 221.0
-margin_right = 866.0
-margin_bottom = 261.0
+margin_top = 202.0
+margin_right = 930.0
+margin_bottom = 246.0
 rect_min_size = Vector2( 0, 40 )
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/InputOutput/VBoxContainer/Run"]
-margin_right = 866.0
-margin_bottom = 40.0
+margin_right = 930.0
+margin_bottom = 44.0
 custom_constants/margin_right = 2
 custom_constants/margin_top = 2
 custom_constants/margin_left = 2
 custom_constants/margin_bottom = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/InputOutput/VBoxContainer/Run/MarginContainer"]
-margin_left = 233.0
+margin_left = 265.0
 margin_top = 2.0
-margin_right = 633.0
-margin_bottom = 38.0
+margin_right = 665.0
+margin_bottom = 42.0
 rect_min_size = Vector2( 400, 0 )
 size_flags_horizontal = 6
 
 [node name="Run" type="Button" parent="MarginContainer/VBoxContainer/InputOutput/VBoxContainer/Run/MarginContainer/HBoxContainer"]
 margin_right = 198.0
-margin_bottom = 36.0
+margin_bottom = 40.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
@@ -262,17 +262,17 @@ text = "Run Test"
 [node name="RunUntilErr" type="Button" parent="MarginContainer/VBoxContainer/InputOutput/VBoxContainer/Run/MarginContainer/HBoxContainer"]
 margin_left = 202.0
 margin_right = 400.0
-margin_bottom = 36.0
+margin_bottom = 40.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 text = "Run Until Error"
 
 [node name="Clear" type="Button" parent="MarginContainer/VBoxContainer/InputOutput/VBoxContainer/Run/MarginContainer"]
-margin_left = 711.0
+margin_left = 781.0
 margin_top = 2.0
-margin_right = 864.0
-margin_bottom = 38.0
+margin_right = 928.0
+margin_bottom = 42.0
 rect_min_size = Vector2( 120, 0 )
 focus_mode = 0
 mouse_default_cursor_shape = 2

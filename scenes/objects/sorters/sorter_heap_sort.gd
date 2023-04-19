@@ -17,6 +17,10 @@ var _heap_arr : Array
 
 
 # override
+static func get_metadata() -> Dictionary:
+	return {"name":"HEAPSORT", "is_enabled":true}
+
+# override
 func setup(data_size : int, priority_callback : FuncRef):
 	.setup(data_size, priority_callback)
 	
@@ -115,11 +119,3 @@ func _h_sift_down(arr : Array, index : int): # no I didn't loose my teeth, it's 
 		
 		# if we reach this, both children are bigger
 		break
-
-
-func is_enabled() -> bool:
-	return true
-
-
-func get_sorter_name() -> String:
-	return "HEAPSORT"
